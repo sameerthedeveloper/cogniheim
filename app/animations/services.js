@@ -3,77 +3,40 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Ported from the reference repo's services.js: each card (but the last)
-// pins in place while its inner content scrubs upward as the next card
-// arrives, ending once the contact CTA reaches the bottom of the viewport.
-// Disabled at/below 1000px, matching the source.
+// Each card alternates image/text sides via CSS (nth-child(even) flips
+// flex-direction and the slide-in offset). Here we just animate every
+// card's icon, content, and image into place as it scrolls into view —
+// direction is already baked into each element's CSS "from" transform.
 export function animateServices(reducedMotion) {
-  const services = gsap.utils.toArray('.service-card');
-  const contactCta = document.querySelector('.contact-cta');
-  if (!services.length || !contactCta) return;
+  const cards = gsap.utils.toArray('.service-card');
+  if (!cards.length) return;
 
   const icons = document.querySelectorAll('.service-icon');
+  const contents = document.querySelectorAll('.service-card-content');
+  const thumbs = document.querySelectorAll('.service-thumb');
 
   if (reducedMotion) {
     gsap.set(icons, { scale: 1 });
+    gsap.set([...contents, ...thumbs], { opacity: 1, x: 0 });
     return;
   }
 
-  let instances = [];
+  cards.forEach((card) => {
+    const icon = card.querySelector('.service-icon');
+    const content = card.querySelector('.service-card-content');
+    const thumb = card.querySelector('.service-thumb');
 
-  const initAnimations = () => {
-    instances.forEach((instance) => instance?.kill());
-    instances = [];
-
-    if (window.innerWidth <= 1000) {
-      gsap.set(icons, { scale: 1 });
-      return;
-    }
-
-    gsap.set(icons, { scale: 0 });
-    const iconAnim = gsap.to(icons, {
-      scale: 1,
-      duration: 1,
-      stagger: 0.1,
-      ease: 'power4.out',
+    const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: '.services',
-        start: 'top 60%',
+        trigger: card,
+        start: 'top 78%',
       },
     });
-    instances.push(iconAnim.scrollTrigger);
 
-    services.forEach((service, index) => {
-      const isLast = index === services.length - 1;
-      const inner = service.querySelector('.service-card-inner');
-      if (isLast) return;
-
-      const pinTrigger = ScrollTrigger.create({
-        trigger: service,
-        start: 'top top',
-        endTrigger: contactCta,
-        end: 'top 90%',
-        pin: true,
-        pinType: 'fixed',
-        pinSpacing: false,
-      });
-      instances.push(pinTrigger);
-
-      const scrollAnimation = gsap.to(inner, {
-        y: `-${(services.length - index) * 14}vh`,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: service,
-          start: 'top top',
-          endTrigger: contactCta,
-          end: 'top 90%',
-          scrub: true,
-        },
-      });
-      instances.push(scrollAnimation.scrollTrigger);
-    });
-  };
-
-  initAnimations();
-  window.addEventListener('resize', initAnimations);
+    if (content) tl.to(content, { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out' }, 0);
+    if (thumb) tl.to(thumb, { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out' }, 0.05);
+    if (icon) {
+      tl.to(icon, { scale: 1, duration: 0.6, ease: 'power4.out' }, 0.2);
+    }
+  });
 }

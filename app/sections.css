@@ -741,16 +741,20 @@
 /* ---------- SERVICES ---------- */
 .services {
   position: relative;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 1rem var(--gutter) 5rem;
 }
 
 .service-card {
   position: relative;
-  min-height: 100svh;
-  background: var(--bg);
-  border-top: 3px solid var(--ink);
-  display: flex;
-  align-items: center;
+  padding: 4rem 0;
+  border-top: 1px solid var(--border);
   overflow: hidden;
+}
+
+.service-card:last-child {
+  border-bottom: 1px solid var(--border);
 }
 
 .service-card:nth-child(1) .service-icon { color: var(--accent); }
@@ -759,35 +763,51 @@
 .service-card:nth-child(4) .service-icon { color: var(--ink); }
 
 .service-card-inner {
-  width: 100%;
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: 2.5rem var(--gutter);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  will-change: transform;
+  gap: 3.5rem;
+}
+
+.service-card:nth-child(even) .service-card-inner {
+  flex-direction: row-reverse;
+}
+
+.service-card-content {
+  flex: 1 1 40%;
+  min-width: 0;
+  opacity: 0;
+  transform: translateX(-2.5rem);
+}
+
+.service-card:nth-child(even) .service-card-content {
+  transform: translateX(2.5rem);
 }
 
 .service-icon {
   display: inline-flex;
   color: var(--accent);
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   transform: scale(0);
 }
 
 .service-card-content h3 {
-  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
 }
 
 .service-card .placeholder-img,
 .service-thumb {
-  width: 8rem;
-  height: 5rem;
-  flex-shrink: 0;
+  flex: 1 1 55%;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  max-width: 30rem;
   object-fit: cover;
   border: 1px solid var(--border);
+  opacity: 0;
+  transform: translateX(2.5rem);
+}
+
+.service-card:nth-child(even) .service-thumb {
+  transform: translateX(-2.5rem);
 }
 
 /* ---------- CONTACT CTA ---------- */
@@ -939,19 +959,21 @@
   }
 
   .service-card {
-    min-height: auto;
     padding: 2.5rem 0;
   }
 
-  .service-card-inner {
+  .service-card-inner,
+  .service-card:nth-child(even) .service-card-inner {
     flex-direction: column;
     align-items: flex-start;
+    gap: 1.75rem;
   }
 
   .service-card .placeholder-img,
   .service-thumb {
     width: 100%;
-    height: 8rem;
+    height: auto;
+    max-width: none;
   }
 
   .hero {
