@@ -997,6 +997,23 @@
     width: min(85vw, 28rem);
   }
 
+  .hero-content {
+    bottom: 7rem;
+  }
+
+  .hero-bio {
+    margin-top: 1rem;
+  }
+
+  .hero-actions {
+    margin-top: 1.75rem;
+  }
+
+  .hero-meta {
+    bottom: 1.5rem;
+    font-size: 0.68rem;
+  }
+
   .hero-code {
     display: none;
   }
@@ -1014,6 +1031,14 @@
   .hero-media {
     top: 5rem;
     width: min(80vw, 22rem);
+  }
+
+  .hero-content {
+    bottom: 7.5rem;
+  }
+
+  .hero-meta {
+    bottom: 1.25rem;
   }
 
   .hero-bracket {
