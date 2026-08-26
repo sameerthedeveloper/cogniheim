@@ -1,13 +1,13 @@
 # Image prompts for unfilled placeholders
 
-Seven `.placeholder-img` slots in `app/page.jsx` still show the styled
+Six `.placeholder-img` slots in `app/page.jsx` still show the styled
 gradient placeholder (amber-to-cream gradient, ink border, `data-label` chip).
 Each entry below has the placeholder's label, where it appears, the exact
 pixel/aspect specs from `app/sections.css`, and a prompt to generate or
 commission a replacement image. Once you have a file, drop it in
 `public/` and swap the `<div className="placeholder-img" data-label="...">`
-for an `<img src="..." alt="...">` (see how `public/projects/*.webp` are
-already wired into the Featured Work cards for the pattern to copy).
+for an `<img src="..." alt="...">` (see how `public/projects/*.webp` and
+`public/portrait.webp` are already wired in for the pattern to copy).
 
 Style guide for all images: warm, high-contrast, editorial — matches the
 site's palette (`--bg #f1ecdc` paper, `--ink #16130c`, `--accent #e8a33d`
@@ -18,6 +18,7 @@ grid/dot texture in the background if generated.
 ---
 
 ## 1. Hero image
+
 **Label:** `Hero image` · **Section:** Hero, full-bleed banner below the name
 **Size:** full-width, `70vh` desktop / `45vh` mobile, no fixed aspect ratio (crops via `object-fit: cover` once real)
 
@@ -30,30 +31,20 @@ grid/dot texture in the background if generated.
 
 ---
 
-## 2. Portrait
-**Label:** `Portrait` · **Section:** About, right of the bio copy
-**Size:** `aspect-ratio: 16/9`, max-width `26rem` desktop, full-width mobile
+## 2. Services header icon
 
-> A confident, candid portrait of a young South Indian male frontend
-> developer (Sameer), casual smart-casual outfit, half-smile, looking just
-> off-camera. Shot against a warm plain backdrop (cream or muted teal) so
-> it reads well next to the site's amber/coral accents. Natural light,
-> slight grain, editorial not corporate-headshot.
-
----
-
-## 3. Services header icon
 **Label:** `Icon` · **Section:** Services header, small circular badge above "Your vision. My expertise."
 **Size:** `4.5rem × 4.5rem` circle, `object-fit: cover`
 
 > A small circular monogram or abstract mark — either a tight crop of the
 > "activity"/pulse-line motif already used elsewhere on the site (in
-> amber on cream), or a simple circular headshot crop of Sameer. Should
-> read clearly at 72px.
+> amber on cream), or a crop of the real portrait (`public/portrait.webp`)
+> centered on the face. Should read clearly at 72px.
 
 ---
 
-## 4. Frontend Development
+## 3. Frontend Development
+
 **Label:** `Frontend` · **Section:** Services, card 1
 **Size:** `8rem × 5rem` desktop (small, right-aligned) / full-width `8rem` tall on mobile
 
@@ -65,7 +56,8 @@ grid/dot texture in the background if generated.
 
 ---
 
-## 5. PWA & Offline-First Engineering
+## 4. PWA & Offline-First Engineering
+
 **Label:** `PWA` · **Section:** Services, card 2
 **Size:** same as above (`8rem × 5rem` desktop / full-width mobile)
 
@@ -77,7 +69,8 @@ grid/dot texture in the background if generated.
 
 ---
 
-## 6. Real-Time & Sync Systems
+## 5. Real-Time & Sync Systems
+
 **Label:** `Sync` · **Section:** Services, card 3
 **Size:** same as above
 
@@ -89,7 +82,8 @@ grid/dot texture in the background if generated.
 
 ---
 
-## 7. Accessibility-First UI
+## 6. Accessibility-First UI
+
 **Label:** `Accessibility` · **Section:** Services, card 4
 **Size:** same as above
 
@@ -101,6 +95,8 @@ grid/dot texture in the background if generated.
 
 ---
 
-## Not included here
-`public/projects/*.webp` (the six Featured Work screenshots) are already
-filled in — no prompts needed for those.
+## Already filled — not included above
+
+- `public/projects/*.webp` — the six Featured Work screenshots.
+- `public/portrait.webp` — the About section portrait (real photo, wired
+  in directly, no AI generation used).

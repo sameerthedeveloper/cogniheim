@@ -85,7 +85,8 @@ export default function Home() {
             <p className="about-tagline">React / Ship / Sync / Repeat</p>
           </div>
           <div className="about-portrait">
-            <div className="placeholder-img" data-label="Portrait"></div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="project-thumb" src="/portrait.webp" alt="Mohamed Sameer S" />
           </div>
           <div className="about-tags" aria-hidden="true">
             <span className="about-tag" id="tag-1">React</span>
