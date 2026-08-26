@@ -46,6 +46,22 @@ export default function Home() {
           <span className="hero-bracket hero-bracket-tl" aria-hidden="true"></span>
           <span className="hero-bracket hero-bracket-br" aria-hidden="true"></span>
 
+          <div className="hero-media">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="hero-photo" src="/hero-cutout.webp" alt="Mohamed Sameer S" />
+          </div>
+
+          <div className="hero-code" aria-hidden="true">
+            <pre>{`const developer = {
+  name: "Sameer",
+  skills: ["React", "Next.js",
+    "JavaScript", "GSAP"],
+  passion: "Design x Code",
+};`}</pre>
+          </div>
+
+          <div className="hero-scrim" aria-hidden="true"></div>
+
           <div className="hero-content">
             <p className="eyebrow hero-eyebrow reveal-line">Hello, I&apos;m</p>
             <h1 className="hero-name reveal-line">Sameer</h1>
@@ -60,19 +76,6 @@ export default function Home() {
               <a href="/resume.pdf" target="_blank" className="hero-cta-secondary">
                 <i data-lucide="file-text" width="14" height="14"></i> View Resume
               </a>
-            </div>
-          </div>
-
-          <div className="hero-media">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="hero-photo" src="/hero-cutout.webp" alt="Mohamed Sameer S" />
-            <div className="hero-code" aria-hidden="true">
-              <pre>{`const developer = {
-  name: "Sameer",
-  skills: ["React", "Next.js",
-    "JavaScript", "GSAP"],
-  passion: "Design x Code",
-};`}</pre>
             </div>
           </div>
 
