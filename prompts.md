@@ -9,11 +9,12 @@ commission a replacement image. Once you have a file, drop it in
 for an `<img src="..." alt="...">` (see how `public/projects/*.webp` and
 `public/portrait.webp` are already wired in for the pattern to copy).
 
-Style guide for all images: warm, high-contrast, editorial — matches the
-site's palette (`--bg #f1ecdc` paper, `--ink #16130c`, `--accent #e8a33d`
-amber, `--accent-2 #e4482a` coral, `--accent-3 #1f8a7a` teal). Avoid stock-
-photo gloss; favor a slightly grainy, printed-poster feel with a visible
-grid/dot texture in the background if generated.
+Style guide for all images: moody, cinematic, editorial — matches the
+site's current dark palette (`--bg #100d0b` near-black, `--ink #efe7dc`
+warm off-white, `--accent #c2652f` burnt terracotta). Warm directional
+lighting, slight grain, low-contrast shadows. Avoid stock-photo gloss and
+bright/flat lighting — the whole site now reads dark and moody, not the
+pale maximalist look these prompts were originally written for.
 
 ---
 

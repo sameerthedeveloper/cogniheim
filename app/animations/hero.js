@@ -1,56 +1,51 @@
 import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export function animateHero(reducedMotion) {
-  const line1 = document.querySelector('.hero-line-1');
-  const line2 = document.querySelector('.hero-line-2');
-  const footer = document.querySelector('.hero-footer');
+  const els = [
+    document.querySelector('.hero-eyebrow'),
+    document.querySelector('.hero-name'),
+    document.querySelector('.hero-bio'),
+    document.querySelector('.hero-actions'),
+  ].filter(Boolean);
 
-  if (!line1 || !line2) return;
+  if (!els.length) return;
 
   if (reducedMotion) {
-    gsap.set([line1, line2, footer], { opacity: 1, x: 0, y: 0 });
+    gsap.set(els, { opacity: 1, y: 0 });
     return;
   }
 
-  gsap.set(line1, { xPercent: -8, opacity: 0 });
-  gsap.set(line2, { xPercent: 4, opacity: 0 });
-  gsap.set(footer, { opacity: 0, y: 16 });
+  gsap.set(els, { opacity: 0, y: 20 });
 
-  const tl = gsap.timeline({ delay: 0.15 });
-  tl.to(line1, { xPercent: -2, opacity: 1, duration: 1, ease: 'power3.out' })
-    .to(line2, { xPercent: 8, opacity: 1, duration: 1, ease: 'power3.out' }, '-=0.85')
-    .to(footer, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.4');
+  gsap.to(els, {
+    opacity: 1,
+    y: 0,
+    duration: 0.8,
+    delay: 0.2,
+    stagger: 0.1,
+    ease: 'power3.out',
+  });
 }
 
-// Ported from the reference repo's hero.js: as the hero image enters, it
-// unfurls from off-screen-below/rotated/small into place, scrubbed to scroll.
+// The hero photo + code-snippet card fade/scale in on load — this is the
+// first thing a visitor sees, so it's a simple entrance rather than a
+// scroll-scrubbed reveal (there's no separate scroll distance for it
+// anymore now that the photo lives inside the hero's first viewport).
 export function animateHeroImage(reducedMotion) {
-  const holder = document.querySelector('.hero-image');
-  const inner = document.querySelector('.hero-img-inner');
-  if (!holder || !inner) return;
+  const media = document.querySelector('.hero-media');
+  const code = document.querySelector('.hero-code');
+  if (!media) return;
 
   if (reducedMotion) {
-    gsap.set(inner, { y: '0%', scale: 1, rotation: 0 });
+    gsap.set([media, code].filter(Boolean), { opacity: 1, scale: 1, y: 0 });
     return;
   }
 
-  gsap.set(inner, { y: '-110%', scale: 0.25, rotation: -15 });
+  gsap.set(media, { opacity: 0, scale: 1.04 });
+  gsap.to(media, { opacity: 1, scale: 1, duration: 1.1, delay: 0.25, ease: 'power3.out' });
 
-  ScrollTrigger.create({
-    trigger: holder,
-    start: 'top bottom',
-    end: 'top top',
-    scrub: true,
-    onUpdate: (self) => {
-      const progress = self.progress;
-      gsap.set(inner, {
-        y: `${-110 + 110 * progress}%`,
-        scale: 0.25 + 0.75 * progress,
-        rotation: -15 + 15 * progress,
-      });
-    },
-  });
+  if (code) {
+    gsap.set(code, { opacity: 0, y: 12 });
+    gsap.to(code, { opacity: 1, y: 0, duration: 0.7, delay: 0.9, ease: 'power2.out' });
+  }
 }

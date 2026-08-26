@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
-import { createIcons, Activity, ExternalLink, Mail, ArrowDown, LayoutTemplate, WifiOff, Accessibility, FileText } from 'lucide';
+import { createIcons, Activity, ExternalLink, Mail, ArrowDown, ArrowUpRight, LayoutTemplate, WifiOff, Accessibility, FileText } from 'lucide';
 
 import { animateHero, animateHeroImage } from '../animations/hero.js';
 import { initNav } from '../animations/nav.js';
@@ -26,7 +26,7 @@ export default function SiteEffects() {
     initialized.current = true;
 
     createIcons({
-      icons: { Activity, ExternalLink, Mail, ArrowDown, LayoutTemplate, WifiOff, Accessibility, FileText },
+      icons: { Activity, ExternalLink, Mail, ArrowDown, ArrowUpRight, LayoutTemplate, WifiOff, Accessibility, FileText },
     });
 
     gsap.registerPlugin(ScrollTrigger);
