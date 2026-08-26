@@ -63,13 +63,13 @@ export default function Home() {
           <div className="hero-scrim" aria-hidden="true"></div>
 
           <div className="hero-content">
-            <p className="eyebrow hero-eyebrow reveal-line">Hello, I&apos;m</p>
-            <h1 className="hero-name reveal-line">Sameer</h1>
-            <p className="hero-bio reveal-line">
+            <p className="eyebrow hero-eyebrow">Hello, I&apos;m</p>
+            <h1 className="hero-name">Sameer</h1>
+            <p className="hero-bio">
               I build frontend experiences that are fast, accessible, and{' '}
               <em>shipped with intent.</em>
             </p>
-            <div className="hero-actions reveal-line">
+            <div className="hero-actions">
               <a href="#work" className="hero-cta">
                 Explore my work <i data-lucide="arrow-up-right" width="16" height="16"></i>
               </a>
