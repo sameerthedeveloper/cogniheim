@@ -1,4 +1,5 @@
 import SiteEffects from './components/SiteEffects.jsx';
+import ContactForm from './components/ContactForm.jsx';
 
 export default function Home() {
   return (
@@ -332,6 +333,8 @@ export default function Home() {
             <span className="contact-cta-small">Open to internships and freelance work</span>
             <span className="contact-cta-large">Get in touch</span>
           </a>
+
+          <ContactForm />
         </section>
       </main>
 
