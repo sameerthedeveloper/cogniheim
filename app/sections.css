@@ -229,6 +229,7 @@
 .hero-name {
   font-size: clamp(3.5rem, 8vw, 6.5rem);
   color: var(--accent);
+  white-space: nowrap;
 }
 
 .hero-bio {
