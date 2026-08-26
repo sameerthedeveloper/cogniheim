@@ -38,5 +38,21 @@ export function animateServices(reducedMotion) {
     if (icon) {
       tl.to(icon, { scale: 1, duration: 0.6, ease: 'power4.out' }, 0.2);
     }
+
+    // Subtle continuing parallax drift on the image, layered on top of the
+    // one-off slide-in above — separate property (y vs x) so the two tweens
+    // don't fight for control of the transform.
+    if (thumb) {
+      gsap.to(thumb, {
+        y: -30,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1,
+        },
+      });
+    }
   });
 }

@@ -123,3 +123,46 @@ export function animateWork(reducedMotion) {
   initAnimations();
   window.addEventListener('resize', initAnimations);
 }
+
+// Mobile fallback (≤1000px, where the pinned 3D gallery above is disabled):
+// each list row fades/slides in as it enters view, and its thumbnail gets a
+// small independent parallax drift — same depth-cue idea as the desktop
+// gallery, scaled down to suit a compact list row.
+export function animateWorkMobile(reducedMotion) {
+  const items = document.querySelectorAll('.work-list-mobile > li');
+  if (!items.length || reducedMotion) return;
+
+  let triggers = [];
+
+  const initAnimations = () => {
+    triggers.forEach((t) => t.kill());
+    triggers = [];
+    if (window.innerWidth > 1000) return;
+
+    items.forEach((item) => {
+      const thumb = item.querySelector('.work-thumb');
+
+      gsap.set(item, { opacity: 0, y: 24 });
+      const tween = gsap.to(item, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: item, start: 'top 92%' },
+      });
+      triggers.push(tween.scrollTrigger);
+
+      if (thumb) {
+        const parallax = gsap.to(thumb, {
+          y: -12,
+          ease: 'none',
+          scrollTrigger: { trigger: item, start: 'top bottom', end: 'bottom top', scrub: 1 },
+        });
+        triggers.push(parallax.scrollTrigger);
+      }
+    });
+  };
+
+  initAnimations();
+  window.addEventListener('resize', initAnimations);
+}

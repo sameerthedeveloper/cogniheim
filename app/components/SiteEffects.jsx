@@ -6,13 +6,15 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { createIcons, Activity, ExternalLink, Mail, ArrowDown, ArrowUpRight, LayoutTemplate, WifiOff, Accessibility, FileText } from 'lucide';
 
-import { animateHero, animateHeroImage } from '../animations/hero.js';
+import { animateHero, animateHeroImage, animateHeroParallax } from '../animations/hero.js';
 import { initNav } from '../animations/nav.js';
 import { animateAbout } from '../animations/about.js';
-import { animateWork } from '../animations/work.js';
+import { animateWork, animateWorkMobile } from '../animations/work.js';
 import { animateTimeline } from '../animations/timeline.js';
 import { animateServices } from '../animations/services.js';
 import { initCursor } from '../animations/cursor.js';
+import { initImageLoader } from '../animations/imageLoader.js';
+import { initAmbient } from '../animations/ambient.js';
 
 // Bootstraps the exact same vanilla GSAP/Lenis setup as the original
 // src/main.js, run once on mount. Guarded so React StrictMode's
@@ -42,12 +44,16 @@ export default function SiteEffects() {
 
     animateHero(reducedMotion);
     animateHeroImage(reducedMotion);
+    animateHeroParallax(reducedMotion);
     initNav(reducedMotion);
     animateAbout(reducedMotion);
     animateWork(reducedMotion);
+    animateWorkMobile(reducedMotion);
     animateTimeline(reducedMotion);
     animateServices(reducedMotion);
     initCursor(reducedMotion);
+    initImageLoader(reducedMotion);
+    initAmbient(reducedMotion);
 
     if (document.fonts?.ready) {
       document.fonts.ready.then(() => ScrollTrigger.refresh());

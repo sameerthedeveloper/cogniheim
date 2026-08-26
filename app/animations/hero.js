@@ -1,4 +1,7 @@
 import gsap from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function animateHero(reducedMotion) {
   const els = [
@@ -47,5 +50,35 @@ export function animateHeroImage(reducedMotion) {
   if (code) {
     gsap.set(code, { opacity: 0, y: 12 });
     gsap.to(code, { opacity: 1, y: 0, duration: 0.7, delay: 0.9, ease: 'power2.out' });
+  }
+}
+
+// Ambient depth cue as the hero scrolls out of view — the photo drifts
+// slower than the page (classic parallax), the watermark glyph drifts the
+// opposite way. Scrub-based so touch and wheel scrolling both track it
+// exactly. Targets .hero-photo (not .hero-media) and pre-seeds yPercent on
+// the watermark so its existing CSS vertical-centering transform survives
+// GSAP taking over the transform property.
+export function animateHeroParallax(reducedMotion) {
+  const hero = document.querySelector('.hero');
+  const photo = document.querySelector('.hero-photo');
+  const watermark = document.querySelector('.hero-watermark');
+  if (!hero || reducedMotion) return;
+
+  if (photo) {
+    gsap.to(photo, {
+      y: 70,
+      ease: 'none',
+      scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 1 },
+    });
+  }
+
+  if (watermark) {
+    gsap.set(watermark, { yPercent: -50 });
+    gsap.to(watermark, {
+      y: -90,
+      ease: 'none',
+      scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 1 },
+    });
   }
 }
