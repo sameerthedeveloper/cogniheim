@@ -54,6 +54,19 @@ export default function SiteEffects() {
     }
 
     window.addEventListener('load', () => ScrollTrigger.refresh());
+
+    // If the viewport is resized after the initial triggers were measured
+    // (e.g. narrowing the window or toggling devtools device mode after
+    // load), re-measure everything so trigger positions match the new
+    // layout instead of staying pinned to stale desktop-width numbers.
+    // work.js/services.js already rebuild their own triggers on resize;
+    // this covers the rest (timeline.js included) with one global refresh.
+    let resizeTimer;
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => ScrollTrigger.refresh(), 200);
+    };
+    window.addEventListener('resize', handleResize);
   }, []);
 
   return null;
