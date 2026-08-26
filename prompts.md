@@ -29,18 +29,6 @@ bright/flat lighting.
 
 ---
 
-## 2. Services header icon
-
-**Label:** `Icon` · **Section:** Services header, small circular badge above "Your vision. My expertise."
-**Size:** `4.5rem × 4.5rem` circle, `object-fit: cover`
-
-> A small circular monogram or abstract mark — either a tight crop of the
-> "activity"/pulse-line motif already used elsewhere on the site (in
-> terracotta on dark), or a crop of the real portrait/hero cutout centered
-> on the face. Should read clearly at 72px.
-
----
-
 ## Already filled — not included above
 
 - `public/projects/*.webp` — the six Featured Work screenshots.
@@ -51,5 +39,8 @@ bright/flat lighting.
 - `public/keys/*.webp` — the four Services card images (Frontend,
   Offline-First PWA, Real-Time & Sync, Accessibility), added directly by
   the user to match their respective prompts above.
+- Services header icon — resolved with a `lucide` `sparkles` icon (see
+  `.services-header-icon` in `app/sections.css` and `SiteEffects.jsx`)
+  instead of a commissioned image; no longer a placeholder.
 
-Only the services header icon is still a placeholder.
+No placeholders remain.

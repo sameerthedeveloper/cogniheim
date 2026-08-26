@@ -724,12 +724,11 @@
   width: 4.5rem;
   height: 4.5rem;
   border-radius: 50%;
-  overflow: hidden;
-}
-
-.services-header-icon .placeholder-img::after {
-  font-size: 0.55rem;
-  padding: 0.2rem 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-dim);
+  color: var(--accent);
 }
 
 .services-header-tag {

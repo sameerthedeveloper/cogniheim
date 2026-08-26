@@ -274,7 +274,7 @@ export default function Home() {
         {/* SERVICES */}
         <section className="services-header">
           <div className="services-header-icon">
-            <div className="placeholder-img" data-label="Icon"></div>
+            <i data-lucide="sparkles" width="28" height="28" aria-hidden="true"></i>
           </div>
           <p className="services-header-tag">Your vision. My expertise.</p>
           <div className="services-header-title">
