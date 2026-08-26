@@ -65,7 +65,7 @@ export default function Home() {
 
           <div className="hero-media">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="hero-photo" src="/portrait.webp" alt="Mohamed Sameer S" />
+            <img className="hero-photo" src="/hero-cutout.webp" alt="Mohamed Sameer S" />
             <div className="hero-code" aria-hidden="true">
               <pre>{`const developer = {
   name: "Sameer",
@@ -287,7 +287,8 @@ export default function Home() {
                 <span className="service-icon" aria-hidden="true"><i data-lucide="layout-template" width="24" height="24"></i></span>
                 <h3>Frontend Development</h3>
               </div>
-              <div className="placeholder-img" data-label="Frontend"></div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="service-thumb" src="/keys/frontend-dev.webp" alt="Component-driven UI design system" />
             </div>
           </div>
           <div className="service-card">
@@ -296,7 +297,8 @@ export default function Home() {
                 <span className="service-icon" aria-hidden="true"><i data-lucide="wifi-off" width="24" height="24"></i></span>
                 <h3>PWA &amp; Offline-First Engineering</h3>
               </div>
-              <div className="placeholder-img" data-label="PWA"></div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="service-thumb" src="/keys/offline-pwa.webp" alt="Offline-first PWA UI on a phone" />
             </div>
           </div>
           <div className="service-card">
@@ -305,7 +307,8 @@ export default function Home() {
                 <span className="service-icon" aria-hidden="true"><i data-lucide="activity" width="24" height="24"></i></span>
                 <h3>Real-Time &amp; Sync Systems</h3>
               </div>
-              <div className="placeholder-img" data-label="Sync"></div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="service-thumb" src="/keys/real-time.webp" alt="Live device sync and real-time tracking" />
             </div>
           </div>
           <div className="service-card">
@@ -314,7 +317,8 @@ export default function Home() {
                 <span className="service-icon" aria-hidden="true"><i data-lucide="accessibility" width="24" height="24"></i></span>
                 <h3>Accessibility-First UI</h3>
               </div>
-              <div className="placeholder-img" data-label="Accessibility"></div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="service-thumb" src="/keys/accessibility.webp" alt="Accessibility settings with visible focus indicator" />
             </div>
           </div>
         </section>
