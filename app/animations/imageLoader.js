@@ -1,6 +1,6 @@
 import gsap from 'gsap';
 
-const IMAGE_SELECTOR = '.hero-photo, .project-thumb, .service-thumb, .work-thumb';
+const IMAGE_SELECTOR = '.project-thumb, .service-thumb, .work-thumb';
 
 // Every real photo on the site gets a skeleton shimmer (CSS, see
 // .img-skeleton in sections.css) behind it until it finishes loading,

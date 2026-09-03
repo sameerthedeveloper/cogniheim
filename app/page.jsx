@@ -43,54 +43,24 @@ export default function Home() {
       <main id="top">
         {/* HERO */}
         <section className="hero">
-          <span className="hero-watermark" aria-hidden="true">{'{ }'}</span>
-          <span className="hero-bracket hero-bracket-tl" aria-hidden="true"></span>
-          <span className="hero-bracket hero-bracket-br" aria-hidden="true"></span>
-
-          <div className="hero-media">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="hero-photo" src="/hero-cutout.webp" alt="Mohamed Sameer S" />
+          <div className="hero-name">
+            <h1 className="hero-line hero-line-1">MOHAMED</h1>
+            <h1 className="hero-line hero-line-2">SAMEER</h1>
           </div>
-
-          <div className="hero-code" aria-hidden="true">
-            <pre>{`const developer = {
-  name: "Sameer",
-  skills: ["React", "Next.js",
-    "JavaScript", "GSAP"],
-  passion: "Design x Code",
-};`}</pre>
-          </div>
-
-          <div className="hero-scrim" aria-hidden="true"></div>
-
-          <div className="hero-content">
-            <p className="eyebrow hero-eyebrow">Hello, I&apos;m</p>
-            <h1 className="hero-name">Sameer</h1>
-            <p className="hero-bio">
-              I build frontend experiences that are fast, accessible, and{' '}
-              <em>shipped with intent.</em>
-            </p>
-            <div className="hero-actions">
-              <a href="#work" className="hero-cta">
-                Explore my work <i data-lucide="arrow-up-right" width="16" height="16"></i>
-              </a>
-              <a href="/resume.pdf" target="_blank" className="hero-cta-secondary">
-                <i data-lucide="file-text" width="14" height="14"></i> View Resume
+          <div className="hero-footer">
+            <div className="hero-footer-mark" aria-hidden="true">
+              <i data-lucide="activity" width="28" height="28"></i>
+            </div>
+            <div className="hero-footer-links">
+              <a href="/resume.pdf" target="_blank" className="hero-link">
+                <i data-lucide="file-text" width="14" height="14"></i> View // Resume
               </a>
             </div>
+            <div className="hero-footer-tag">
+              <span className="pulse-dot" aria-hidden="true"></span>
+              Open to internships
+            </div>
           </div>
-
-          <div className="hero-meta hero-meta-left">
-            <span className="status-dot" aria-hidden="true"></span>
-            Based in Chennai, India
-          </div>
-          <div className="hero-meta hero-meta-right">
-            <span className="pulse-dot" aria-hidden="true"></span>
-            Open to internships
-          </div>
-          <a href="mailto:mohamedsameer.s.2007@gmail.com" className="hero-email">
-            mohamedsameer.s.2007@gmail.com
-          </a>
         </section>
 
         {/* ABOUT */}

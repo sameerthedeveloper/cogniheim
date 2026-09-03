@@ -2,24 +2,11 @@ import gsap from 'gsap';
 
 // Persistent, non-scroll-triggered animation — loops continuously in the
 // background regardless of scroll position, giving the page a bit of life
-// even while a visitor sits still reading. Kept subtle on purpose: a slow
-// "breathing" scale/opacity drift on the hero watermark glyph, and a gentle
+// even while a visitor sits still reading. Kept subtle on purpose: a gentle
 // float on the About section's tag chips (desktop only — .about-tags is
 // display:none on mobile, so there's nothing to animate there).
 export function initAmbient(reducedMotion) {
   if (reducedMotion) return;
-
-  const watermark = document.querySelector('.hero-watermark');
-  if (watermark) {
-    gsap.to(watermark, {
-      opacity: 0.6,
-      scale: 1.04,
-      duration: 4,
-      ease: 'sine.inOut',
-      repeat: -1,
-      yoyo: true,
-    });
-  }
 
   if (window.innerWidth > 1000) {
     // about.js already owns `y`/`rotation` on these chips via a scroll-scrub
