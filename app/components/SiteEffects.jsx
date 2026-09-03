@@ -6,7 +6,7 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { createIcons, Activity, ExternalLink, Mail, ArrowDown, ArrowUpRight, LayoutTemplate, WifiOff, Accessibility, FileText, Sparkles } from 'lucide';
 
-import { animateHero } from '../animations/hero.js';
+import { animateHero, animateHeroTyped } from '../animations/hero.js';
 import { initNav } from '../animations/nav.js';
 import { animateAbout } from '../animations/about.js';
 import { animateWork, animateWorkMobile } from '../animations/work.js';
@@ -43,6 +43,7 @@ export default function SiteEffects() {
     }
 
     animateHero(reducedMotion);
+    animateHeroTyped(reducedMotion);
     initNav(reducedMotion);
     animateAbout(reducedMotion);
     animateWork(reducedMotion);

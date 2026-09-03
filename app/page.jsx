@@ -47,6 +47,16 @@ export default function Home() {
             <h1 className="hero-line hero-line-1">MOHAMED</h1>
             <h1 className="hero-line hero-line-2">SAMEER</h1>
           </div>
+
+          <p className="hero-typed">
+            <span className="hero-typed-prompt" aria-hidden="true">$</span>
+            <span className="hero-typed-text" aria-hidden="true"></span>
+            <span className="hero-typed-cursor" aria-hidden="true"></span>
+            <span className="sr-only">
+              Frontend developer. Builds with React and Next.js. Ships offline-first PWAs. Cares about accessibility.
+            </span>
+          </p>
+
           <div className="hero-footer">
             <div className="hero-footer-mark" aria-hidden="true">
               <i data-lucide="activity" width="28" height="28"></i>
