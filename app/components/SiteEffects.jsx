@@ -4,22 +4,22 @@ import { useEffect, useRef } from 'react';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
-import { createIcons, Activity, ExternalLink, Mail, ArrowDown, ArrowUpRight, LayoutTemplate, WifiOff, Accessibility, FileText, Sparkles } from 'lucide';
 
-import { animateHero, animateHeroTyped } from '../animations/hero.js';
-import { initNav } from '../animations/nav.js';
-import { animateAbout } from '../animations/about.js';
-import { animateWork, animateWorkMobile } from '../animations/work.js';
-import { animateTimeline } from '../animations/timeline.js';
-import { animateServices } from '../animations/services.js';
-import { initCursor } from '../animations/cursor.js';
-import { initImageLoader } from '../animations/imageLoader.js';
-import { initAmbient } from '../animations/ambient.js';
+import { animateHeroIntro } from '../animations/hero.js';
+import { initScrollReveals } from '../animations/reveal.js';
+import { animateHeroTyped } from '../animations/typed.js';
+import { initCardLift } from '../animations/cardHover.js';
+import { animateWorkThumbs } from '../animations/workReveal.js';
+import { initCursorLabel } from '../animations/cursorLabel.js';
+import { initHeroGradientShift } from '../animations/heroGradientShift.js';
+import { animateSectionHeadings } from '../animations/sectionHeadings.js';
+import { initMagneticHover } from '../animations/magneticHover.js';
 
-// Bootstraps the exact same vanilla GSAP/Lenis setup as the original
-// src/main.js, run once on mount. Guarded so React StrictMode's
-// double-invoke in dev doesn't double-init (reactStrictMode is also off
-// in next.config.mjs, but this guard keeps it safe either way).
+// Apple-style scroll choreography: a word-by-word hero intro, cascading
+// section reveals, tactile card-hover lift, a cinematic settle-in on work
+// thumbnails, a cursor-follow label on the spotlight project, and
+// scroll-triggered word reveals on section headings — all riding on
+// Lenis smooth scroll so the scrub stays buttery.
 export default function SiteEffects() {
   const initialized = useRef(false);
 
@@ -27,32 +27,27 @@ export default function SiteEffects() {
     if (initialized.current) return;
     initialized.current = true;
 
-    createIcons({
-      icons: { Activity, ExternalLink, Mail, ArrowDown, ArrowUpRight, LayoutTemplate, WifiOff, Accessibility, FileText, Sparkles },
-    });
-
     gsap.registerPlugin(ScrollTrigger);
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    let lenis;
     if (!reducedMotion) {
-      const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+      lenis = new Lenis({ duration: 1.05, smoothWheel: true });
       lenis.on('scroll', ScrollTrigger.update);
       gsap.ticker.add((time) => lenis.raf(time * 1000));
       gsap.ticker.lagSmoothing(0);
     }
 
-    animateHero(reducedMotion);
+    animateHeroIntro(reducedMotion);
     animateHeroTyped(reducedMotion);
-    initNav(reducedMotion);
-    animateAbout(reducedMotion);
-    animateWork(reducedMotion);
-    animateWorkMobile(reducedMotion);
-    animateTimeline(reducedMotion);
-    animateServices(reducedMotion);
-    initCursor(reducedMotion);
-    initImageLoader(reducedMotion);
-    initAmbient(reducedMotion);
+    initScrollReveals(reducedMotion);
+    initCardLift(reducedMotion);
+    animateWorkThumbs(reducedMotion);
+    initCursorLabel(reducedMotion);
+    const stopGradientShift = initHeroGradientShift(reducedMotion);
+    animateSectionHeadings(reducedMotion);
+    initMagneticHover(reducedMotion);
 
     if (document.fonts?.ready) {
       document.fonts.ready.then(() => ScrollTrigger.refresh());
@@ -60,18 +55,18 @@ export default function SiteEffects() {
 
     window.addEventListener('load', () => ScrollTrigger.refresh());
 
-    // If the viewport is resized after the initial triggers were measured
-    // (e.g. narrowing the window or toggling devtools device mode after
-    // load), re-measure everything so trigger positions match the new
-    // layout instead of staying pinned to stale desktop-width numbers.
-    // work.js/services.js already rebuild their own triggers on resize;
-    // this covers the rest (timeline.js included) with one global refresh.
     let resizeTimer;
     const handleResize = () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => ScrollTrigger.refresh(), 200);
     };
     window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      lenis?.destroy();
+      stopGradientShift?.();
+    };
   }, []);
 
   return null;

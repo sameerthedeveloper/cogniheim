@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --color-ink: #3d3929;
+  --color-muted: #87795e;
+  --color-faint: #a39a83;
+  --color-surface: #fdfcf8;
+  --color-surface-2: #ede6d6;
+  --color-surface-3: #f4f1ea;
+  --color-line: #ded8c4;
+  --color-accent: #d97757;
+  --color-accent-hover: #c2653f;
+  --color-noir: #221d15;
+  --color-noir-2: #2a241a;
+
+  --container-content: 980px;
+  --container-wide: 1200px;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background: var(--color-surface-3);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: white;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+}
+
+@layer utilities {
+  /* .reveal, .hero-word and .parallax-img start at their natural, visible
+     state in CSS — the entrance state (opacity, blur, offset) is applied
+     and animated by GSAP in SiteEffects, so a visitor with JS disabled or
+     a failed script still sees full content. */
+  .hero-word {
+    will-change: transform, opacity, filter;
+  }
+
+  .hero-typed-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    margin-left: 3px;
+    background: currentColor;
+    animation: hero-cursor-blink 0.9s steps(1) infinite;
+  }
+
+  .hero-typed-cursor.is-typing {
+    animation: none;
+    opacity: 1;
+  }
+
+  @keyframes hero-cursor-blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-typed-cursor {
+      animation: none;
+      opacity: 1;
+    }
+  }
+
+  /* A plain CSS gradient behind the hero copy — oversized so its
+     background-position has room to move, then periodically retargeted
+     to a random spot in animations/heroGradientShift.js. The transition
+     here (not GSAP) does the actual easing between positions, so it
+     keeps working regardless of rAF throttling. */
+  .hero-gradient-bg {
+    background-image: linear-gradient(
+      160deg,
+      var(--color-surface-3) 0%,
+      color-mix(in srgb, var(--color-accent) 16%, var(--color-surface-3)) 45%,
+      color-mix(in srgb, #d9a05b 20%, var(--color-surface-3)) 100%
+    );
+    background-size: 200% 200%;
+    background-position: 50% 50%;
+    transition: background-position 4.5s ease-in-out;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-gradient-bg {
+      transition: none;
+    }
+  }
+
+  /* Skill doodles scattered around the hero, in the spirit of
+     opennotes.mohamedsameer.tech's hero icons — faded, rotated, and
+     quietly bobbing. GSAP (animations/hero.js) owns opacity for the
+     entrance fade-in; these keyframes own transform (rotation + bob) so
+     the two never fight over the same property. */
+  .hero-doodle {
+    transform: rotate(var(--doodle-rot, 0deg));
+    animation: hero-doodle-bob 5s ease-in-out infinite;
+  }
+
+  .hero-doodle-0 { animation-delay: 0s; }
+  .hero-doodle-1 { animation-delay: 0.6s; }
+  .hero-doodle-2 { animation-delay: 1.2s; }
+  .hero-doodle-3 { animation-delay: 1.8s; }
+  .hero-doodle-4 { animation-delay: 2.4s; }
+
+  @keyframes hero-doodle-bob {
+    0%, 100% { transform: translateY(0) rotate(var(--doodle-rot, 0deg)); }
+    50% { transform: translateY(-10px) rotate(var(--doodle-rot, 0deg)); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-doodle {
+      animation: none;
+      transform: rotate(var(--doodle-rot, 0deg));
+    }
+  }
+
+  /* Custom cursor, iPadOS-style: a small dot for free movement, plus a
+     pointer shape that snaps onto controls and morphs to their exact
+     size/border-radius. Position is set via GSAP x/y (translate) with
+     xPercent/yPercent:-50 for centering — width/height/border-radius/
+     color are separate properties GSAP tweens directly, so nothing here
+     ever fights the positional transform. */
+  .custom-cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: var(--color-accent);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 100;
+    will-change: transform;
+  }
+
+  .custom-cursor-pointer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    border: 1.5px solid color-mix(in srgb, var(--color-accent) 70%, transparent);
+    background: transparent;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 99;
+    will-change: transform, width, height;
+  }
+
+  .cursor-none-active,
+  .cursor-none-active * {
+    cursor: none !important;
+  }
+
+  @media (hover: none), (pointer: coarse) {
+    .custom-cursor-dot,
+    .custom-cursor-pointer {
+      display: none !important;
+    }
+  }
+}
