@@ -1,8 +1,8 @@
 import gsap from 'gsap';
 
-// A "View site" pill that tracks the pointer across the spotlight work
-// card — the one signature interactive moment in the work grid, kept to
-// a single card rather than scattered across all six.
+// A "View details" pill that tracks the pointer across the spotlight
+// work card — the one signature interactive moment in the work grid,
+// kept to a single card rather than scattered across all six.
 export function initCursorLabel(reducedMotion) {
   if (reducedMotion) return;
   if (window.matchMedia('(hover: none)').matches) return;

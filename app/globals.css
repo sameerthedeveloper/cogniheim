@@ -190,7 +190,37 @@
     border-color: transparent;
     color: var(--chip-fg);
     transform: translateY(-3px);
-    box-shadow: 0 14px 28px -14px color-mix(in srgb, var(--chip-ring) 60%, transparent);
+    box-shadow:
+      0 18px 32px -12px color-mix(in srgb, var(--chip-ring) 65%, transparent),
+      0 4px 10px -4px color-mix(in srgb, var(--chip-ring) 45%, transparent);
+  }
+
+  /* The rail fill (journeyProgress.js) draws down as a visitor scrolls
+     through the timeline; each dot lights up once the fill reaches it —
+     transition here so the dot's own color change eases in step with
+     that scrub instead of snapping. */
+  .journey-dot.is-passed {
+    border-color: var(--color-accent);
+    background: var(--color-accent);
+  }
+
+  /* The one currently-true item on the journey timeline gets a soft
+     pulsing ring — real state (this is happening right now), not
+     decoration, so it's the only dot that moves on its own. */
+  .journey-dot-current {
+    animation: journey-dot-pulse 2.4s ease-out infinite;
+  }
+
+  @keyframes journey-dot-pulse {
+    0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 45%, transparent); }
+    70% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--color-accent) 0%, transparent); }
+    100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 0%, transparent); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .journey-dot-current {
+      animation: none;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -14,6 +14,7 @@ import { initCursorLabel } from '../animations/cursorLabel.js';
 import { initHeroGradientPan } from '../animations/heroGradientPan.js';
 import { animateSectionHeadings } from '../animations/sectionHeadings.js';
 import { initMagneticHover } from '../animations/magneticHover.js';
+import { initJourneyProgress } from '../animations/journeyProgress.js';
 
 // Apple-style scroll choreography: a word-by-word hero intro, cascading
 // section reveals, tactile card-hover lift, a cinematic settle-in on work
@@ -48,6 +49,7 @@ export default function SiteEffects() {
     const stopGradientPan = initHeroGradientPan(reducedMotion);
     animateSectionHeadings(reducedMotion);
     initMagneticHover(reducedMotion);
+    initJourneyProgress(reducedMotion);
 
     if (document.fonts?.ready) {
       document.fonts.ready.then(() => ScrollTrigger.refresh());

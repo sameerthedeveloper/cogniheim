@@ -12,6 +12,7 @@ import {
   faFigma,
   faPostgresql,
   faPython,
+  faJava,
 } from '@fortawesome/free-brands-svg-icons';
 import Nav from './components/Nav.jsx';
 import ScrollProgress from './components/ScrollProgress.jsx';
@@ -19,7 +20,16 @@ import ContactForm from './components/ContactForm.jsx';
 import ServiceArt from './components/ServiceArt.jsx';
 import SplitHeading from './components/SplitHeading.jsx';
 import { Button } from './components/ui/button.jsx';
-import { NextjsIcon, SupabaseIcon, FirebaseIcon } from './components/icons.jsx';
+import WorkGrid from './components/WorkGrid.jsx';
+import {
+  NextjsIcon,
+  SupabaseIcon,
+  FirebaseIcon,
+  CIcon,
+  CplusplusIcon,
+  ExpressIcon,
+  MongodbIcon,
+} from './components/icons.jsx';
 
 const HERO_DOODLES = [
   { icon: Code2, className: 'top-[20%] left-[6%] lg:left-[11%]', rotate: -12, size: 32 },
@@ -33,41 +43,52 @@ const WORK = [
   {
     name: 'cinemafocus.in',
     href: 'https://cinemafocus.in',
-    meta: 'Next.js · Supabase · Tailwind CSS',
     image: '/projects/cinemafocus.webp',
+    stack: ['Next.js', 'Supabase', 'Tailwind CSS'],
+    description: 'A live Next.js site backed by Supabase, styled with Tailwind CSS.',
   },
   {
     name: 'SalahSync',
-    meta: 'Next.js · Capacitor · OCR — 100 users on offline storage',
     image: '/projects/salahsync.webp',
+    stack: ['Next.js', 'Capacitor', 'OCR'],
+    description: 'A prayer-time companion wrapped as a native app with Capacitor, built offline-first.',
+    highlight: '100 users on offline storage',
   },
   {
     name: 'RetailFlow',
-    meta: 'Next.js · React · Supabase — 30% increase in engagement',
     image: '/projects/retailflow.webp',
+    stack: ['Next.js', 'React', 'Supabase'],
+    description: 'A Next.js and React storefront experience backed by Supabase for live product data.',
+    highlight: '30% increase in engagement',
   },
   {
     name: 'IslamicTamilPod',
-    meta: 'Service Workers · IndexedDB — 85 Lighthouse, 50% faster loads',
     image: '/projects/islamictamilpod.svg',
-    href:"https://islamic-tamil-pod-pwa.vercel.app"
+    href: 'https://islamic-tamil-pod-pwa.vercel.app',
+    stack: ['Service Workers', 'IndexedDB'],
+    description: 'A podcast PWA using service workers and IndexedDB to keep episodes available offline.',
+    highlight: '85 Lighthouse score, 50% faster loads',
   },
   {
     name: 'OpenNotes',
-    meta: 'React · Vite · Shadcn/ui · Firebase · TipTap',
     image: '/projects/opennotes.png',
-    href:"https://open-notes-web.vercel.app"
+    href: 'https://open-notes-web.vercel.app',
+    stack: ['React', 'Vite', 'Shadcn/ui', 'Firebase', 'TipTap'],
+    description: 'A note-taking app built with React and Shadcn/ui, with Firebase sync and TipTap editing.',
   },
   {
     name: 'FoodGuard 2.0',
-    meta: 'React 19 · Vite · Firebase · Leaflet · Framer Motion',
     image: '/projects/foodguard.webp',
+    stack: ['React 19', 'Vite', 'Firebase', 'Leaflet', 'Framer Motion'],
+    description: 'A React 19 app for tracking food safety, with Leaflet maps and Framer Motion interactions.',
   },
   {
     name: 'Record Lab',
     href: 'https://record-lab.vercel.app/',
-    meta: 'Next.js — true A4 pagination, print-ready export with custom watermarking',
     image: '/projects/recordlab.webp',
+    stack: ['Next.js','html2pdf', 'Putter.js'],
+    description: 'A Next.js tool for generating print-ready records with true A4 pagination.',
+    highlight: 'Custom watermarking on every export',
   },
 ];
 
@@ -102,25 +123,53 @@ const SERVICES = [
 // switches to the tool's own brand color — bg/fg/ring drive .skill-chip
 // in globals.css. `icon` is a FontAwesome brand glyph; `Svg` is a local
 // logo component (icons.jsx) for the few tools FontAwesome doesn't ship.
-const SKILLS = [
-  { name: 'React', icon: faReact, bg: '#61dafb', fg: '#0b2027', ring: '#61dafb' },
-  { name: 'Next.js', Svg: NextjsIcon, bg: '#000000', fg: '#ffffff', ring: '#404040' },
-  { name: 'JavaScript', icon: faJs, bg: '#f0db4f', fg: '#1a1a1a', ring: '#f0db4f' },
-  { name: 'TypeScript', icon: faTypescript, bg: '#3178c6', fg: '#ffffff', ring: '#3178c6' },
-  { name: 'Tailwind CSS', icon: faTailwindCss, bg: '#38bdf8', fg: '#06232f', ring: '#38bdf8' },
-  { name: 'Node.js', icon: faNodeJs, bg: '#3c873a', fg: '#ffffff', ring: '#3c873a' },
-  { name: 'Supabase', Svg: SupabaseIcon, bg: '#3ecf8e', fg: '#0b2118', ring: '#3ecf8e' },
-  { name: 'Firebase', Svg: FirebaseIcon, bg: '#ffa000', fg: '#3a2400', ring: '#ffa000' },
-  { name: 'PostgreSQL', icon: faPostgresql, bg: '#336791', fg: '#ffffff', ring: '#336791' },
-  { name: 'Git', icon: faGitAlt, bg: '#f05033', fg: '#ffffff', ring: '#f05033' },
+// Grouped by what each tool is actually for, not alphabetically — a
+// resume reader scans for "does he know backend" faster than a flat wall
+// of 17 chips lets them.
+const SKILL_GROUPS = [
   {
-    name: 'Figma',
-    icon: faFigma,
-    bg: 'linear-gradient(135deg, #0acf83, #1abcfe, #a259ff, #ff7262, #f24e1e)',
-    fg: '#ffffff',
-    ring: '#a259ff',
+    label: 'Languages',
+    items: [
+      { name: 'JavaScript', icon: faJs, bg: '#f0db4f', fg: '#1a1a1a', ring: '#f0db4f' },
+      { name: 'TypeScript', icon: faTypescript, bg: '#3178c6', fg: '#ffffff', ring: '#3178c6' },
+      { name: 'Java', icon: faJava, bg: '#007396', fg: '#ffffff', ring: '#007396' },
+      { name: 'C++', Svg: CplusplusIcon, bg: '#00599c', fg: '#ffffff', ring: '#00599c' },
+      { name: 'C', Svg: CIcon, bg: '#a8b9cc', fg: '#1a2b34', ring: '#a8b9cc' },
+      { name: 'Python', icon: faPython, bg: '#306998', fg: '#ffffff', ring: '#ffd43b' },
+    ],
   },
-  { name: 'Python', icon: faPython, bg: '#306998', fg: '#ffffff', ring: '#ffd43b' },
+  {
+    label: 'Frontend',
+    items: [
+      { name: 'React', icon: faReact, bg: '#61dafb', fg: '#0b2027', ring: '#61dafb' },
+      { name: 'Next.js', Svg: NextjsIcon, bg: '#000000', fg: '#ffffff', ring: '#404040' },
+      { name: 'Tailwind CSS', icon: faTailwindCss, bg: '#38bdf8', fg: '#06232f', ring: '#38bdf8' },
+    ],
+  },
+  {
+    label: 'Backend & data',
+    items: [
+      { name: 'Node.js', icon: faNodeJs, bg: '#3c873a', fg: '#ffffff', ring: '#3c873a' },
+      { name: 'Express.js', Svg: ExpressIcon, bg: '#000000', fg: '#ffffff', ring: '#404040' },
+      { name: 'MongoDB', Svg: MongodbIcon, bg: '#47a248', fg: '#ffffff', ring: '#47a248' },
+      { name: 'PostgreSQL', icon: faPostgresql, bg: '#336791', fg: '#ffffff', ring: '#336791' },
+      { name: 'Supabase', Svg: SupabaseIcon, bg: '#3ecf8e', fg: '#0b2118', ring: '#3ecf8e' },
+      { name: 'Firebase', Svg: FirebaseIcon, bg: '#ffa000', fg: '#3a2400', ring: '#ffa000' },
+    ],
+  },
+  {
+    label: 'Tools',
+    items: [
+      { name: 'Git', icon: faGitAlt, bg: '#f05033', fg: '#ffffff', ring: '#f05033' },
+      {
+        name: 'Figma',
+        icon: faFigma,
+        bg: 'linear-gradient(135deg, #0acf83, #1abcfe, #a259ff, #ff7262, #f24e1e)',
+        fg: '#ffffff',
+        ring: '#a259ff',
+      },
+    ],
+  },
 ];
 
 const SOCIALS = [
@@ -129,16 +178,13 @@ const SOCIALS = [
   { label: 'mohamedsameer.s.2007@gmail.com', href: 'mailto:mohamedsameer.s.2007@gmail.com', icon: Mail, brand: false },
 ];
 
+// Ordered chronologically by start date — a timeline only reads as one
+// if it's actually in time order, not the order the info was written.
 const TIMELINE = [
   {
-    date: '2025 — Present',
-    role: 'Web Developer',
-    place: 'Freelancer',
-  },
-  {
-    date: '2026',
-    role: 'Full Stack Intern',
-    place: 'Global Tech Computer Education, Chennai',
+    date: '2024',
+    role: 'Front End Development Certification',
+    place: 'Global Tech Computer Education',
   },
   {
     date: '2024 — 2028',
@@ -151,9 +197,15 @@ const TIMELINE = [
     place: 'Global Tech Computer Education',
   },
   {
-    date: '2024',
-    role: 'Front End Development Certification',
-    place: 'Global Tech Computer Education',
+    date: '2025 — Present',
+    role: 'Web Developer',
+    place: 'Freelancer',
+    current: true,
+  },
+  {
+    date: '2026',
+    role: 'Full Stack Intern',
+    place: 'Global Tech Computer Education, Chennai',
   },
 ];
 
@@ -256,24 +308,31 @@ export default function Home() {
                 className="text-4xl font-semibold tracking-tight text-ink sm:text-5xl"
               />
               <p className="reveal mt-4 max-w-xs text-muted">
-                Twelve tools that show up across these projects — hover one for its real color.
+                Seventeen tools that show up across these projects — hover one for its real color.
               </p>
             </div>
 
-            <div className="reveal flex flex-wrap gap-3">
-              {SKILLS.map(({ name, icon, Svg, bg, fg, ring }) => (
-                <span
-                  key={name}
-                  className="skill-chip inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2.5 text-sm font-medium text-muted"
-                  style={{ '--chip-bg': bg, '--chip-fg': fg, '--chip-ring': ring }}
-                >
-                  {icon ? (
-                    <FontAwesomeIcon icon={icon} className="h-4 w-4" aria-hidden="true" />
-                  ) : (
-                    <Svg className="h-4 w-4" />
-                  )}
-                  {name}
-                </span>
+            <div className="space-y-8">
+              {SKILL_GROUPS.map(({ label, items }) => (
+                <div key={label} className="reveal">
+                  <p className="mb-3 text-sm font-medium text-muted">{label}</p>
+                  <div className="flex flex-wrap gap-3">
+                    {items.map(({ name, icon, Svg, bg, fg, ring }) => (
+                      <span
+                        key={name}
+                        className="skill-chip inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2.5 text-sm font-medium text-muted"
+                        style={{ '--chip-bg': bg, '--chip-fg': fg, '--chip-ring': ring }}
+                      >
+                        {icon ? (
+                          <FontAwesomeIcon icon={icon} className="h-4 w-4" aria-hidden="true" />
+                        ) : (
+                          <Svg className="h-4 w-4" />
+                        )}
+                        {name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           </div>
@@ -300,75 +359,7 @@ export default function Home() {
               </a>
             </div>
 
-            <div className="mt-14 space-y-5">
-              {/* Spotlight: the one live, public project gets the lead slot */}
-              <a
-                href={WORK[0].href}
-                target="_blank"
-                rel="noopener"
-                className="work-spotlight reveal group relative block overflow-hidden rounded-3xl bg-white"
-              >
-                <div className="relative aspect-16/7 overflow-hidden sm:aspect-21/7">
-                  <div className="work-thumb-wrap absolute inset-0">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={WORK[0].image}
-                      alt={`${WORK[0].name} preview`}
-                      className="work-thumb-img h-full w-full object-cover"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/10 to-transparent" />
-                  <span className="absolute left-5 top-5 rounded-md bg-white/90 px-2 py-1 font-mono text-xs text-ink sm:left-6 sm:top-6">
-                    01
-                  </span>
-                  <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
-                    <h3 className="flex items-center gap-2 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-                      {WORK[0].name}
-                      <ExternalLink className="h-5 w-5 text-white/70" aria-hidden="true" />
-                    </h3>
-                    <p className="mt-1.5 text-sm text-white/70">{WORK[0].meta}</p>
-                  </div>
-                  <span className="cursor-label pointer-events-none absolute left-0 top-0 z-10 flex h-22 w-22 -translate-x-1/2 -translate-y-1/2 scale-75 items-center justify-center rounded-full bg-accent text-sm font-medium text-white opacity-0">
-                    View site
-                  </span>
-                </div>
-              </a>
-
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {WORK.slice(1).map((project, i) => {
-                  const Wrapper = project.href ? 'a' : 'div';
-                  return (
-                    <Wrapper
-                      key={project.name}
-                      {...(project.href ? { href: project.href, target: '_blank', rel: 'noopener' } : {})}
-                      className="reveal lift-card group overflow-hidden rounded-3xl bg-white shadow-[0_0_0_rgba(0,0,0,0)] transition-shadow duration-300 hover:shadow-[0_18px_40px_-20px_rgba(61,57,41,0.35)]"
-                    >
-                      <div className="relative overflow-hidden">
-                        <div className="work-thumb-wrap">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={project.image}
-                            alt={`${project.name} preview`}
-                            loading="lazy"
-                            className="work-thumb-img aspect-4/3 w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          />
-                        </div>
-                        <span className="absolute left-4 top-4 rounded-md bg-white/90 px-2 py-1 font-mono text-xs text-ink">
-                          {String(i + 2).padStart(2, '0')}
-                        </span>
-                      </div>
-                      <div className="p-6">
-                        <h3 className="flex items-center gap-1.5 text-lg font-semibold tracking-tight text-ink">
-                          {project.name}
-                          {project.href && <ExternalLink className="h-4 w-4 text-muted" aria-hidden="true" />}
-                        </h3>
-                        <p className="mt-1.5 text-sm text-muted">{project.meta}</p>
-                      </div>
-                    </Wrapper>
-                  );
-                })}
-              </div>
-            </div>
+            <WorkGrid work={WORK} />
           </div>
         </section>
 
@@ -381,29 +372,43 @@ export default function Home() {
                 className="text-4xl font-semibold tracking-tight text-ink sm:text-5xl"
               />
               <p className="reveal mt-4 max-w-xs text-muted">
-                Five stops so far — freelance work, an internship, and the degree connecting them.
+                Five stops so far, in order — two certifications and a still-running degree,
+                with the freelance and internship work built on top.
               </p>
             </div>
 
-            <ol className="border-t border-line">
-              {TIMELINE.map((item, i) => (
-                <li key={item.role} className="reveal journey-row group relative border-b border-line py-6">
-                  <span className="journey-row-bar pointer-events-none absolute -left-5 top-0 bottom-0 w-0.75 origin-center scale-y-0 bg-accent transition-transform duration-300 ease-out group-hover:scale-y-100 sm:-left-6" />
-                  <div className="flex items-baseline gap-4 sm:gap-6">
-                    <span className="font-mono text-sm text-faint transition-colors duration-300 group-hover:text-accent">
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <h3 className="text-xl font-medium text-ink transition-colors duration-300 group-hover:text-accent sm:text-2xl">
-                        {item.role}
-                      </h3>
-                      <p className="mt-1 text-[15px] text-muted">{item.place}</p>
-                    </div>
-                    <span className="shrink-0 text-sm text-muted">{item.date}</span>
-                  </div>
-                </li>
-              ))}
-            </ol>
+            <div className="journey-rail relative">
+              <span
+                className="pointer-events-none absolute left-1.75 top-2 bottom-2 w-px bg-line"
+                aria-hidden="true"
+              />
+              <span
+                className="journey-rail-fill pointer-events-none absolute left-1.75 top-2 bottom-2 w-px origin-top scale-y-0 bg-accent"
+                aria-hidden="true"
+              />
+              <ol className="space-y-10">
+                {TIMELINE.map((item) => (
+                  <li key={item.role} className="reveal journey-row group relative pl-10">
+                    <span
+                      className={`journey-dot absolute left-0 top-1 h-3.5 w-3.5 rounded-full border-2 bg-surface-3 transition-colors duration-300 ${
+                        item.current
+                          ? 'journey-dot-current border-accent bg-accent'
+                          : 'border-line group-hover:border-accent'
+                      }`}
+                      aria-hidden="true"
+                    />
+                    <p className="text-sm text-muted">
+                      {item.date}
+                      {item.current && <span className="ml-2 text-accent">· ongoing</span>}
+                    </p>
+                    <h3 className="mt-1 text-xl font-medium text-ink transition-colors duration-300 group-hover:text-accent sm:text-2xl">
+                      {item.role}
+                    </h3>
+                    <p className="mt-1 text-[15px] text-muted">{item.place}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </div>
         </section>
 

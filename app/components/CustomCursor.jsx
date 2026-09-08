@@ -14,6 +14,10 @@ import gsap from 'gsap';
 // a soft accent glow that keeps tracking the real pointer.
 const SNAP_SELECTOR = 'a, button, [role="button"]';
 const TEXT_SELECTOR = 'input, textarea';
+// Skill chips do their own brand-color fill + shadow on hover
+// (globals.css .skill-chip) — the cursor just gets out of the way
+// instead of snapping onto them, so nothing fights that reveal.
+const HIDE_SELECTOR = '.skill-chip';
 const DEFAULT_SIZE = 30;
 const SNAP_PADDING = 6;
 const GLOW_MAX_HEIGHT = 80;
@@ -59,10 +63,19 @@ export default function CustomCursor() {
     let visible = false;
     let snapped = null; // the element currently locked onto, or null
 
+    // `overwrite: 'auto'` on every opacity/color tween below matters:
+    // plain gsap.to() calls don't kill a same-property tween already in
+    // flight on their own (that's exactly why x/y tracking above uses
+    // quickTo instead). Hovering quickly between chips/buttons/text
+    // fields fires these in tight succession, and without an explicit
+    // overwrite a longer, earlier tween can finish after a later one and
+    // silently win — e.g. leaving a chip (opacity -> 1) then re-entering
+    // one (opacity -> 0) could settle back on 1 once the first tween's
+    // longer duration ran out.
     const reveal = () => {
       if (visible) return;
       visible = true;
-      gsap.to([dot, pointer], { opacity: 1, duration: 0.25 });
+      gsap.to([dot, pointer], { opacity: 1, duration: 0.25, overwrite: 'auto' });
     };
 
     const snapToElement = (el) => {
@@ -76,12 +89,22 @@ export default function CustomCursor() {
         borderRadius: radius === '0px' ? 4 : radius,
         duration: 0.35,
         ease: 'back.out(1.8)',
+        overwrite: 'auto',
       });
       // Plain rgba (not color-mix()) — GSAP interpolates color tweens by
       // parsing rgb components directly, and can't decompose an unresolved
       // CSS color function, which would make this snap instead of fade.
-      gsap.to(pointer, { backgroundColor: 'rgba(217, 119, 87, 0.14)', borderColor: 'rgba(217, 119, 87, 0)', duration: 0.25 });
-      gsap.to(dot, { opacity: 0, duration: 0.15 });
+      gsap.to(pointer, {
+        backgroundColor: 'rgba(217, 119, 87, 0.14)',
+        borderColor: 'rgba(217, 119, 87, 0)',
+        duration: 0.25,
+        overwrite: 'auto',
+      });
+      gsap.to(dot, { opacity: 0, duration: 0.15, overwrite: 'auto' });
+    };
+
+    const hideCursor = () => {
+      gsap.to([dot, pointer], { opacity: 0, duration: 0.15, overwrite: 'auto' });
     };
 
     const releaseSnap = () => {
@@ -89,26 +112,43 @@ export default function CustomCursor() {
         width: DEFAULT_SIZE,
         height: DEFAULT_SIZE,
         borderRadius: 9999,
+        opacity: 1,
         duration: 0.3,
         ease: 'power3.out',
+        overwrite: 'auto',
       });
-      gsap.to(pointer, { backgroundColor: 'rgba(217, 119, 87, 0)', borderColor: 'rgba(217, 119, 87, 0.7)', duration: 0.25 });
-      gsap.to(dot, { opacity: 1, duration: 0.2 });
+      gsap.to(pointer, {
+        backgroundColor: 'rgba(217, 119, 87, 0)',
+        borderColor: 'rgba(217, 119, 87, 0.7)',
+        duration: 0.25,
+        overwrite: 'auto',
+      });
+      gsap.to(dot, { opacity: 1, duration: 0.2, overwrite: 'auto' });
     };
 
     const enterText = () => {
-      gsap.to(pointer, { width: 2, height: 22, borderRadius: 2, duration: 0.25, ease: 'power2.out' });
-      gsap.to(pointer, { backgroundColor: 'rgba(217, 119, 87, 1)', borderColor: 'rgba(217, 119, 87, 0)', duration: 0.2 });
-      gsap.to(dot, { opacity: 0, duration: 0.15 });
+      gsap.to(pointer, { width: 2, height: 22, borderRadius: 2, duration: 0.25, ease: 'power2.out', overwrite: 'auto' });
+      gsap.to(pointer, {
+        backgroundColor: 'rgba(217, 119, 87, 1)',
+        borderColor: 'rgba(217, 119, 87, 0)',
+        duration: 0.2,
+        overwrite: 'auto',
+      });
+      gsap.to(dot, { opacity: 0, duration: 0.15, overwrite: 'auto' });
     };
 
     // Large tappable areas (project cards) — a soft glow that keeps
     // following the actual cursor, rather than freezing to the card's
     // center like a small button would.
     const enterGlow = () => {
-      gsap.to(pointer, { width: GLOW_SIZE, height: GLOW_SIZE, borderRadius: 9999, duration: 0.35, ease: 'power2.out' });
-      gsap.to(pointer, { backgroundColor: 'rgba(217, 119, 87, 0.16)', borderColor: 'rgba(217, 119, 87, 0.4)', duration: 0.25 });
-      gsap.to(dot, { opacity: 0.5, duration: 0.15 });
+      gsap.to(pointer, { width: GLOW_SIZE, height: GLOW_SIZE, borderRadius: 9999, duration: 0.35, ease: 'power2.out', overwrite: 'auto' });
+      gsap.to(pointer, {
+        backgroundColor: 'rgba(217, 119, 87, 0.16)',
+        borderColor: 'rgba(217, 119, 87, 0.4)',
+        duration: 0.25,
+        overwrite: 'auto',
+      });
+      gsap.to(dot, { opacity: 0.5, duration: 0.15, overwrite: 'auto' });
     };
 
     const handleMove = (event) => {
@@ -128,7 +168,7 @@ export default function CustomCursor() {
 
     const handleLeaveWindow = () => {
       visible = false;
-      gsap.to([dot, pointer], { opacity: 0, duration: 0.2 });
+      gsap.to([dot, pointer], { opacity: 0, duration: 0.2, overwrite: 'auto' });
     };
 
     const handleOver = (event) => {
@@ -136,12 +176,17 @@ export default function CustomCursor() {
       if (!(target instanceof Element)) return;
 
       const textEl = target.closest(TEXT_SELECTOR);
+      const hideEl = target.closest(HIDE_SELECTOR);
       const snapEl = target.closest(SNAP_SELECTOR);
 
       if (textEl) {
         if (snapped?.el === textEl) return;
         snapped = { el: textEl, mode: 'text' };
         enterText();
+      } else if (hideEl) {
+        if (snapped?.el === hideEl) return;
+        snapped = { el: hideEl, mode: 'hidden' };
+        hideCursor();
       } else if (snapEl) {
         if (snapped?.el === snapEl) return;
         const isLarge = snapEl.getBoundingClientRect().height > GLOW_MAX_HEIGHT;
