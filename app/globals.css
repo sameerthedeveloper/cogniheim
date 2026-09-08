@@ -82,25 +82,24 @@
   }
 
   /* A plain CSS gradient behind the hero copy — oversized so its
-     background-position has room to move, then periodically retargeted
-     to a random spot in animations/heroGradientShift.js. The transition
-     here (not GSAP) does the actual easing between positions, so it
-     keeps working regardless of rAF throttling. */
+     background-position has room to travel. GSAP (animations/
+     heroGradientPan.js) owns the actual panning so it rides the same
+     ticker as the rest of the page's motion; this rule only sets the
+     art and the resting position for the no-JS/reduced-motion case. */
   .hero-gradient-bg {
     background-image: linear-gradient(
       160deg,
       var(--color-surface-3) 0%,
-      color-mix(in srgb, var(--color-accent) 16%, var(--color-surface-3)) 45%,
-      color-mix(in srgb, #d9a05b 20%, var(--color-surface-3)) 100%
+      color-mix(in srgb, var(--color-accent) 30%, var(--color-surface-3)) 45%,
+      color-mix(in srgb, #d9a05b 34%, var(--color-surface-3)) 100%
     );
-    background-size: 200% 200%;
-    background-position: 50% 50%;
-    transition: background-position 4.5s ease-in-out;
+    background-size: 280% 280%;
+    background-position: 15% 20%;
   }
 
   @media (prefers-reduced-motion: reduce) {
     .hero-gradient-bg {
-      transition: none;
+      background-position: 50% 50%;
     }
   }
 
@@ -173,6 +172,34 @@
     .custom-cursor-dot,
     .custom-cursor-pointer {
       display: none !important;
+    }
+  }
+
+  /* Skill chips sit in the site's muted paper palette at rest — the same
+     restraint as everywhere else — and only show a tool's real brand
+     color on hover, so the reveal itself is the point rather than a
+     decorative hover on every card. --chip-bg/--chip-fg/--chip-ring are
+     set per chip inline in page.jsx. */
+  .skill-chip {
+    transition: background 0.4s ease, border-color 0.4s ease, color 0.35s ease,
+      transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  }
+
+  .skill-chip:hover {
+    background: var(--chip-bg);
+    border-color: transparent;
+    color: var(--chip-fg);
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px -14px color-mix(in srgb, var(--chip-ring) 60%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .skill-chip {
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .skill-chip:hover {
+      transform: none;
     }
   }
 }

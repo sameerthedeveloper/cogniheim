@@ -1,12 +1,25 @@
 import { ExternalLink, LayoutTemplate, WifiOff, Activity, Accessibility, ArrowUpRight, Mail, Code2, Zap, Braces } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import {
+  faGithub,
+  faLinkedin,
+  faReact,
+  faJs,
+  faTypescript,
+  faTailwindCss,
+  faNodeJs,
+  faGitAlt,
+  faFigma,
+  faPostgresql,
+  faPython,
+} from '@fortawesome/free-brands-svg-icons';
 import Nav from './components/Nav.jsx';
 import ScrollProgress from './components/ScrollProgress.jsx';
 import ContactForm from './components/ContactForm.jsx';
 import ServiceArt from './components/ServiceArt.jsx';
 import SplitHeading from './components/SplitHeading.jsx';
 import { Button } from './components/ui/button.jsx';
+import { NextjsIcon, SupabaseIcon, FirebaseIcon } from './components/icons.jsx';
 
 const HERO_DOODLES = [
   { icon: Code2, className: 'top-[20%] left-[6%] lg:left-[11%]', rotate: -12, size: 32 },
@@ -83,6 +96,31 @@ const SERVICES = [
     icon: Accessibility,
     tone: 'accessibility',
   },
+];
+
+// Each chip stays in the site's muted paper tone until hover, when it
+// switches to the tool's own brand color — bg/fg/ring drive .skill-chip
+// in globals.css. `icon` is a FontAwesome brand glyph; `Svg` is a local
+// logo component (icons.jsx) for the few tools FontAwesome doesn't ship.
+const SKILLS = [
+  { name: 'React', icon: faReact, bg: '#61dafb', fg: '#0b2027', ring: '#61dafb' },
+  { name: 'Next.js', Svg: NextjsIcon, bg: '#000000', fg: '#ffffff', ring: '#404040' },
+  { name: 'JavaScript', icon: faJs, bg: '#f0db4f', fg: '#1a1a1a', ring: '#f0db4f' },
+  { name: 'TypeScript', icon: faTypescript, bg: '#3178c6', fg: '#ffffff', ring: '#3178c6' },
+  { name: 'Tailwind CSS', icon: faTailwindCss, bg: '#38bdf8', fg: '#06232f', ring: '#38bdf8' },
+  { name: 'Node.js', icon: faNodeJs, bg: '#3c873a', fg: '#ffffff', ring: '#3c873a' },
+  { name: 'Supabase', Svg: SupabaseIcon, bg: '#3ecf8e', fg: '#0b2118', ring: '#3ecf8e' },
+  { name: 'Firebase', Svg: FirebaseIcon, bg: '#ffa000', fg: '#3a2400', ring: '#ffa000' },
+  { name: 'PostgreSQL', icon: faPostgresql, bg: '#336791', fg: '#ffffff', ring: '#336791' },
+  { name: 'Git', icon: faGitAlt, bg: '#f05033', fg: '#ffffff', ring: '#f05033' },
+  {
+    name: 'Figma',
+    icon: faFigma,
+    bg: 'linear-gradient(135deg, #0acf83, #1abcfe, #a259ff, #ff7262, #f24e1e)',
+    fg: '#ffffff',
+    ring: '#a259ff',
+  },
+  { name: 'Python', icon: faPython, bg: '#306998', fg: '#ffffff', ring: '#ffd43b' },
 ];
 
 const SOCIALS = [
@@ -206,6 +244,38 @@ export default function Home() {
                 </li>
               ))}
             </ol>
+          </div>
+        </section>
+
+        {/* STACK */}
+        <section id="stack" className="flex min-h-svh scroll-mt-24 flex-col justify-center px-5 py-24 sm:px-8">
+          <div className="mx-auto grid max-w-wide gap-10 lg:grid-cols-[1fr_1.7fr] lg:gap-16">
+            <div className="lg:sticky lg:top-28 lg:self-start">
+              <SplitHeading
+                text="What I reach for."
+                className="text-4xl font-semibold tracking-tight text-ink sm:text-5xl"
+              />
+              <p className="reveal mt-4 max-w-xs text-muted">
+                Twelve tools that show up across these projects — hover one for its real color.
+              </p>
+            </div>
+
+            <div className="reveal flex flex-wrap gap-3">
+              {SKILLS.map(({ name, icon, Svg, bg, fg, ring }) => (
+                <span
+                  key={name}
+                  className="skill-chip inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2.5 text-sm font-medium text-muted"
+                  style={{ '--chip-bg': bg, '--chip-fg': fg, '--chip-ring': ring }}
+                >
+                  {icon ? (
+                    <FontAwesomeIcon icon={icon} className="h-4 w-4" aria-hidden="true" />
+                  ) : (
+                    <Svg className="h-4 w-4" />
+                  )}
+                  {name}
+                </span>
+              ))}
+            </div>
           </div>
         </section>
 

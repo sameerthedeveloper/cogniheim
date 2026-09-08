@@ -11,7 +11,7 @@ import { animateHeroTyped } from '../animations/typed.js';
 import { initCardLift } from '../animations/cardHover.js';
 import { animateWorkThumbs } from '../animations/workReveal.js';
 import { initCursorLabel } from '../animations/cursorLabel.js';
-import { initHeroGradientShift } from '../animations/heroGradientShift.js';
+import { initHeroGradientPan } from '../animations/heroGradientPan.js';
 import { animateSectionHeadings } from '../animations/sectionHeadings.js';
 import { initMagneticHover } from '../animations/magneticHover.js';
 
@@ -45,7 +45,7 @@ export default function SiteEffects() {
     initCardLift(reducedMotion);
     animateWorkThumbs(reducedMotion);
     initCursorLabel(reducedMotion);
-    const stopGradientShift = initHeroGradientShift(reducedMotion);
+    const stopGradientPan = initHeroGradientPan(reducedMotion);
     animateSectionHeadings(reducedMotion);
     initMagneticHover(reducedMotion);
 
@@ -65,7 +65,7 @@ export default function SiteEffects() {
     return () => {
       window.removeEventListener('resize', handleResize);
       lenis?.destroy();
-      stopGradientShift?.();
+      stopGradientPan?.();
     };
   }, []);
 
