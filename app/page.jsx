@@ -246,7 +246,7 @@ export default function Home() {
               </span>
             </p>
             <p className="hero-subhead mx-auto mt-6 max-w-xl text-lg text-muted sm:text-xl">
-              I&apos;m Mohamed Sameer S, a frontend developer in Chennai. I ship React and
+              I&apos;m Mohamed Sameer S, A Full-Stack Developer in Chennai. I ship React and
               Next.js apps that keep working offline — for real clients and real
               communities.
             </p>
