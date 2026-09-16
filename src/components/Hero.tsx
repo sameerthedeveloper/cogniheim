@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { useContent } from "../content/ContentContext";
-import { RingDoodle, SquiggleDoodle, StarDoodle } from "./Doodles";
+import { Sparkles, CircleDot, Waves, ArrowRight } from "lucide-react";
+import { FloatIcon } from "./FloatIcon";
 
 export function Hero() {
   const root = useRef<HTMLDivElement>(null);
@@ -81,9 +82,9 @@ export function Hero() {
         }}
       />
 
-      <RingDoodle className="pointer-events-none absolute right-[8%] top-[18%] hidden text-accent/30 lg:block" />
-      <StarDoodle className="pointer-events-none absolute right-[18%] top-[58%] hidden text-muted/30 lg:block" delay={0.3} />
-      <SquiggleDoodle className="pointer-events-none absolute bottom-[8%] left-[6%] hidden text-line lg:block" delay={0.6} />
+      <FloatIcon icon={CircleDot} float="rotate" size={34} className="pointer-events-none absolute right-[8%] top-[18%] hidden text-accent/40 lg:block" />
+      <FloatIcon icon={Sparkles} float="bob" delay={0.3} size={26} className="pointer-events-none absolute right-[18%] top-[58%] hidden text-muted/40 lg:block" />
+      <FloatIcon icon={Waves} float="drift" delay={0.6} size={30} className="pointer-events-none absolute bottom-[10%] left-[6%] hidden text-muted/25 lg:block" />
 
       <div className="ch-container relative z-10">
         <p className="hero-eyebrow mb-6 text-[13px] font-medium uppercase tracking-[0.3em] text-accent">
@@ -118,9 +119,7 @@ export function Hero() {
             className="hero-cta group inline-flex items-center gap-2 rounded-full border border-line px-7 py-3.5 text-[14px] font-medium text-text transition-colors hover:border-accent/50"
           >
             {hero.ctaSecondary}
-            <span className="transition-transform group-hover:translate-x-1">
-              →
-            </span>
+            <ArrowRight size={16} strokeWidth={2} className="transition-transform group-hover:translate-x-1" />
           </a>
         </div>
       </div>

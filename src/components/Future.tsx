@@ -1,6 +1,7 @@
 import { useReveal } from "../lib/useReveal";
 import { useContent } from "../content/ContentContext";
-import { SquiggleDoodle } from "./Doodles";
+import { Rocket } from "lucide-react";
+import { FloatIcon } from "./FloatIcon";
 
 export function Future() {
   const ref = useReveal<HTMLDivElement>();
@@ -9,7 +10,7 @@ export function Future() {
 
   return (
     <section className="relative flex min-h-screen flex-col justify-center border-t border-line py-24">
-      <SquiggleDoodle className="pointer-events-none absolute right-[8%] top-[16%] hidden text-accent/30 lg:block" />
+      <FloatIcon icon={Rocket} float="drift" size={30} className="pointer-events-none absolute right-[8%] top-[16%] hidden text-accent/30 lg:block" />
       <div
         ref={ref}
         className="ch-container grid gap-10 md:grid-cols-[1fr_1.2fr] md:gap-16"

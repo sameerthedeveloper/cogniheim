@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import { useReveal } from "../lib/useReveal";
 import { useContent } from "../content/ContentContext";
 
@@ -45,9 +46,7 @@ export function SelectedWork() {
             </p>
             <span className="mt-8 inline-flex items-center gap-2 text-[14px] font-medium text-accent">
               {work.cta}
-              <span className="transition-transform group-hover:translate-x-1">
-                →
-              </span>
+              <ArrowUpRight size={16} strokeWidth={2} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
             </span>
           </div>
         </a>
