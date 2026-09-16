@@ -25,9 +25,13 @@ export function Process() {
           {process.steps.map((s, i) => {
             const Icon = ICONS[i % ICONS.length];
             return (
-              <div key={i} data-reveal className="relative pl-6">
-                <span className="absolute left-0 top-1 h-full w-px bg-line md:hidden" />
-                <Icon size={22} strokeWidth={1.5} className="mb-4 text-accent" />
+              <div key={i} data-reveal className="group relative pl-6">
+                <span className="absolute left-0 top-1 h-full w-px bg-line transition-colors duration-300 group-hover:bg-accent md:hidden" />
+                <Icon
+                  size={22}
+                  strokeWidth={1.5}
+                  className="mb-4 text-accent transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6"
+                />
                 <span className="font-display block text-sm text-accent">
                   {String(i + 1).padStart(2, "0")}
                 </span>

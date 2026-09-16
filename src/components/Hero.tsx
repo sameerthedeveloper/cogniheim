@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { useContent } from "../content/ContentContext";
-import { Sparkles, CircleDot, Waves, ArrowRight } from "lucide-react";
+import { Sparkles, CircleDot, Waves, ArrowRight, Globe, Layers, Rocket } from "lucide-react";
 import { FloatIcon } from "./FloatIcon";
 
 export function Hero() {
@@ -17,13 +17,36 @@ export function Hero() {
     // and a relative .from() would otherwise capture whatever half-animated
     // inline style the first (killed) run left behind as its target value.
     gsap.set(el, { clearProps: "opacity,visibility" });
-    gsap.set(".hero-eyebrow, .hero-word, .hero-sub, .hero-cta, .hero-glow", {
+    gsap.set(".hero-eyebrow, .hero-word, .hero-sub, .hero-cta, .hero-glow, .hero-edge", {
       clearProps: "all",
     });
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(el, { autoAlpha: 1 });
+      gsap.set(".hero-eyebrow, .hero-word, .hero-sub, .hero-cta, .hero-glow, .hero-edge", {
+        autoAlpha: 1,
+        x: 0,
+        y: 0,
+        opacity: 1,
+      });
+      return;
+    }
 
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
     tl.set(el, { autoAlpha: 1 })
+      .fromTo(
+        ".hero-edge-left",
+        { autoAlpha: 0, x: -60 },
+        { autoAlpha: 1, x: 0, duration: 1.4, ease: "power2.out" },
+        0.1,
+      )
+      .fromTo(
+        ".hero-edge-right",
+        { autoAlpha: 0, x: 60 },
+        { autoAlpha: 1, x: 0, duration: 1.4, ease: "power2.out" },
+        0.2,
+      )
       .fromTo(
         ".hero-eyebrow",
         { autoAlpha: 0, y: 14 },
@@ -82,6 +105,25 @@ export function Hero() {
         }}
       />
 
+      <Globe
+        strokeWidth={0.75}
+        aria-hidden="true"
+        className="hero-edge hero-edge-left pointer-events-none absolute -left-16 top-1/2 hidden -translate-y-1/2 text-muted/[0.07] md:block"
+        size={340}
+      />
+      <Layers
+        strokeWidth={0.75}
+        aria-hidden="true"
+        className="hero-edge hero-edge-right pointer-events-none absolute -right-14 top-[20%] hidden text-accent/[0.08] md:block"
+        size={220}
+      />
+      <Rocket
+        strokeWidth={0.75}
+        aria-hidden="true"
+        className="hero-edge hero-edge-right pointer-events-none absolute -right-10 bottom-[10%] hidden text-muted/[0.08] md:block"
+        size={180}
+      />
+
       <FloatIcon icon={CircleDot} float="rotate" size={34} className="pointer-events-none absolute right-[8%] top-[18%] hidden text-accent/40 lg:block" />
       <FloatIcon icon={Sparkles} float="bob" delay={0.3} size={26} className="pointer-events-none absolute right-[18%] top-[58%] hidden text-muted/40 lg:block" />
       <FloatIcon icon={Waves} float="drift" delay={0.6} size={30} className="pointer-events-none absolute bottom-[10%] left-[6%] hidden text-muted/25 lg:block" />
@@ -92,11 +134,14 @@ export function Hero() {
         </p>
 
         <h1 className="font-display max-w-4xl text-[clamp(2.6rem,7.5vw,5.5rem)] font-medium leading-[1.02] tracking-tight text-text">
-          {words.map((w, i) => (
-            <span key={i} className="hero-word mr-3 inline-block">
-              {w}
-            </span>
-          ))}
+          <span aria-hidden="true">
+            {words.map((w, i) => (
+              <span key={i} className="hero-word mr-3 inline-block">
+                {w}
+              </span>
+            ))}
+          </span>
+          <span className="sr-only">{hero.headline}</span>
         </h1>
 
         <p className="hero-sub mt-8 max-w-lg text-lg leading-relaxed text-muted">
@@ -108,7 +153,7 @@ export function Hero() {
             href="#contact"
             data-magnetic
             data-cursor="view"
-            className="hero-cta rounded-full bg-accent px-7 py-3.5 text-[14px] font-medium text-[#04140f] transition-transform"
+            className="hero-cta rounded-full bg-accent px-7 py-3.5 text-[14px] font-medium text-[#04140f] shadow-[0_0_0_0_rgba(57,185,176,0)] transition-all duration-300 hover:shadow-[0_8px_32px_-4px_rgba(57,185,176,0.45)]"
           >
             {hero.ctaPrimary}
           </a>

@@ -6,18 +6,17 @@ const PAD = 10; // how far the shape grows past the element's own edges
 const LOCK_TRAVEL = 10; // max px the shape can drift toward the pointer while locked
 
 /**
- * True iPadOS-style pointer: a small dot/circle that roams freely, and
- * "shrink-wraps" into the exact size, position, and corner radius of
- * whatever [data-cursor] element it lands on — a pill over a pill button,
- * a rounded square over a card — rather than swelling into a fixed blob.
- * Disabled entirely on touch/coarse pointers.
+ * 6px dot + a morphing outline pointer: the outline shrink-wraps into the
+ * exact size, position, and corner radius of whatever [data-cursor] element
+ * it lands on — a pill over a pill button, a rounded square over a card —
+ * rather than swelling into a fixed blob. Disabled on touch/coarse pointers.
  */
 export function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
   const shapeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!window.matchMedia("(pointer: fine)").matches) return;
+    if (window.matchMedia("(hover: none), (pointer: coarse)").matches) return;
 
     const dot = dotRef.current!;
     const shape = shapeRef.current!;
@@ -43,9 +42,9 @@ export function CustomCursor() {
       show();
       lastX = e.clientX;
       lastY = e.clientY;
-      if (locked) return;
       dotX(lastX);
       dotY(lastY);
+      if (locked) return;
       shapeX(lastX);
       shapeY(lastY);
     };
@@ -110,7 +109,7 @@ export function CustomCursor() {
       const onEnter = (e: MouseEvent) => {
         locked = true;
         gsap.to(shape, {
-          backgroundColor: "color-mix(in oklab, var(--ch-text) 14%, transparent)",
+          backgroundColor: "color-mix(in oklab, var(--ch-muted) 22%, transparent)",
           borderColor: "transparent",
           duration: 0.3,
         });
@@ -127,7 +126,7 @@ export function CustomCursor() {
           height: IDLE_SIZE,
           borderRadius: 999,
           backgroundColor: "transparent",
-          borderColor: "var(--ch-accent)",
+          borderColor: "color-mix(in oklab, var(--ch-muted) 40%, transparent)",
           duration: 0.4,
           ease: "power3.out",
         });
@@ -159,13 +158,13 @@ export function CustomCursor() {
     <>
       <div
         ref={dotRef}
-        className="pointer-events-none fixed left-0 top-0 z-[100] h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent opacity-0"
+        className="pointer-events-none fixed left-0 top-0 z-[100] h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-text opacity-0"
         aria-hidden="true"
       />
       <div
         ref={shapeRef}
-        className="pointer-events-none fixed left-0 top-0 z-[100] -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent opacity-0"
-        style={{ width: IDLE_SIZE, height: IDLE_SIZE }}
+        className="pointer-events-none fixed left-0 top-0 z-[100] -translate-x-1/2 -translate-y-1/2 rounded-full border border-muted/40 opacity-0"
+        style={{ width: IDLE_SIZE, height: IDLE_SIZE, backgroundColor: "transparent" }}
         aria-hidden="true"
       />
     </>

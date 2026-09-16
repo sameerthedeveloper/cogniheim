@@ -21,6 +21,13 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: "Fraunces";
+  src: url("/fonts/fraunces-variable.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   --ch-bg: #050505;
@@ -46,7 +53,7 @@
   --color-metal: #e9e9e9;
 
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-display: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
 
   --radius-ch-sm: 10px;
   --radius-ch-md: 18px;
@@ -85,6 +92,60 @@ html.has-custom-cursor button {
   color: #04120f;
 }
 
+:focus-visible {
+  outline: 2px solid var(--ch-accent);
+  outline-offset: 3px;
+}
+
+/* slow-drifting ambient gradient, sits behind all page content */
+.ch-gradient-bg {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: var(--ch-bg);
+}
+
+.ch-gradient-bg::before,
+.ch-gradient-bg::after {
+  content: "";
+  position: absolute;
+  width: 55vw;
+  height: 55vw;
+  min-width: 420px;
+  min-height: 420px;
+  border-radius: 50%;
+  filter: blur(120px);
+  will-change: transform;
+}
+
+.ch-gradient-bg::before {
+  top: -18%;
+  left: -12%;
+  background: radial-gradient(circle, color-mix(in oklab, var(--ch-accent) 55%, transparent) 0%, transparent 70%);
+  opacity: 0.35;
+  animation: ch-drift-1 28s ease-in-out infinite;
+}
+
+.ch-gradient-bg::after {
+  bottom: -22%;
+  right: -14%;
+  background: radial-gradient(circle, color-mix(in oklab, var(--ch-accent-deep) 55%, transparent) 0%, transparent 70%);
+  opacity: 0.28;
+  animation: ch-drift-2 34s ease-in-out infinite;
+}
+
+@keyframes ch-drift-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(9vw, 7vh) scale(1.15); }
+}
+
+@keyframes ch-drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-7vw, -9vh) scale(1.12); }
+}
+
 /* subtle grain overlay for atmosphere */
 .ch-grain {
   pointer-events: none;
@@ -97,7 +158,8 @@ html.has-custom-cursor button {
 }
 
 .font-display {
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
+  font-variation-settings: "opsz" 30;
 }
 
 .ch-container {
@@ -110,5 +172,21 @@ html.has-custom-cursor button {
 @media (min-width: 768px) {
   .ch-container {
     padding-inline: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .ch-gradient-bg::before,
+  .ch-gradient-bg::after {
+    animation: none;
   }
 }

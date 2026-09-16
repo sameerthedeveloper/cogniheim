@@ -5,7 +5,7 @@ export function Footer() {
   const { brand, footer } = content;
 
   return (
-    <footer className="border-t border-line py-14">
+    <footer className="relative border-t border-line py-14">
       <div className="ch-container flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
         <div>
           <div className="flex items-center gap-2.5">
