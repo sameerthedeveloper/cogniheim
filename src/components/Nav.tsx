@@ -32,7 +32,7 @@ export function Nav() {
           <img
             src="/logo.png"
             alt="Cogniheim"
-            className="h-15 w-auto object-contain"
+            className="h-9 w-auto object-contain"
           />
         </a>
 

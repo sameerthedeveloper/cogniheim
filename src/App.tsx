@@ -18,6 +18,7 @@ function App() {
 
   return (
     <>
+      <div className="ch-gradient-bg" aria-hidden="true" />
       <div className="ch-grain" aria-hidden="true" />
       <CustomCursor />
       <Nav />

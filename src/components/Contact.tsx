@@ -1,12 +1,26 @@
+import { useState } from "react";
 import { useReveal } from "../lib/useReveal";
 import { useContent } from "../content/ContentContext";
-import { MessageCircle, Plus, ArrowRight } from "lucide-react";
+import { MessageCircle, Plus, ArrowRight, Copy, Check } from "lucide-react";
 import { FloatIcon } from "./FloatIcon";
+
+const EMAIL = "hello@cogniheim.com";
 
 export function Contact() {
   const ref = useReveal<HTMLDivElement>();
   const { content } = useContent();
   const { contact } = content;
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {
+      // clipboard unavailable; the mailto link still works
+    }
+  };
 
   return (
     <section
@@ -28,16 +42,31 @@ export function Contact() {
         <p data-reveal className="mt-6 max-w-lg text-lg leading-relaxed text-muted">
           {contact.sub}
         </p>
-        <a
-          data-reveal
-          data-magnetic
-          data-cursor="view"
-          href="mailto:hello@cogniheim.com"
-          className="group mt-10 inline-flex items-center gap-3 rounded-full bg-accent px-8 py-4 text-[15px] font-medium text-[#04140f] transition-transform"
-        >
-          {contact.cta}
-          <ArrowRight size={16} strokeWidth={2} className="transition-transform group-hover:translate-x-1" />
-        </a>
+        <div data-reveal className="mt-10 flex flex-wrap items-center gap-4">
+          <a
+            data-magnetic
+            data-cursor="view"
+            href={`mailto:${EMAIL}`}
+            className="group inline-flex items-center gap-3 rounded-full bg-accent px-8 py-4 text-[15px] font-medium text-[#04140f] shadow-[0_0_0_0_rgba(57,185,176,0)] transition-all duration-300 hover:shadow-[0_8px_32px_-4px_rgba(57,185,176,0.45)]"
+          >
+            {contact.cta}
+            <ArrowRight size={16} strokeWidth={2} className="transition-transform group-hover:translate-x-1" />
+          </a>
+          <button
+            type="button"
+            onClick={copyEmail}
+            data-cursor="view"
+            aria-label={copied ? "Email copied" : `Copy ${EMAIL}`}
+            className="group inline-flex items-center gap-2.5 rounded-full border border-line px-6 py-4 text-[15px] font-medium text-text transition-colors hover:border-accent/50"
+          >
+            <span className="tabular-nums">{copied ? "Copied" : EMAIL}</span>
+            {copied ? (
+              <Check size={15} strokeWidth={2} className="text-accent" />
+            ) : (
+              <Copy size={15} strokeWidth={2} className="text-muted transition-colors group-hover:text-accent" />
+            )}
+          </button>
+        </div>
       </div>
     </section>
   );

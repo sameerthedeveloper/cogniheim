@@ -29,6 +29,11 @@ export function FloatIcon({
     const el = ref.current;
     if (!el) return;
 
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(el, { autoAlpha: 1, scale: 1 });
+      return;
+    }
+
     gsap.set(el, { autoAlpha: 0, scale: 0.6 });
     const tl = gsap.timeline({
       scrollTrigger: { trigger: el, start: "top 90%" },
@@ -53,7 +58,7 @@ export function FloatIcon({
   }, [float, delay]);
 
   return (
-    <div ref={ref} className={className}>
+    <div ref={ref} className={className} aria-hidden="true">
       <Icon size={size} strokeWidth={strokeWidth} />
     </div>
   );

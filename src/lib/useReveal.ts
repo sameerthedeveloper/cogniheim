@@ -12,6 +12,11 @@ export function useReveal<T extends HTMLElement>() {
     const root = ref.current;
     if (!root) return;
 
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(root.querySelectorAll<HTMLElement>("[data-reveal]"), { autoAlpha: 1, y: 0 });
+      return;
+    }
+
     const groups = new Map<string, HTMLElement[]>();
     root.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
       const key = el.dataset.revealGroup ?? el.dataset.reveal ?? "default";

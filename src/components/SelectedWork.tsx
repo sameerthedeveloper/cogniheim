@@ -21,7 +21,7 @@ export function SelectedWork() {
           href="#contact"
           data-reveal
           data-cursor="view"
-          className="group mt-14 grid overflow-hidden rounded-ch-lg border border-line bg-surface transition-colors hover:bg-surface-2 md:grid-cols-2"
+          className="group mt-14 grid overflow-hidden rounded-ch-lg border border-line bg-surface shadow-[0_40px_80px_-40px_rgba(0,0,0,0.6)] transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 hover:bg-surface-2 hover:shadow-[0_50px_90px_-30px_rgba(0,0,0,0.7)] md:grid-cols-2"
         >
           <div
             className="relative aspect-[4/3] overflow-hidden md:aspect-auto"
@@ -30,7 +30,7 @@ export function SelectedWork() {
                 "radial-gradient(circle at 30% 20%, color-mix(in oklab, var(--ch-accent) 35%, transparent), var(--ch-surface-2) 60%)",
             }}
           >
-            <div className="absolute inset-0 flex items-center justify-center">
+            <div className="absolute inset-0 flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
               <span className="font-display text-6xl font-medium text-text/10 md:text-8xl">
                 {work.initials}
               </span>

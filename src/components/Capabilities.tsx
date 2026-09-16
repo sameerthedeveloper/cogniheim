@@ -21,14 +21,17 @@ export function Capabilities() {
           {capabilities.eyebrow}
         </p>
 
-        <div className="mt-14 grid gap-px overflow-hidden rounded-ch-lg border border-line bg-line md:grid-cols-2">
+        <div className="mt-14 grid gap-px overflow-hidden rounded-ch-lg border border-line bg-line shadow-[0_40px_80px_-40px_rgba(0,0,0,0.6)] md:grid-cols-2">
           {capabilities.items.map((item, i) => {
             const Icon = ICONS[i % ICONS.length];
             return (
-              <div
+              <a
                 key={i}
+                href="#contact"
                 data-reveal
-                className="group relative bg-surface p-9 transition-colors duration-300 hover:bg-surface-2 md:p-12"
+                data-cursor="view"
+                className="group relative bg-surface p-9 transition-all duration-300 hover:bg-surface-2 md:p-12"
+                style={{ boxShadow: "inset 0 1px 0 0 rgba(255,255,255,0.04)" }}
               >
                 <div className="flex items-center justify-between">
                   <span className="font-display text-sm text-muted/60">
@@ -46,7 +49,7 @@ export function Capabilities() {
                 <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-muted">
                   {item.desc}
                 </p>
-              </div>
+              </a>
             );
           })}
         </div>
