@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Cogniheim mark">
+  <defs>
+    <linearGradient id="metal" x1="20%" y1="10%" x2="85%" y2="90%">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.48" stop-color="#E9E9E9"/>
+      <stop offset="1" stop-color="#AEB3B5"/>
+    </linearGradient>
+    <radialGradient id="orb" cx="35%" cy="30%">
+      <stop offset="0" stop-color="#8DE8E0"/>
+      <stop offset="0.55" stop-color="#39B9B0"/>
+      <stop offset="1" stop-color="#1F8E88"/>
+    </radialGradient>
+  </defs>
+  <path fill="url(#metal)" d="M128 24c-43 0-78 35-78 78 0 33 20 61 49 73v-34c-10-9-16-23-16-39 0-25 20-45 45-45h58c-7-19-30-33-58-33Z"/>
+  <path fill="url(#metal)" d="M186 57v34h11c8 0 15 7 15 15v69c0 20-16 36-36 36h-26v31h28c37 0 67-30 67-67v-69c0-27-22-49-49-49Z"/>
+  <path fill="url(#metal)" d="M82 168v34c10 9 24 15 39 15h22v-31h-22c-15 0-29-7-39-18Z"/>
+  <circle cx="158" cy="84" r="22" fill="url(#orb)"/>
+</svg>
