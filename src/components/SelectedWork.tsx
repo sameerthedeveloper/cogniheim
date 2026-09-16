@@ -19,6 +19,7 @@ export function SelectedWork() {
         <a
           href="#contact"
           data-reveal
+          data-cursor="view"
           className="group mt-14 grid overflow-hidden rounded-ch-lg border border-line bg-surface transition-colors hover:bg-surface-2 md:grid-cols-2"
         >
           <div

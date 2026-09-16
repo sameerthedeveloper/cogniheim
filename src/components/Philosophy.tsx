@@ -1,5 +1,6 @@
 import { useReveal } from "../lib/useReveal";
 import { useContent } from "../content/ContentContext";
+import { RingDoodle, StarDoodle } from "./Doodles";
 
 export function Philosophy() {
   const ref = useReveal<HTMLDivElement>();
@@ -18,6 +19,8 @@ export function Philosophy() {
             "radial-gradient(ellipse 60% 60% at 50% 50%, color-mix(in oklab, var(--ch-accent) 8%, transparent), transparent 70%)",
         }}
       />
+      <StarDoodle className="pointer-events-none absolute left-[12%] top-[20%] hidden text-accent/40 lg:block" />
+      <RingDoodle className="pointer-events-none absolute bottom-[15%] right-[10%] hidden text-muted/30 lg:block" delay={0.4} />
       <div ref={ref} className="ch-container relative text-center">
         <p data-reveal className="text-[13px] font-medium uppercase tracking-[0.3em] text-accent">
           {philosophy.eyebrow}

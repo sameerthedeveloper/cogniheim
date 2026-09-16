@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { useContent } from "../content/ContentContext";
+import { RingDoodle, SquiggleDoodle, StarDoodle } from "./Doodles";
 
 export function Hero() {
   const root = useRef<HTMLDivElement>(null);
@@ -80,6 +81,10 @@ export function Hero() {
         }}
       />
 
+      <RingDoodle className="pointer-events-none absolute right-[8%] top-[18%] hidden text-accent/30 lg:block" />
+      <StarDoodle className="pointer-events-none absolute right-[18%] top-[58%] hidden text-muted/30 lg:block" delay={0.3} />
+      <SquiggleDoodle className="pointer-events-none absolute bottom-[8%] left-[6%] hidden text-line lg:block" delay={0.6} />
+
       <div className="ch-container relative z-10">
         <p className="hero-eyebrow mb-6 text-[13px] font-medium uppercase tracking-[0.3em] text-accent">
           {hero.eyebrow}
@@ -100,12 +105,16 @@ export function Hero() {
         <div className="mt-10 flex flex-wrap items-center gap-4">
           <a
             href="#contact"
-            className="hero-cta rounded-full bg-accent px-7 py-3.5 text-[14px] font-medium text-[#04140f] transition-transform hover:scale-[1.03]"
+            data-magnetic
+            data-cursor="view"
+            className="hero-cta rounded-full bg-accent px-7 py-3.5 text-[14px] font-medium text-[#04140f] transition-transform"
           >
             {hero.ctaPrimary}
           </a>
           <a
             href="#work"
+            data-magnetic
+            data-cursor="view"
             className="hero-cta group inline-flex items-center gap-2 rounded-full border border-line px-7 py-3.5 text-[14px] font-medium text-text transition-colors hover:border-accent/50"
           >
             {hero.ctaSecondary}

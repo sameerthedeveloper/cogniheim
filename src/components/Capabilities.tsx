@@ -1,5 +1,6 @@
 import { useReveal } from "../lib/useReveal";
 import { useContent } from "../content/ContentContext";
+import { PlusDoodle } from "./Doodles";
 
 export function Capabilities() {
   const ref = useReveal<HTMLDivElement>();
@@ -9,8 +10,9 @@ export function Capabilities() {
   return (
     <section
       id="capabilities"
-      className="flex min-h-screen flex-col justify-center border-t border-line py-24"
+      className="relative flex min-h-screen flex-col justify-center border-t border-line py-24"
     >
+      <PlusDoodle className="pointer-events-none absolute right-[10%] top-[14%] hidden text-accent/40 lg:block" />
       <div ref={ref} className="ch-container">
         <p data-reveal className="text-[13px] font-medium uppercase tracking-[0.3em] text-accent">
           {capabilities.eyebrow}

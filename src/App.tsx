@@ -1,3 +1,4 @@
+import { CustomCursor } from "./components/CustomCursor";
 import { Nav } from "./components/Nav";
 import { Hero } from "./components/Hero";
 import { Intro } from "./components/Intro";
@@ -13,6 +14,7 @@ function App() {
   return (
     <>
       <div className="ch-grain" aria-hidden="true" />
+      <CustomCursor />
       <Nav />
       <main>
         <Hero />

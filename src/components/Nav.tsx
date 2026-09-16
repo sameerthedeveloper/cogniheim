@@ -51,6 +51,9 @@ export function Nav() {
 
         <a
           href="#contact"
+          data-magnetic
+          data-magnetic-strength="0.5"
+          data-cursor="view"
           className="hidden rounded-full border border-line bg-surface px-5 py-2 text-[13px] font-medium text-text transition-all hover:border-accent/60 hover:bg-accent/10 md:inline-flex"
         >
           Start a project

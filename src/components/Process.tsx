@@ -1,5 +1,6 @@
 import { useReveal } from "../lib/useReveal";
 import { useContent } from "../content/ContentContext";
+import { ArcDoodle } from "./Doodles";
 
 export function Process() {
   const ref = useReveal<HTMLDivElement>();
@@ -9,8 +10,9 @@ export function Process() {
   return (
     <section
       id="process"
-      className="flex min-h-screen flex-col justify-center border-t border-line py-24"
+      className="relative flex min-h-screen flex-col justify-center border-t border-line py-24"
     >
+      <ArcDoodle className="pointer-events-none absolute left-[6%] top-[12%] hidden text-accent/25 lg:block" />
       <div ref={ref} className="ch-container">
         <p data-reveal className="text-[13px] font-medium uppercase tracking-[0.3em] text-accent">
           {process.eyebrow}

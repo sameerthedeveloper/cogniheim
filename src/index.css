@@ -74,6 +74,12 @@ body {
   overflow-x: hidden;
 }
 
+html.has-custom-cursor,
+html.has-custom-cursor a,
+html.has-custom-cursor button {
+  cursor: none;
+}
+
 ::selection {
   background: var(--ch-accent);
   color: #04120f;

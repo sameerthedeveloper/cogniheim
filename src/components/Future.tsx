@@ -1,5 +1,6 @@
 import { useReveal } from "../lib/useReveal";
 import { useContent } from "../content/ContentContext";
+import { SquiggleDoodle } from "./Doodles";
 
 export function Future() {
   const ref = useReveal<HTMLDivElement>();
@@ -7,7 +8,8 @@ export function Future() {
   const { future } = content;
 
   return (
-    <section className="flex min-h-screen flex-col justify-center border-t border-line py-24">
+    <section className="relative flex min-h-screen flex-col justify-center border-t border-line py-24">
+      <SquiggleDoodle className="pointer-events-none absolute right-[8%] top-[16%] hidden text-accent/30 lg:block" />
       <div
         ref={ref}
         className="ch-container grid gap-10 md:grid-cols-[1fr_1.2fr] md:gap-16"
