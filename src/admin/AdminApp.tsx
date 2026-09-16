@@ -1,7 +1,11 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { signOut } from "firebase/auth";
+import { auth } from "../lib/firebaseAuth";
 import { useContent } from "../content/ContentContext";
 import type { SiteContent } from "../content/defaultContent";
 import { useDocumentMeta, useNoIndex } from "../lib/useDocumentMeta";
+import { useAuth } from "./useAuth";
+import { Login } from "./Login";
 import { Field, TextArea, ListEditor } from "./fields";
 
 type SectionKey =
@@ -32,13 +36,42 @@ const SECTIONS: { key: SectionKey; label: string }[] = [
 ];
 
 export function AdminApp() {
-  const { content, setContent, resetContent } = useContent();
+  useNoIndex();
+  useDocumentMeta("Admin · Cogniheim", "Content dashboard for the Cogniheim website.");
+
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[#f7f7f5] text-[13px] text-[#9a9a94]">
+        Loading…
+      </div>
+    );
+  }
+
+  if (!user) return <Login />;
+
+  return <Dashboard userEmail={user.email} />;
+}
+
+function Dashboard({ userEmail }: { userEmail: string | null }) {
+  const { content, setContent, resetContent, loading: contentLoading } = useContent();
   const [draft, setDraft] = useState<SiteContent>(content);
   const [active, setActive] = useState<SectionKey>("seo");
   const [savedAt, setSavedAt] = useState<number | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const lastSynced = useRef(content);
 
-  useNoIndex();
-  useDocumentMeta("Admin · Cogniheim", "Content dashboard for the Cogniheim website.");
+  // Adopt live Firestore content into the draft as long as the admin hasn't
+  // made unsaved edits since the last sync (so we don't clobber in-progress work).
+  useEffect(() => {
+    if (JSON.stringify(draft) === JSON.stringify(lastSynced.current)) {
+      setDraft(content);
+    }
+    lastSynced.current = content;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [content]);
 
   const dirty = useMemo(() => JSON.stringify(draft) !== JSON.stringify(content), [draft, content]);
 
@@ -46,18 +79,33 @@ export function AdminApp() {
     setDraft((d) => ({ ...d, [key]: value }));
   }
 
-  function save() {
-    setContent(draft);
-    setSavedAt(Date.now());
+  async function save() {
+    setSaving(true);
+    setError(null);
+    try {
+      await setContent(draft);
+      setSavedAt(Date.now());
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Couldn't save. Please try again.");
+    } finally {
+      setSaving(false);
+    }
   }
 
   function discard() {
     setDraft(content);
   }
 
-  function resetAll() {
-    resetContent();
-    setDraft(content);
+  async function resetAll() {
+    setSaving(true);
+    setError(null);
+    try {
+      await resetContent();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Couldn't reset. Please try again.");
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (
@@ -88,12 +136,21 @@ export function AdminApp() {
               </button>
             ))}
           </nav>
-          <a
-            href="/"
-            className="mt-6 rounded-lg border border-[#e6e5e1] px-3 py-2.5 text-center text-[13px] font-medium text-[#4a4a45] transition-colors hover:bg-[#efeee9]"
-          >
-            ← View site
-          </a>
+          <div className="mt-6 space-y-2">
+            <p className="truncate px-1 text-[12px] text-[#9a9a94]">{userEmail}</p>
+            <a
+              href="/"
+              className="block rounded-lg border border-[#e6e5e1] px-3 py-2.5 text-center text-[13px] font-medium text-[#4a4a45] transition-colors hover:bg-[#efeee9]"
+            >
+              ← View site
+            </a>
+            <button
+              onClick={() => signOut(auth)}
+              className="w-full rounded-lg px-3 py-2.5 text-center text-[13px] font-medium text-[#b3413a] transition-colors hover:bg-[#efeee9]"
+            >
+              Sign out
+            </button>
+          </div>
         </aside>
 
         <div className="flex flex-1 flex-col">
@@ -103,11 +160,12 @@ export function AdminApp() {
                 {SECTIONS.find((s) => s.key === active)?.label}
               </h1>
               <p className="text-[12px] text-[#9a9a94]">
-                Edits are saved to this browser only.
+                {contentLoading ? "Loading live content…" : "Synced live via Firebase."}
               </p>
             </div>
             <div className="flex items-center gap-3">
-              {savedAt && !dirty && (
+              {error && <span className="text-[12px] text-[#b3413a]">{error}</span>}
+              {savedAt && !dirty && !error && (
                 <span className="text-[12px] text-[#0f8f7c]">Saved</span>
               )}
               {dirty && (
@@ -120,10 +178,10 @@ export function AdminApp() {
               )}
               <button
                 onClick={save}
-                disabled={!dirty}
+                disabled={!dirty || saving}
                 className="rounded-full bg-[#0f1110] px-5 py-2 text-[13px] font-medium text-white transition-opacity disabled:opacity-30"
               >
-                Save changes
+                {saving ? "Saving…" : "Save changes"}
               </button>
             </div>
           </header>
@@ -234,7 +292,8 @@ export function AdminApp() {
               <div className="mt-12 border-t border-[#e6e5e1] pt-6">
                 <button
                   onClick={resetAll}
-                  className="text-[13px] font-medium text-[#b3413a] hover:underline"
+                  disabled={saving}
+                  className="text-[13px] font-medium text-[#b3413a] hover:underline disabled:opacity-50"
                 >
                   Reset all content to defaults
                 </button>
