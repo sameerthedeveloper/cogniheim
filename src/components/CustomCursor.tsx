@@ -1,48 +1,57 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
+const IDLE_SIZE = 20;
+const PAD = 10; // how far the shape grows past the element's own edges
+const LOCK_TRAVEL = 10; // max px the shape can drift toward the pointer while locked
+
 /**
- * Apple/iPadOS-style pointer: a small dot that snaps to exact position,
- * and a soft ring that trails with elastic lag. Elements with
- * [data-cursor="view"|"drag"] swell the ring and show a label inside it;
- * [data-magnetic] pulls slightly toward the pointer while hovered.
+ * True iPadOS-style pointer: a small dot/circle that roams freely, and
+ * "shrink-wraps" into the exact size, position, and corner radius of
+ * whatever [data-cursor] element it lands on — a pill over a pill button,
+ * a rounded square over a card — rather than swelling into a fixed blob.
  * Disabled entirely on touch/coarse pointers.
  */
 export function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<HTMLDivElement>(null);
-  const labelRef = useRef<HTMLSpanElement>(null);
+  const shapeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!window.matchMedia("(pointer: fine)").matches) return;
 
     const dot = dotRef.current!;
-    const ring = ringRef.current!;
-    ring.style.mixBlendMode = "exclusion";
+    const shape = shapeRef.current!;
     document.documentElement.classList.add("has-custom-cursor");
 
+    const shapeX = gsap.quickTo(shape, "x", { duration: 0.35, ease: "power3.out" });
+    const shapeY = gsap.quickTo(shape, "y", { duration: 0.35, ease: "power3.out" });
     const dotX = gsap.quickTo(dot, "x", { duration: 0.12, ease: "power3.out" });
     const dotY = gsap.quickTo(dot, "y", { duration: 0.12, ease: "power3.out" });
-    const ringX = gsap.quickTo(ring, "x", { duration: 0.5, ease: "elastic.out(1, 0.65)" });
-    const ringY = gsap.quickTo(ring, "y", { duration: 0.5, ease: "elastic.out(1, 0.65)" });
 
+    let locked = false;
     let visible = false;
+    let lastX = window.innerWidth / 2;
+    let lastY = window.innerHeight / 2;
+
     const show = () => {
       if (visible) return;
       visible = true;
-      gsap.to([dot, ring], { autoAlpha: 1, duration: 0.25 });
+      gsap.to([dot, shape], { autoAlpha: 1, duration: 0.25 });
     };
 
     const onMove = (e: MouseEvent) => {
       show();
-      dotX(e.clientX);
-      dotY(e.clientY);
-      ringX(e.clientX);
-      ringY(e.clientY);
+      lastX = e.clientX;
+      lastY = e.clientY;
+      if (locked) return;
+      dotX(lastX);
+      dotY(lastY);
+      shapeX(lastX);
+      shapeY(lastY);
     };
     const onLeaveWindow = () => {
       visible = false;
-      gsap.to([dot, ring], { autoAlpha: 0, duration: 0.2 });
+      gsap.to([dot, shape], { autoAlpha: 0, duration: 0.2 });
     };
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseleave", onLeaveWindow);
@@ -65,40 +74,69 @@ export function CustomCursor() {
       return { el, onMoveMagnet, onLeaveMagnet };
     });
 
-    // ring swell + label for [data-cursor]
+    // shrink-wrap lock for [data-cursor] elements
     const targets = Array.from(document.querySelectorAll<HTMLElement>("[data-cursor]"));
     const cursorHandlers = targets.map((el) => {
-      const onEnter = () => {
-        const label = el.dataset.cursor ?? "";
-        if (labelRef.current) labelRef.current.textContent = label === "drag" ? "Drag" : label === "view" ? "View" : label;
-        ring.style.mixBlendMode = "normal";
-        gsap.to(ring, {
-          width: 88,
-          height: 88,
-          backgroundColor: "var(--ch-accent)",
-          borderColor: "transparent",
-          duration: 0.35,
+      const radiusFor = (r: DOMRect) => {
+        const cs = getComputedStyle(el);
+        const parsed = parseFloat(cs.borderRadius);
+        // a "pill" (rounded-full) button: keep it a pill at the new size too
+        return Number.isFinite(parsed) && parsed >= Math.min(r.width, r.height) / 2 - 1
+          ? 999
+          : (parsed || 0) + PAD * 0.4;
+      };
+
+      const settle = (e?: MouseEvent) => {
+        const r = el.getBoundingClientRect();
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
+        let ox = 0;
+        let oy = 0;
+        if (e) {
+          ox = gsap.utils.clamp(-LOCK_TRAVEL, LOCK_TRAVEL, (e.clientX - cx) * 0.25);
+          oy = gsap.utils.clamp(-LOCK_TRAVEL, LOCK_TRAVEL, (e.clientY - cy) * 0.25);
+        }
+        gsap.to(shape, {
+          x: cx + ox,
+          y: cy + oy,
+          width: r.width + PAD,
+          height: r.height + PAD,
+          borderRadius: radiusFor(r),
+          duration: 0.4,
           ease: "power3.out",
         });
-        gsap.to(dot, { scale: 0, duration: 0.2 });
-        gsap.to(labelRef.current, { autoAlpha: 1, duration: 0.2, delay: 0.1 });
       };
+
+      const onEnter = (e: MouseEvent) => {
+        locked = true;
+        gsap.to(shape, {
+          backgroundColor: "color-mix(in oklab, var(--ch-text) 14%, transparent)",
+          borderColor: "transparent",
+          duration: 0.3,
+        });
+        gsap.to(dot, { scale: 0, duration: 0.15 });
+        settle(e);
+      };
+      const onMoveTarget = (e: MouseEvent) => settle(e);
       const onLeave = () => {
-        ring.style.mixBlendMode = "exclusion";
-        gsap.to(ring, {
-          width: 36,
-          height: 36,
+        locked = false;
+        gsap.to(shape, {
+          x: lastX,
+          y: lastY,
+          width: IDLE_SIZE,
+          height: IDLE_SIZE,
+          borderRadius: 999,
           backgroundColor: "transparent",
           borderColor: "var(--ch-accent)",
-          duration: 0.35,
+          duration: 0.4,
           ease: "power3.out",
         });
         gsap.to(dot, { scale: 1, duration: 0.2 });
-        gsap.to(labelRef.current, { autoAlpha: 0, duration: 0.15 });
       };
       el.addEventListener("mouseenter", onEnter);
+      el.addEventListener("mousemove", onMoveTarget);
       el.addEventListener("mouseleave", onLeave);
-      return { el, onEnter, onLeave };
+      return { el, onEnter, onMoveTarget, onLeave };
     });
 
     return () => {
@@ -109,8 +147,9 @@ export function CustomCursor() {
         el.removeEventListener("mousemove", onMoveMagnet);
         el.removeEventListener("mouseleave", onLeaveMagnet);
       });
-      cursorHandlers.forEach(({ el, onEnter, onLeave }) => {
+      cursorHandlers.forEach(({ el, onEnter, onMoveTarget, onLeave }) => {
         el.removeEventListener("mouseenter", onEnter);
+        el.removeEventListener("mousemove", onMoveTarget);
         el.removeEventListener("mouseleave", onLeave);
       });
     };
@@ -124,15 +163,11 @@ export function CustomCursor() {
         aria-hidden="true"
       />
       <div
-        ref={ringRef}
-        className="pointer-events-none fixed left-0 top-0 z-[100] flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-accent opacity-0"
+        ref={shapeRef}
+        className="pointer-events-none fixed left-0 top-0 z-[100] -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent opacity-0"
+        style={{ width: IDLE_SIZE, height: IDLE_SIZE, backdropFilter: "blur(1px)" }}
         aria-hidden="true"
-      >
-        <span
-          ref={labelRef}
-          className="pointer-events-none whitespace-nowrap text-[11px] font-medium uppercase tracking-wide text-[#04140f] opacity-0"
-        />
-      </div>
+      />
     </>
   );
 }

@@ -42,6 +42,7 @@ export function Nav() {
             <a
               key={l.href}
               href={l.href}
+              data-cursor
               className="text-[13px] font-medium tracking-wide text-muted transition-colors hover:text-text"
             >
               {l.label}
