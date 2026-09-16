@@ -1,13 +1,19 @@
 import { useReveal } from "../lib/useReveal";
+import { useContent } from "../content/ContentContext";
 
 export function SelectedWork() {
   const ref = useReveal<HTMLDivElement>();
+  const { content } = useContent();
+  const { work } = content;
 
   return (
-    <section id="work" className="border-t border-line py-28 md:py-40">
+    <section
+      id="work"
+      className="flex min-h-screen flex-col justify-center border-t border-line py-24"
+    >
       <div ref={ref} className="ch-container">
         <p data-reveal className="text-[13px] font-medium uppercase tracking-[0.3em] text-accent">
-          Selected Work
+          {work.eyebrow}
         </p>
 
         <a
@@ -24,21 +30,20 @@ export function SelectedWork() {
           >
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="font-display text-6xl font-medium text-text/10 md:text-8xl">
-                CF
+                {work.initials}
               </span>
             </div>
           </div>
 
           <div className="flex flex-col justify-center p-9 md:p-14">
             <h3 className="font-display text-3xl font-medium text-text md:text-4xl">
-              CinemaFocus
+              {work.title}
             </h3>
             <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-muted">
-              A refined digital storefront and brand experience connecting
-              premium audio, home cinema, products, and showroom discovery.
+              {work.desc}
             </p>
             <span className="mt-8 inline-flex items-center gap-2 text-[14px] font-medium text-accent">
-              View case study
+              {work.cta}
               <span className="transition-transform group-hover:translate-x-1">
                 →
               </span>

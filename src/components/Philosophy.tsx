@@ -1,10 +1,16 @@
 import { useReveal } from "../lib/useReveal";
+import { useContent } from "../content/ContentContext";
 
 export function Philosophy() {
   const ref = useReveal<HTMLDivElement>();
+  const { content } = useContent();
+  const { philosophy } = content;
 
   return (
-    <section id="philosophy" className="relative overflow-hidden border-t border-line py-28 md:py-40">
+    <section
+      id="philosophy"
+      className="relative flex min-h-screen flex-col justify-center overflow-hidden border-t border-line py-24"
+    >
       <div
         className="pointer-events-none absolute inset-0"
         style={{
@@ -14,22 +20,19 @@ export function Philosophy() {
       />
       <div ref={ref} className="ch-container relative text-center">
         <p data-reveal className="text-[13px] font-medium uppercase tracking-[0.3em] text-accent">
-          Philosophy
+          {philosophy.eyebrow}
         </p>
         <h2
           data-reveal
-          className="font-display mx-auto mt-8 max-w-3xl text-[clamp(1.8rem,4.5vw,3.4rem)] font-medium leading-[1.15] text-text"
+          className="font-display mx-auto mt-8 max-w-3xl whitespace-pre-line text-[clamp(1.8rem,4.5vw,3.4rem)] font-medium leading-[1.15] text-text"
         >
-          Technology is the medium.
-          <br />
-          Thinking is the foundation.
+          {philosophy.heading}
         </h2>
         <p
           data-reveal
           className="mx-auto mt-8 max-w-xl text-[17px] leading-relaxed text-muted"
         >
-          We don't build for the sake of building. We look for the clearest
-          way to turn an idea into something useful.
+          {philosophy.body}
         </p>
       </div>
     </section>

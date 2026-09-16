@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useContent } from "../content/ContentContext";
 
 const LINKS = [
   { href: "#capabilities", label: "Capabilities" },
@@ -11,6 +12,7 @@ const LINKS = [
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { content } = useContent();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -31,7 +33,7 @@ export function Nav() {
         <a href="#top" className="flex items-center gap-2.5">
           <img src="/cogniheim-mark.svg" alt="" className="h-6 w-6" />
           <span className="font-display text-[15px] font-medium tracking-[0.16em] text-text">
-            COGNIHEIM
+            {content.brand.name}
           </span>
         </a>
 
