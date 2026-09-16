@@ -110,8 +110,7 @@ export function CustomCursor() {
       const onEnter = (e: MouseEvent) => {
         locked = true;
         gsap.to(shape, {
-          backgroundColor: "color-mix(in oklab, var(--ch-text) 14%, transparent)",
-          borderColor: "transparent",
+          backgroundColor: "color-mix(in oklab, var(--ch-muted) 22%, transparent)",
           duration: 0.3,
         });
         gsap.to(dot, { scale: 0, duration: 0.15 });
@@ -126,8 +125,7 @@ export function CustomCursor() {
           width: IDLE_SIZE,
           height: IDLE_SIZE,
           borderRadius: 999,
-          backgroundColor: "transparent",
-          borderColor: "var(--ch-accent)",
+          backgroundColor: "color-mix(in oklab, var(--ch-muted) 22%, transparent)",
           duration: 0.4,
           ease: "power3.out",
         });
@@ -159,13 +157,17 @@ export function CustomCursor() {
     <>
       <div
         ref={dotRef}
-        className="pointer-events-none fixed left-0 top-0 z-[100] h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent opacity-0"
+        className="pointer-events-none fixed left-0 top-0 z-[100] h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-muted opacity-0"
         aria-hidden="true"
       />
       <div
         ref={shapeRef}
-        className="pointer-events-none fixed left-0 top-0 z-[100] -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent opacity-0"
-        style={{ width: IDLE_SIZE, height: IDLE_SIZE }}
+        className="pointer-events-none fixed left-0 top-0 z-[100] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-0"
+        style={{
+          width: IDLE_SIZE,
+          height: IDLE_SIZE,
+          backgroundColor: "color-mix(in oklab, var(--ch-muted) 22%, transparent)",
+        }}
         aria-hidden="true"
       />
     </>
