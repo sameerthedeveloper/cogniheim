@@ -1,52 +1,57 @@
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
+import { doc, onSnapshot, setDoc } from "firebase/firestore";
+import { db } from "../lib/firebase";
 import { DEFAULT_CONTENT, type SiteContent } from "./defaultContent";
 
-const STORAGE_KEY = "cogniheim_content_v1";
-
-function load(): SiteContent {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return DEFAULT_CONTENT;
-    const parsed = JSON.parse(raw);
-    // shallow-merge per top-level section so new fields added later still have defaults
-    return { ...DEFAULT_CONTENT, ...parsed };
-  } catch {
-    return DEFAULT_CONTENT;
-  }
-}
+const CONTENT_DOC = doc(db, "site", "content");
 
 type ContentContextValue = {
   content: SiteContent;
-  setContent: (next: SiteContent) => void;
-  resetContent: () => void;
+  setContent: (next: SiteContent) => Promise<void>;
+  resetContent: () => Promise<void>;
+  loading: boolean;
+  /** Set when the live Firestore listener fails (e.g. offline, denied). Falls back to defaults/last-known content. */
+  error: string | null;
 };
 
 const ContentContext = createContext<ContentContextValue | null>(null);
 
 export function ContentProvider({ children }: { children: ReactNode }) {
-  const [content, setContentState] = useState<SiteContent>(load);
+  const [content, setContentState] = useState<SiteContent>(DEFAULT_CONTENT);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === STORAGE_KEY) setContentState(load());
-    };
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
+    const unsubscribe = onSnapshot(
+      CONTENT_DOC,
+      (snap) => {
+        setError(null);
+        setLoading(false);
+        if (snap.exists()) {
+          // shallow-merge per top-level section so fields added later still have defaults
+          setContentState((prev) => ({ ...DEFAULT_CONTENT, ...prev, ...(snap.data() as Partial<SiteContent>) }));
+        }
+      },
+      (err) => {
+        console.error("Firestore content listener failed:", err);
+        setError(err.message);
+        setLoading(false);
+      },
+    );
+    return unsubscribe;
   }, []);
 
-  const setContent = useCallback((next: SiteContent) => {
-    setContentState(next);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+  const setContent = useCallback(async (next: SiteContent) => {
+    await setDoc(CONTENT_DOC, next);
   }, []);
 
-  const resetContent = useCallback(() => {
-    setContentState(DEFAULT_CONTENT);
-    localStorage.removeItem(STORAGE_KEY);
+  const resetContent = useCallback(async () => {
+    await setDoc(CONTENT_DOC, DEFAULT_CONTENT);
   }, []);
 
   return (
-    <ContentContext.Provider value={{ content, setContent, resetContent }}>
+    <ContentContext.Provider value={{ content, setContent, resetContent, loading, error }}>
       {children}
     </ContentContext.Provider>
   );

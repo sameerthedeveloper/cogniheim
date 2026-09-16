@@ -1,17 +1,25 @@
-import { StrictMode } from "react";
+import { StrictMode, Suspense, lazy } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import App from "./App.tsx";
 import { ContentProvider } from "./content/ContentContext";
-import { AdminApp } from "./admin/AdminApp";
+
+const AdminApp = lazy(() => import("./admin/AdminApp").then((m) => ({ default: m.AdminApp })));
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ContentProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/admin" element={<AdminApp />} />
+          <Route
+            path="/admin"
+            element={
+              <Suspense fallback={null}>
+                <AdminApp />
+              </Suspense>
+            }
+          />
           <Route path="/*" element={<App />} />
         </Routes>
       </BrowserRouter>
