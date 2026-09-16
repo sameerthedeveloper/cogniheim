@@ -165,7 +165,7 @@ export function CustomCursor() {
       <div
         ref={shapeRef}
         className="pointer-events-none fixed left-0 top-0 z-[100] -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent opacity-0"
-        style={{ width: IDLE_SIZE, height: IDLE_SIZE, backdropFilter: "blur(1px)" }}
+        style={{ width: IDLE_SIZE, height: IDLE_SIZE }}
         aria-hidden="true"
       />
     </>

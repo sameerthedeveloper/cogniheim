@@ -3,6 +3,7 @@ export type ProcessStep = { name: string; desc: string };
 
 export type SiteContent = {
   brand: { name: string; tagline: string; category: string };
+  seo: { title: string; description: string };
   hero: {
     eyebrow: string;
     headline: string;
@@ -32,6 +33,11 @@ export const DEFAULT_CONTENT: SiteContent = {
     name: "COGNIHEIM",
     tagline: "World of Thinkers.",
     category: "Technology & Product Studio",
+  },
+  seo: {
+    title: "Cogniheim — World of Thinkers | Technology & Product Studio",
+    description:
+      "Cogniheim is a technology and product studio that thinks, designs, and builds digital products, web apps, and SaaS software for businesses and people.",
   },
   hero: {
     eyebrow: "World of Thinkers",

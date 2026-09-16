@@ -1,9 +1,11 @@
 import { useMemo, useState } from "react";
 import { useContent } from "../content/ContentContext";
 import type { SiteContent } from "../content/defaultContent";
+import { useDocumentMeta, useNoIndex } from "../lib/useDocumentMeta";
 import { Field, TextArea, ListEditor } from "./fields";
 
 type SectionKey =
+  | "seo"
   | "brand"
   | "hero"
   | "intro"
@@ -16,6 +18,7 @@ type SectionKey =
   | "footer";
 
 const SECTIONS: { key: SectionKey; label: string }[] = [
+  { key: "seo", label: "SEO" },
   { key: "brand", label: "Brand" },
   { key: "hero", label: "Hero" },
   { key: "intro", label: "Intro" },
@@ -31,8 +34,11 @@ const SECTIONS: { key: SectionKey; label: string }[] = [
 export function AdminApp() {
   const { content, setContent, resetContent } = useContent();
   const [draft, setDraft] = useState<SiteContent>(content);
-  const [active, setActive] = useState<SectionKey>("hero");
+  const [active, setActive] = useState<SectionKey>("seo");
   const [savedAt, setSavedAt] = useState<number | null>(null);
+
+  useNoIndex();
+  useDocumentMeta("Admin · Cogniheim", "Content dashboard for the Cogniheim website.");
 
   const dirty = useMemo(() => JSON.stringify(draft) !== JSON.stringify(content), [draft, content]);
 
@@ -124,6 +130,16 @@ export function AdminApp() {
 
           <main className="flex-1 overflow-y-auto px-6 py-8 md:px-10">
             <div className="mx-auto max-w-2xl">
+              {active === "seo" && (
+                <div className="space-y-5">
+                  <Field label="Page title (shown in browser tabs & search results)" value={draft.seo.title} onChange={(v) => patch("seo", { ...draft.seo, title: v })} />
+                  <TextArea label="Meta description (search & social preview text)" value={draft.seo.description} onChange={(v) => patch("seo", { ...draft.seo, description: v })} />
+                  <p className="text-[12px] leading-relaxed text-[#9a9a94]">
+                    These update the live page for browsers and JavaScript-aware crawlers. AI/LLM answer-engine bots and basic search crawlers read the static tags baked into index.html at build time — update those in the repo if you change these often.
+                  </p>
+                </div>
+              )}
+
               {active === "brand" && (
                 <div className="space-y-5">
                   <Field label="Name" value={draft.brand.name} onChange={(v) => patch("brand", { ...draft.brand, name: v })} />

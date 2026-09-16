@@ -1,0 +1,24 @@
+# Cogniheim
+
+> Cogniheim is a technology and product studio — "World of Thinkers." It combines product thinking, interface design, and software engineering to build digital products, web applications, and SaaS software for businesses and people.
+
+Cogniheim's belief: the best digital products begin with understanding the problem before writing the code. The studio's process is Think → Design → Build → Evolve.
+
+## Capabilities
+
+- **Digital Products** — websites, web applications, internal tools, and customer-facing platforms designed around real user needs.
+- **Product Design** — information architecture, interface design, responsive systems, and interaction design.
+- **Software Engineering** — frontend and backend systems built for maintainability, performance, security, and growth.
+- **SaaS Development** — turning validated ideas into production-ready software products.
+
+## Selected work
+
+- **CinemaFocus** — a digital storefront and brand experience for a premium audio and home cinema business.
+
+## Contact
+
+Cogniheim takes on client work and also develops its own long-term software products. Reach out at hello@cogniheim.com to start a project.
+
+## Pages
+
+- [Homepage](https://cogniheim.com/): full site — hero, capabilities, process, selected work, philosophy, product studio, contact.

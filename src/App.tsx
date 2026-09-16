@@ -9,8 +9,13 @@ import { Philosophy } from "./components/Philosophy";
 import { Future } from "./components/Future";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
+import { useContent } from "./content/ContentContext";
+import { useDocumentMeta } from "./lib/useDocumentMeta";
 
 function App() {
+  const { content } = useContent();
+  useDocumentMeta(content.seo.title, content.seo.description);
+
   return (
     <>
       <div className="ch-grain" aria-hidden="true" />
