@@ -21,4 +21,4 @@ Cogniheim takes on client work and also develops its own long-term software prod
 
 ## Pages
 
-- [Homepage](https://cogniheim.com/): full site — hero, capabilities, process, selected work, philosophy, product studio, contact.
+- [Homepage](https://cogniheim.in/): full site — hero, capabilities, process, selected work, philosophy, product studio, contact.
