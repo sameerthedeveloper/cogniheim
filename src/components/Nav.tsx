@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useContent } from "../content/ContentContext";
 
+
 const LINKS = [
   { href: "#capabilities", label: "Capabilities" },
   { href: "#process", label: "Process" },
@@ -30,11 +31,12 @@ export function Nav() {
       }`}
     >
       <div className="ch-container flex h-[76px] items-center justify-between">
-        <a href="#top" className="flex items-center gap-2.5">
-          <img src="/cogniheim-mark.svg" alt="" className="h-6 w-6" />
-          <span className="font-display text-[15px] font-medium tracking-[0.16em] text-text">
-            {content.brand.name}
-          </span>
+        <a href="#top" className="flex items-center">
+          <img
+            src="/logo.png"
+            alt="Cogniheim"
+            className="h-15 w-auto object-contain"
+          />
         </a>
 
         <nav className="hidden items-center gap-9 md:flex">
