@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { useContent } from "../content/ContentContext";
-
 
 const LINKS = [
   { href: "#capabilities", label: "Capabilities" },
@@ -13,7 +11,6 @@ const LINKS = [
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const { content } = useContent();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
