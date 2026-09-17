@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { useContent } from "../content/ContentContext";
-import { Sparkles, CircleDot, Waves, ArrowRight, Globe, Layers, Rocket } from "lucide-react";
+import { Sparkles, CircleDot, Waves, ArrowRight, Layers, Rocket } from "lucide-react";
 import { FloatIcon } from "./FloatIcon";
 
 export function Hero() {
