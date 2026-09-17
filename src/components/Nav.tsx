@@ -21,18 +21,18 @@ export function Nav() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+      className={`fixed inset-x-50 m-3 top-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-bg/80 backdrop-blur-xl border-b border-line"
+          ? " backdrop-blur-xl border border-line rounded-full h-20"
           : "bg-transparent border-b border-transparent"
       }`}
     >
-      <div className="ch-container flex h-[76px] items-center justify-between">
+      <div className="ch-container flex h-20 items-center justify-between">
         <a href="#top" className="flex items-center">
           <img
             src="/logo.png"
             alt="Cogniheim"
-            className="h-9 w-auto object-contain"
+            className="h-15 w-auto object-contain"
           />
         </a>
 

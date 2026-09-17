@@ -105,12 +105,12 @@ export function Hero() {
         }}
       />
 
-      <Globe
+      {/* <Globe
         strokeWidth={0.75}
         aria-hidden="true"
         className="hero-edge hero-edge-left pointer-events-none absolute -left-16 top-1/2 hidden -translate-y-1/2 text-muted/[0.07] md:block"
         size={340}
-      />
+      /> */}
       <Layers
         strokeWidth={0.75}
         aria-hidden="true"
