@@ -13,6 +13,9 @@ export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
+  const navRef = useRef<HTMLElement>(null);
+  const pillRef = useRef<HTMLDivElement>(null);
+  const isPillActive = useRef(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -36,6 +39,57 @@ export function Nav() {
     );
   }, []);
 
+  const handleMouseEnter = (el: HTMLAnchorElement) => {
+    const nav = navRef.current;
+    const pill = pillRef.current;
+    if (!nav || !pill) return;
+
+    const navRect = nav.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    const targetX = elRect.left - navRect.left;
+    const targetY = elRect.top - navRect.top;
+    const targetW = elRect.width;
+    const targetH = elRect.height;
+
+    if (!isPillActive.current) {
+      isPillActive.current = true;
+      gsap.set(pill, {
+        x: targetX,
+        y: targetY,
+        width: targetW,
+        height: targetH,
+      });
+      gsap.fromTo(
+        pill,
+        { autoAlpha: 0, scale: 0.88 },
+        { autoAlpha: 1, scale: 1, duration: 0.22, ease: "power2.out" },
+      );
+    } else {
+      gsap.to(pill, {
+        x: targetX,
+        y: targetY,
+        width: targetW,
+        height: targetH,
+        autoAlpha: 1,
+        scale: 1,
+        duration: 0.32,
+        ease: "power3.out",
+      });
+    }
+  };
+
+  const handleNavLeave = () => {
+    const pill = pillRef.current;
+    if (!pill) return;
+    isPillActive.current = false;
+    gsap.to(pill, {
+      autoAlpha: 0,
+      scale: 0.88,
+      duration: 0.22,
+      ease: "power2.out",
+    });
+  };
+
   return (
     <header
       ref={headerRef}
@@ -47,7 +101,7 @@ export function Nav() {
       }`}
     >
       <div className="flex h-[72px] items-center justify-between px-6 md:px-8">
-        <a href="#top" className="flex items-center" data-cursor="nav">
+        <a href="#top" className="flex items-center">
           <img
             src="/logo.png"
             alt="Cogniheim"
@@ -55,13 +109,26 @@ export function Nav() {
           />
         </a>
 
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav
+          ref={navRef}
+          onMouseLeave={handleNavLeave}
+          data-cursor="nav"
+          className="relative hidden items-center gap-1 md:flex"
+        >
+          {/* iPadOS floating highlight pill */}
+          <div
+            ref={pillRef}
+            className="pointer-events-none absolute left-0 top-0 z-0 rounded-full border border-white/[0.12] bg-white/[0.08] shadow-[0_2px_12px_rgba(0,0,0,0.25)] backdrop-blur-md opacity-0"
+            style={{ willChange: "transform, width, height, opacity" }}
+            aria-hidden="true"
+          />
+
           {LINKS.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              data-cursor="nav"
-              className="rounded-full px-4 py-1.5 text-[13px] font-medium tracking-wide text-muted/80 transition-colors duration-300 hover:text-text"
+              onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
+              className="relative z-10 rounded-full px-4 py-1.5 text-[13px] font-medium tracking-wide text-muted/75 transition-colors duration-200 hover:text-white"
             >
               {l.label}
             </a>
