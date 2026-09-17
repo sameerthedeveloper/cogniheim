@@ -3,11 +3,16 @@ import gsap from "gsap";
 import { useContent } from "../content/ContentContext";
 import { Sparkles, CircleDot, Waves, ArrowRight, Layers, Rocket } from "lucide-react";
 import { FloatIcon } from "./FloatIcon";
+import { useParallax } from "../lib/useParallax";
 
 export function Hero() {
   const root = useRef<HTMLDivElement>(null);
   const { content } = useContent();
   const { hero } = content;
+  const gridRef = useParallax<HTMLDivElement>(0.06);
+  const glowRef = useParallax<HTMLDivElement>(0.04);
+  const layersRef = useParallax<SVGSVGElement>(0.1);
+  const rocketRef = useParallax<SVGSVGElement>(-0.14);
 
   useEffect(() => {
     const el = root.current;
@@ -87,6 +92,7 @@ export function Hero() {
       className="relative flex min-h-screen flex-col justify-center overflow-hidden pt-[76px] invisible"
     >
       <div
+        ref={glowRef}
         className="hero-glow pointer-events-none absolute left-1/2 top-[10%] h-[620px] w-[620px] -translate-x-1/2 rounded-full opacity-0"
         style={{
           background:
@@ -95,6 +101,7 @@ export function Hero() {
         }}
       />
       <div
+        ref={gridRef}
         className="pointer-events-none absolute inset-0 opacity-[0.35]"
         style={{
           backgroundImage:
@@ -112,12 +119,14 @@ export function Hero() {
         size={340}
       /> */}
       <Layers
+        ref={layersRef}
         strokeWidth={0.75}
         aria-hidden="true"
         className="hero-edge hero-edge-right pointer-events-none absolute -right-14 top-[20%] hidden text-accent/[0.08] md:block"
         size={220}
       />
       <Rocket
+        ref={rocketRef}
         strokeWidth={0.75}
         aria-hidden="true"
         className="hero-edge hero-edge-right pointer-events-none absolute -right-10 bottom-[10%] hidden text-muted/[0.08] md:block"
