@@ -9,27 +9,20 @@ export function Intro() {
   return (
     <section className="relative flex min-h-screen flex-col justify-center border-t border-line py-24">
       <div ref={ref} className="ch-container">
-        <p data-reveal className="text-[13px] font-medium uppercase tracking-[0.3em] text-accent">
-          {intro.eyebrow}
-        </p>
         <h2
           data-reveal
-          className="font-display mt-8 max-w-3xl text-[clamp(1.8rem,4vw,3.1rem)] font-medium leading-[1.15] text-text"
+          className="font-display max-w-2xl text-[clamp(1.9rem,4.2vw,3.2rem)] font-medium leading-[1.15] text-text"
         >
           {intro.heading}
         </h2>
-        <p
-          data-reveal
-          className="mt-8 max-w-2xl text-[17px] leading-relaxed text-muted md:text-lg"
-        >
-          {intro.body1}
-        </p>
-        <p
-          data-reveal
-          className="mt-5 max-w-2xl text-[17px] leading-relaxed text-muted md:text-lg"
-        >
-          {intro.body2}
-        </p>
+        <div className="mt-10 grid gap-8 border-t border-line pt-10 md:grid-cols-2 md:gap-16">
+          <p data-reveal className="text-[17px] leading-relaxed text-muted md:text-lg">
+            {intro.body1}
+          </p>
+          <p data-reveal className="text-[17px] leading-relaxed text-muted md:text-lg">
+            {intro.body2}
+          </p>
+        </div>
       </div>
     </section>
   );

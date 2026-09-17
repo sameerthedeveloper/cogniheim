@@ -23,12 +23,9 @@ export function Philosophy() {
       <FloatIcon icon={BrainCircuit} float="bob" size={32} className="pointer-events-none absolute left-[12%] top-[20%] hidden text-accent/40 lg:block" />
       <FloatIcon icon={InfinityIcon} float="rotate" delay={0.4} size={28} className="pointer-events-none absolute bottom-[15%] right-[10%] hidden text-muted/40 lg:block" />
       <div ref={ref} className="ch-container relative text-center">
-        <p data-reveal className="text-[13px] font-medium uppercase tracking-[0.3em] text-accent">
-          {philosophy.eyebrow}
-        </p>
         <h2
           data-reveal
-          className="font-display mx-auto mt-8 max-w-3xl whitespace-pre-line text-[clamp(1.8rem,4.5vw,3.4rem)] font-medium leading-[1.15] text-text"
+          className="font-display mx-auto max-w-3xl whitespace-pre-line text-[clamp(1.8rem,4.5vw,3.4rem)] font-medium leading-[1.15] text-text"
         >
           {philosophy.heading}
         </h2>

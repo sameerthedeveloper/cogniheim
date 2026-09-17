@@ -17,9 +17,9 @@ export function Capabilities() {
     >
       <FloatIcon icon={LayoutGrid} float="bob" size={26} className="pointer-events-none absolute right-[10%] top-[14%] hidden text-accent/40 lg:block" />
       <div ref={ref} className="ch-container">
-        <p data-reveal className="text-[13px] font-medium uppercase tracking-[0.3em] text-accent">
+        <h2 data-reveal className="font-display max-w-md text-[clamp(1.9rem,4.2vw,3.2rem)] font-medium leading-[1.15] text-text">
           {capabilities.eyebrow}
-        </p>
+        </h2>
 
         <div className="mt-14 grid gap-px overflow-hidden rounded-ch-lg border border-line bg-line shadow-[0_40px_80px_-40px_rgba(0,0,0,0.6)] md:grid-cols-2">
           {capabilities.items.map((item, i) => {
@@ -33,16 +33,11 @@ export function Capabilities() {
                 className="group relative bg-surface p-9 transition-all duration-300 hover:bg-surface-2 md:p-12"
                 style={{ boxShadow: "inset 0 1px 0 0 rgba(255,255,255,0.04)" }}
               >
-                <div className="flex items-center justify-between">
-                  <span className="font-display text-sm text-muted/60">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <Icon
-                    size={22}
-                    strokeWidth={1.5}
-                    className="text-accent/70 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
-                  />
-                </div>
+                <Icon
+                  size={24}
+                  strokeWidth={1.5}
+                  className="text-accent/70 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
+                />
                 <h3 className="font-display mt-6 text-2xl font-medium text-text md:text-3xl">
                   {item.title}
                 </h3>

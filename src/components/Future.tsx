@@ -16,10 +16,8 @@ export function Future() {
         className="ch-container grid gap-10 md:grid-cols-[1fr_1.2fr] md:gap-16"
       >
         <div data-reveal>
-          <p className="text-[13px] font-medium uppercase tracking-[0.3em] text-accent">
-            {future.eyebrow}
-          </p>
-          <h2 className="font-display mt-6 text-[clamp(1.8rem,3.6vw,2.8rem)] font-medium leading-[1.15] text-text">
+          <p className="text-sm text-muted">{future.eyebrow}</p>
+          <h2 className="font-display mt-4 text-[clamp(1.8rem,3.6vw,2.8rem)] font-medium leading-[1.15] text-text">
             {future.heading}
           </h2>
         </div>

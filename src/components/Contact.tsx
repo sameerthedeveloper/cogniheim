@@ -30,12 +30,9 @@ export function Contact() {
       <FloatIcon icon={MessageCircle} float="bob" size={30} className="pointer-events-none absolute right-[12%] top-[18%] hidden text-accent/30 lg:block" />
       <FloatIcon icon={Plus} float="drift" delay={0.3} size={22} className="pointer-events-none absolute bottom-[20%] right-[24%] hidden text-muted/40 lg:block" />
       <div ref={ref} className="ch-container flex flex-col items-start">
-        <p data-reveal className="text-[13px] font-medium uppercase tracking-[0.3em] text-accent">
-          {contact.eyebrow}
-        </p>
         <h2
           data-reveal
-          className="font-display mt-8 max-w-2xl text-[clamp(2rem,5.5vw,4rem)] font-medium leading-[1.1] text-text"
+          className="font-display max-w-2xl text-[clamp(2rem,5.5vw,4rem)] font-medium leading-[1.1] text-text"
         >
           {contact.heading}
         </h2>

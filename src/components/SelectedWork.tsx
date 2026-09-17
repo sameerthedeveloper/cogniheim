@@ -13,9 +13,9 @@ export function SelectedWork() {
       className="flex min-h-screen flex-col justify-center border-t border-line py-24"
     >
       <div ref={ref} className="ch-container">
-        <p data-reveal className="text-[13px] font-medium uppercase tracking-[0.3em] text-accent">
+        <h2 data-reveal className="font-display max-w-md text-[clamp(1.9rem,4.2vw,3.2rem)] font-medium leading-[1.15] text-text">
           {work.eyebrow}
-        </p>
+        </h2>
 
         <a
           href="#contact"
