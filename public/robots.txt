@@ -1,5 +1,22 @@
 User-agent: *
 Allow: /
 Disallow: /admin
+Disallow: /admin/
 
+User-agent: Googlebot
+Allow: /
+Disallow: /admin
+
+User-agent: Googlebot-Image
+Allow: /
+Disallow: /admin
+
+User-agent: bingbot
+Allow: /
+Disallow: /admin
+
+# Host
+Host: https://cogniheim.in
+
+# Sitemap
 Sitemap: https://cogniheim.in/sitemap.xml

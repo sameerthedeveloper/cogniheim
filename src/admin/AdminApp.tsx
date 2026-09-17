@@ -43,8 +43,15 @@ export function AdminApp() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#f7f7f5] text-[13px] text-[#9a9a94]">
-        Loading…
+      <div className="flex min-h-screen flex-col items-center justify-center bg-[#070808]">
+        <img
+          src="/logo.png"
+          alt="Cogniheim"
+          className="h-10 w-auto object-contain animate-pulse"
+        />
+        <div className="mt-5 h-[2px] w-12 overflow-hidden rounded-full bg-white/10">
+          <div className="h-full w-full bg-[#39b9b0] animate-pulse" />
+        </div>
       </div>
     );
   }
@@ -111,42 +118,51 @@ function Dashboard({ userEmail }: { userEmail: string | null }) {
   return (
     <div className="admin-light min-h-screen bg-[#f7f7f5] text-[#141414]">
       <div className="flex min-h-screen">
-        <aside className="hidden w-60 flex-col border-r border-[#e6e5e1] bg-white px-5 py-7 md:flex">
-          <div className="mb-8 flex items-center gap-2.5 px-1">
-            <img src="/cogniheim-mark.svg" alt="" className="h-6 w-6" />
-            <span className="text-[13px] font-semibold tracking-[0.14em]">
-              COGNIHEIM
-            </span>
+        <aside className="hidden w-64 flex-col m-3 rounded-2xl border border-white/[0.08] bg-[#0c0d0d] p-5 shadow-2xl md:flex">
+          <div className="mb-7 flex items-center px-1">
+            <img
+              src="/logo.png"
+              alt="Cogniheim"
+              className="h-10 w-auto object-contain"
+            />
           </div>
-          <p className="mb-3 px-1 text-[11px] font-medium uppercase tracking-[0.18em] text-[#9a9a94]">
+          <p className="mb-2.5 px-3 text-[10.5px] font-semibold uppercase tracking-[0.2em] text-white/35">
             Content
           </p>
-          <nav className="flex flex-1 flex-col gap-0.5">
-            {SECTIONS.map((s) => (
-              <button
-                key={s.key}
-                onClick={() => setActive(s.key)}
-                className={`rounded-lg px-3 py-2.5 text-left text-[14px] font-medium transition-colors ${
-                  active === s.key
-                    ? "bg-[#0f1110] text-white"
-                    : "text-[#4a4a45] hover:bg-[#efeee9]"
-                }`}
-              >
-                {s.label}
-              </button>
-            ))}
+          <nav className="flex flex-1 flex-col gap-1 overflow-y-auto">
+            {SECTIONS.map((s) => {
+              const isActive = active === s.key;
+              return (
+                <button
+                  key={s.key}
+                  onClick={() => setActive(s.key)}
+                  className={`group flex items-center justify-between rounded-xl px-3.5 py-2.5 text-left text-[13.5px] font-medium transition-all duration-200 ${
+                    isActive
+                      ? "bg-white/[0.1] text-white shadow-sm border border-white/[0.08]"
+                      : "text-white/60 hover:bg-white/[0.05] hover:text-white"
+                  }`}
+                >
+                  <span>{s.label}</span>
+                  {isActive && (
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#39b9b0] shadow-[0_0_8px_#39b9b0]" />
+                  )}
+                </button>
+              );
+            })}
           </nav>
-          <div className="mt-6 space-y-2">
-            <p className="truncate px-1 text-[12px] text-[#9a9a94]">{userEmail}</p>
+          <div className="mt-6 space-y-2 border-t border-white/[0.08] pt-4">
+            <p className="truncate px-2 text-[11.5px] font-mono tracking-tight text-white/40">
+              {userEmail}
+            </p>
             <a
               href="/"
-              className="block rounded-lg border border-[#e6e5e1] px-3 py-2.5 text-center text-[13px] font-medium text-[#4a4a45] transition-colors hover:bg-[#efeee9]"
+              className="block rounded-xl border border-white/[0.08] bg-white/[0.03] px-3.5 py-2 text-center text-[13px] font-medium text-white/80 transition-all hover:border-white/15 hover:bg-white/[0.08] hover:text-white"
             >
               ← View site
             </a>
             <button
               onClick={() => signOut(auth)}
-              className="w-full rounded-lg px-3 py-2.5 text-center text-[13px] font-medium text-[#b3413a] transition-colors hover:bg-[#efeee9]"
+              className="w-full rounded-xl px-3.5 py-2 text-center text-[13px] font-medium text-rose-400/90 transition-colors hover:bg-rose-500/10 hover:text-rose-300"
             >
               Sign out
             </button>
@@ -156,10 +172,10 @@ function Dashboard({ userEmail }: { userEmail: string | null }) {
         <div className="flex flex-1 flex-col">
           <header className="flex items-center justify-between border-b border-[#e6e5e1] bg-white px-6 py-4 md:px-10">
             <div>
-              <h1 className="text-[15px] font-semibold">
+              <h1 className="text-[15px] font-semibold text-[#141414]">
                 {SECTIONS.find((s) => s.key === active)?.label}
               </h1>
-              <p className="text-[12px] text-[#9a9a94]">
+              <p className="text-[12px] text-[#6e6e69]">
                 {contentLoading ? "Loading live content…" : "Synced live via Firebase."}
               </p>
             </div>
@@ -171,7 +187,7 @@ function Dashboard({ userEmail }: { userEmail: string | null }) {
               {dirty && (
                 <button
                   onClick={discard}
-                  className="rounded-full border border-[#e6e5e1] px-4 py-2 text-[13px] font-medium text-[#4a4a45] transition-colors hover:bg-[#efeee9]"
+                  className="rounded-full border border-[#d8d7d2] bg-white px-4 py-1.5 text-[13px] font-medium text-[#2a2a28] transition-colors hover:bg-[#f2f1ed]"
                 >
                   Discard
                 </button>
@@ -179,7 +195,7 @@ function Dashboard({ userEmail }: { userEmail: string | null }) {
               <button
                 onClick={save}
                 disabled={!dirty || saving}
-                className="rounded-full bg-[#0f1110] px-5 py-2 text-[13px] font-medium text-white transition-opacity disabled:opacity-30"
+                className="rounded-full bg-[#141414] px-5 py-1.5 text-[13px] font-medium text-white transition-opacity hover:bg-black disabled:opacity-30"
               >
                 {saving ? "Saving…" : "Save changes"}
               </button>
@@ -192,7 +208,7 @@ function Dashboard({ userEmail }: { userEmail: string | null }) {
                 <div className="space-y-5">
                   <Field label="Page title (shown in browser tabs & search results)" value={draft.seo.title} onChange={(v) => patch("seo", { ...draft.seo, title: v })} />
                   <TextArea label="Meta description (search & social preview text)" value={draft.seo.description} onChange={(v) => patch("seo", { ...draft.seo, description: v })} />
-                  <p className="text-[12px] leading-relaxed text-[#9a9a94]">
+                  <p className="text-[12px] leading-relaxed text-black">
                     These update the live page for browsers and JavaScript-aware crawlers. AI/LLM answer-engine bots and basic search crawlers read the static tags baked into index.html at build time — update those in the repo if you change these often.
                   </p>
                 </div>
