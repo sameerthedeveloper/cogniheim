@@ -11,10 +11,21 @@ import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { useContent } from "./content/ContentContext";
 import { useDocumentMeta } from "./lib/useDocumentMeta";
+import { useActiveSectionTitle } from "./lib/useActiveSectionTitle";
+
+const SECTIONS = [
+  { id: "top", label: "Home" },
+  { id: "capabilities", label: "Capabilities" },
+  { id: "process", label: "Process" },
+  { id: "work", label: "Selected Work" },
+  { id: "philosophy", label: "Philosophy" },
+  { id: "contact", label: "Contact" },
+];
 
 function App() {
   const { content } = useContent();
   useDocumentMeta(content.seo.title, content.seo.description);
+  useActiveSectionTitle(SECTIONS, content.seo.title);
 
   return (
     <>
