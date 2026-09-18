@@ -39,51 +39,61 @@ export function Login() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#f7f7f5] px-6">
+    <div className="flex min-h-screen items-center justify-center bg-[#070808] px-6">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-sm rounded-2xl border border-[#e6e5e1] bg-white p-8 shadow-sm"
+        className="w-full max-w-sm rounded-2xl border border-white/[0.08] bg-[#0c0d0d] p-8 shadow-2xl"
       >
-        <div className="mb-6 flex items-center gap-2.5">
-          <img src="/cogniheim-mark.svg" alt="" className="h-6 w-6" />
-          <span className="text-[13px] font-semibold tracking-[0.14em] text-[#141414]">
-            COGNIHEIM ADMIN
-          </span>
+        <div className="mb-7 flex items-center justify-center">
+          <img
+            src="/logo.png"
+            alt="Cogniheim"
+            className="h-10 w-auto object-contain"
+          />
         </div>
 
         <label className="mb-4 block">
-          <span className="mb-1.5 block text-[13px] font-medium text-[#4a4a45]">Email</span>
+          <span className="mb-1.5 block text-[13px] font-medium text-white/70">Email</span>
           <input
             type="email"
             required
             autoComplete="username"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-lg border border-[#e6e5e1] bg-white px-3.5 py-2.5 text-[14px] text-[#141414] outline-none transition-colors focus:border-[#39b9b0]"
+            className="w-full rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-2.5 text-[14px] text-white outline-none transition-colors focus:border-[#39b9b0] focus:bg-white/[0.07]"
           />
         </label>
 
         <label className="mb-6 block">
-          <span className="mb-1.5 block text-[13px] font-medium text-[#4a4a45]">Password</span>
+          <span className="mb-1.5 block text-[13px] font-medium text-white/70">Password</span>
           <input
             type="password"
             required
             autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-lg border border-[#e6e5e1] bg-white px-3.5 py-2.5 text-[14px] text-[#141414] outline-none transition-colors focus:border-[#39b9b0]"
+            className="w-full rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-2.5 text-[14px] text-white outline-none transition-colors focus:border-[#39b9b0] focus:bg-white/[0.07]"
           />
         </label>
 
-        {error && <p className="mb-4 text-[13px] text-[#b3413a]">{error}</p>}
+        {error && <p className="mb-4 text-[13px] text-rose-400">{error}</p>}
 
         <button
           type="submit"
           disabled={submitting}
-          className="w-full rounded-full bg-[#0f1110] px-5 py-2.5 text-[13px] font-medium text-white transition-opacity disabled:opacity-50"
+          className="w-full rounded-xl bg-white px-5 py-2.5 text-[13px] font-semibold text-black transition-opacity hover:bg-neutral-200 disabled:opacity-50"
         >
           {submitting ? "Signing in…" : "Sign in"}
         </button>
+
+        <div className="mt-6 text-center">
+          <a
+            href="/"
+            className="text-[12px] text-white/40 transition-colors hover:text-white"
+          >
+            ← Back to site
+          </a>
+        </div>
       </form>
     </div>
   );

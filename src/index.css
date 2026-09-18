@@ -35,10 +35,16 @@
   --ch-surface-2: #151617;
   --ch-text: #f5f5f2;
   --ch-muted: #969a9b;
-  --ch-line: rgba(255, 255, 255, 0.12);
+  --ch-line: rgba(255, 255, 255, 0.08);
   --ch-accent: #39b9b0;
   --ch-accent-deep: #1f8e88;
   --ch-metal: #e9e9e9;
+
+  /* animation tokens */
+  --ch-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ch-duration: 0.5s;
+  --ch-duration-slow: 0.8s;
+  --ch-duration-fast: 0.25s;
 }
 
 @theme {
@@ -47,7 +53,7 @@
   --color-surface-2: #151617;
   --color-text: #f5f5f2;
   --color-muted: #969a9b;
-  --color-line: rgba(255, 255, 255, 0.12);
+  --color-line: rgba(255, 255, 255, 0.08);
   --color-accent: #39b9b0;
   --color-accent-deep: #1f8e88;
   --color-metal: #e9e9e9;
@@ -97,7 +103,7 @@ html.has-custom-cursor button {
   outline-offset: 3px;
 }
 
-/* slow-drifting ambient gradient, sits behind all page content */
+/* ── ambient gradient ────────────────────────────────────────── */
 .ch-gradient-bg {
   pointer-events: none;
   position: fixed;
@@ -111,57 +117,59 @@ html.has-custom-cursor button {
 .ch-gradient-bg::after {
   content: "";
   position: absolute;
-  width: 55vw;
-  height: 55vw;
-  min-width: 420px;
-  min-height: 420px;
+  width: 50vw;
+  height: 50vw;
+  min-width: 380px;
+  min-height: 380px;
   border-radius: 50%;
-  filter: blur(120px);
+  filter: blur(140px);
   will-change: transform;
 }
 
 .ch-gradient-bg::before {
-  top: -18%;
-  left: -12%;
-  background: radial-gradient(circle, color-mix(in oklab, var(--ch-accent) 55%, transparent) 0%, transparent 70%);
-  opacity: 0.35;
-  animation: ch-drift-1 28s ease-in-out infinite;
+  top: -20%;
+  left: -14%;
+  background: radial-gradient(circle, color-mix(in oklab, var(--ch-accent) 45%, transparent) 0%, transparent 70%);
+  opacity: 0.22;
+  animation: ch-drift-1 32s ease-in-out infinite;
 }
 
 .ch-gradient-bg::after {
-  bottom: -22%;
-  right: -14%;
-  background: radial-gradient(circle, color-mix(in oklab, var(--ch-accent-deep) 55%, transparent) 0%, transparent 70%);
-  opacity: 0.28;
-  animation: ch-drift-2 34s ease-in-out infinite;
+  bottom: -25%;
+  right: -16%;
+  background: radial-gradient(circle, color-mix(in oklab, var(--ch-accent-deep) 40%, transparent) 0%, transparent 70%);
+  opacity: 0.18;
+  animation: ch-drift-2 38s ease-in-out infinite;
 }
 
 @keyframes ch-drift-1 {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(9vw, 7vh) scale(1.15); }
+  50% { transform: translate(8vw, 6vh) scale(1.12); }
 }
 
 @keyframes ch-drift-2 {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-7vw, -9vh) scale(1.12); }
+  50% { transform: translate(-6vw, -8vh) scale(1.08); }
 }
 
-/* subtle grain overlay for atmosphere */
+/* ── grain overlay ───────────────────────────────────────────── */
 .ch-grain {
   pointer-events: none;
   position: fixed;
   inset: 0;
   z-index: 60;
-  opacity: 0.045;
+  opacity: 0.032;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* ── typography ──────────────────────────────────────────────── */
 .font-display {
   letter-spacing: -0.01em;
   font-variation-settings: "opsz" 30;
 }
 
+/* ── container ───────────────────────────────────────────────── */
 .ch-container {
   width: 100%;
   max-width: var(--container-ch);
@@ -175,6 +183,132 @@ html.has-custom-cursor button {
   }
 }
 
+/* ── glow border utility ─────────────────────────────────────── */
+.ch-glow-border {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  position: relative;
+}
+
+.ch-glow-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    color-mix(in oklab, var(--ch-accent) 40%, transparent),
+    transparent 40%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--ch-duration) var(--ch-ease);
+}
+
+.ch-glow-border:hover::before {
+  opacity: 1;
+}
+
+/* spotlight inner glow that follows mouse */
+.ch-glow-border::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    400px circle at var(--mouse-x) var(--mouse-y),
+    color-mix(in oklab, var(--ch-accent) 6%, transparent),
+    transparent 40%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--ch-duration) var(--ch-ease);
+}
+
+.ch-glow-border:hover::after {
+  opacity: 1;
+}
+
+/* ── text shimmer ────────────────────────────────────────────── */
+.ch-shimmer {
+  background: linear-gradient(
+    120deg,
+    var(--ch-text) 0%,
+    var(--ch-text) 35%,
+    var(--ch-accent) 50%,
+    var(--ch-text) 65%,
+    var(--ch-text) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: ch-shimmer-sweep 3s ease-in-out 1 forwards;
+}
+
+@keyframes ch-shimmer-sweep {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── premium button glow ─────────────────────────────────────── */
+.ch-btn-glow {
+  position: relative;
+  transition: transform var(--ch-duration-fast) var(--ch-ease),
+              box-shadow var(--ch-duration) var(--ch-ease);
+}
+
+.ch-btn-glow:hover {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 8px 32px -4px rgba(57, 185, 176, 0.35),
+              0 0 0 1px rgba(57, 185, 176, 0.15);
+}
+
+.ch-btn-glow:active {
+  transform: translateY(0) scale(0.99);
+}
+
+/* secondary button outline glow */
+.ch-btn-outline-glow {
+  transition: border-color var(--ch-duration) var(--ch-ease),
+              background var(--ch-duration) var(--ch-ease),
+              transform var(--ch-duration-fast) var(--ch-ease);
+}
+
+.ch-btn-outline-glow:hover {
+  border-color: color-mix(in oklab, var(--ch-accent) 50%, transparent);
+  background: color-mix(in oklab, var(--ch-accent) 5%, transparent);
+  transform: translateY(-1px);
+}
+
+.ch-btn-outline-glow:active {
+  transform: translateY(0);
+}
+
+/* ── section spacing ─────────────────────────────────────────── */
+.ch-section {
+  position: relative;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+
+@media (min-width: 768px) {
+  .ch-section {
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+  }
+}
+
+/* ── reduced motion ──────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -188,5 +322,11 @@ html.has-custom-cursor button {
   .ch-gradient-bg::before,
   .ch-gradient-bg::after {
     animation: none;
+  }
+
+  .ch-shimmer {
+    animation: none;
+    background: none;
+    -webkit-text-fill-color: var(--ch-text);
   }
 }

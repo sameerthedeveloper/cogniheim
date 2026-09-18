@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { LucideIcon } from "lucide-react";
+import { useParallax } from "../lib/useParallax";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,9 +13,11 @@ type FloatIconProps = {
   float?: "rotate" | "bob" | "drift";
   delay?: number;
   strokeWidth?: number;
+  /** Parallax drift as a fraction of viewport height across the section's scroll pass. 0 disables it. */
+  parallax?: number;
 };
 
-/** A decorative icon that fades/scales in on scroll, then floats forever. */
+/** A decorative icon that fades/scales in on scroll, floats forever, and drifts with scroll parallax. */
 export function FloatIcon({
   icon: Icon,
   className,
@@ -22,7 +25,9 @@ export function FloatIcon({
   float = "bob",
   delay = 0,
   strokeWidth = 1.5,
+  parallax = 0.12,
 }: FloatIconProps) {
+  const parallaxRef = useParallax<HTMLDivElement>(parallax);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -58,8 +63,10 @@ export function FloatIcon({
   }, [float, delay]);
 
   return (
-    <div ref={ref} className={className} aria-hidden="true">
-      <Icon size={size} strokeWidth={strokeWidth} />
+    <div ref={parallaxRef} className={className} aria-hidden="true">
+      <div ref={ref}>
+        <Icon size={size} strokeWidth={strokeWidth} />
+      </div>
     </div>
   );
 }

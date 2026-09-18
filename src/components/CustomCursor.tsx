@@ -1,33 +1,30 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
-const IDLE_SIZE = 20;
-const PAD = 10; // how far the shape grows past the element's own edges
-const LOCK_TRAVEL = 10; // max px the shape can drift toward the pointer while locked
+const IDLE_W = 8;
+const IDLE_H = 8;
+const IDLE_RADIUS = 50; // pill / capsule
 
 /**
- * 6px dot + a morphing outline pointer: the outline shrink-wraps into the
- * exact size, position, and corner radius of whatever [data-cursor] element
- * it lands on — a pill over a pill button, a rounded square over a card —
- * rather than swelling into a fixed blob. Disabled on touch/coarse pointers.
+ * iPadOS-style cursor: a small rounded-rectangle capsule that morphs into a
+ * frosted-glass overlay **only** when hovering [data-cursor="nav"] elements
+ * (navigation links). All other [data-cursor] elements (buttons, cards, etc.)
+ * trigger a subtle cursor scale-up + glow — no overlay covers them.
+ *
+ * Disabled on touch / coarse-pointer devices.
  */
 export function CustomCursor() {
-  const dotRef = useRef<HTMLDivElement>(null);
-  const shapeRef = useRef<HTMLDivElement>(null);
+  const capsuleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (window.matchMedia("(hover: none), (pointer: coarse)").matches) return;
 
-    const dot = dotRef.current!;
-    const shape = shapeRef.current!;
+    const capsule = capsuleRef.current!;
     document.documentElement.classList.add("has-custom-cursor");
 
-    const shapeX = gsap.quickTo(shape, "x", { duration: 0.35, ease: "power3.out" });
-    const shapeY = gsap.quickTo(shape, "y", { duration: 0.35, ease: "power3.out" });
-    const dotX = gsap.quickTo(dot, "x", { duration: 0.12, ease: "power3.out" });
-    const dotY = gsap.quickTo(dot, "y", { duration: 0.12, ease: "power3.out" });
+    const cx = gsap.quickTo(capsule, "x", { duration: 0.18, ease: "power3.out" });
+    const cy = gsap.quickTo(capsule, "y", { duration: 0.18, ease: "power3.out" });
 
-    let locked = false;
     let visible = false;
     let lastX = window.innerWidth / 2;
     let lastY = window.innerHeight / 2;
@@ -35,30 +32,39 @@ export function CustomCursor() {
     const show = () => {
       if (visible) return;
       visible = true;
-      gsap.to([dot, shape], { autoAlpha: 1, duration: 0.25 });
+      gsap.to(capsule, { autoAlpha: 1, duration: 0.25 });
     };
 
     const onMove = (e: MouseEvent) => {
       show();
       lastX = e.clientX;
       lastY = e.clientY;
-      dotX(lastX);
-      dotY(lastY);
-      if (locked) return;
-      shapeX(lastX);
-      shapeY(lastY);
+      cx(lastX);
+      cy(lastY);
     };
+
     const onLeaveWindow = () => {
       visible = false;
-      gsap.to([dot, shape], { autoAlpha: 0, duration: 0.2 });
+      gsap.to(capsule, { autoAlpha: 0, duration: 0.2 });
     };
+
+    const onDown = () => {
+      gsap.to(capsule, { scale: 0.85, duration: 0.12, ease: "power2.out" });
+    };
+
+    const onUp = () => {
+      gsap.to(capsule, { scale: 1, duration: 0.3, ease: "elastic.out(1, 0.5)" });
+    };
+
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseleave", onLeaveWindow);
+    window.addEventListener("mousedown", onDown);
+    window.addEventListener("mouseup", onUp);
 
-    // magnetic pull for [data-magnetic] elements
+    // ── magnetic pull for [data-magnetic] ──
     const magnets = Array.from(document.querySelectorAll<HTMLElement>("[data-magnetic]"));
     const magnetHandlers = magnets.map((el) => {
-      const strength = Number(el.dataset.magneticStrength ?? 0.35);
+      const strength = Number(el.dataset.magneticStrength ?? 0.3);
       const onMoveMagnet = (e: MouseEvent) => {
         const r = el.getBoundingClientRect();
         const relX = e.clientX - (r.left + r.width / 2);
@@ -73,100 +79,91 @@ export function CustomCursor() {
       return { el, onMoveMagnet, onLeaveMagnet };
     });
 
-    // shrink-wrap lock for [data-cursor] elements
+    // ── cursor interactions ──
     const targets = Array.from(document.querySelectorAll<HTMLElement>("[data-cursor]"));
     const cursorHandlers = targets.map((el) => {
-      const radiusFor = (r: DOMRect) => {
-        const cs = getComputedStyle(el);
-        const parsed = parseFloat(cs.borderRadius);
-        // a "pill" (rounded-full) button: keep it a pill at the new size too
-        return Number.isFinite(parsed) && parsed >= Math.min(r.width, r.height) / 2 - 1
-          ? 999
-          : (parsed || 0) + PAD * 0.4;
-      };
+      const kind = el.dataset.cursor; // "nav" | "interact" | "view" etc.
+      const isNav = kind === "nav";
 
-      const settle = (e?: MouseEvent) => {
-        const r = el.getBoundingClientRect();
-        const cx = r.left + r.width / 2;
-        const cy = r.top + r.height / 2;
-        let ox = 0;
-        let oy = 0;
-        if (e) {
-          ox = gsap.utils.clamp(-LOCK_TRAVEL, LOCK_TRAVEL, (e.clientX - cx) * 0.25);
-          oy = gsap.utils.clamp(-LOCK_TRAVEL, LOCK_TRAVEL, (e.clientY - cy) * 0.25);
+      const onEnter = () => {
+        if (isNav) {
+          gsap.to(capsule, { autoAlpha: 0, scale: 0.5, duration: 0.2, ease: "power2.out" });
+        } else {
+          // ── OTHER: cursor stays free, just scales up + glows ──
+          gsap.to(capsule, {
+            autoAlpha: 1,
+            width: 36,
+            height: 36,
+            borderRadius: 999,
+            backgroundColor: "rgba(57, 185, 176, 0.08)",
+            borderWidth: "1px",
+            borderStyle: "solid",
+            borderColor: "rgba(57, 185, 176, 0.25)",
+            backdropFilter: "none",
+            webkitBackdropFilter: "none",
+            boxShadow: "none",
+            duration: 0.3,
+            ease: "power3.out",
+          });
         }
-        gsap.to(shape, {
-          x: cx + ox,
-          y: cy + oy,
-          width: r.width + PAD,
-          height: r.height + PAD,
-          borderRadius: radiusFor(r),
-          duration: 0.4,
-          ease: "power3.out",
-        });
       };
 
-      const onEnter = (e: MouseEvent) => {
-        locked = true;
-        gsap.to(shape, {
-          backgroundColor: "color-mix(in oklab, var(--ch-muted) 22%, transparent)",
-          borderColor: "transparent",
-          duration: 0.3,
-        });
-        gsap.to(dot, { scale: 0, duration: 0.15 });
-        settle(e);
-      };
-      const onMoveTarget = (e: MouseEvent) => settle(e);
       const onLeave = () => {
-        locked = false;
-        gsap.to(shape, {
+        // reset to idle capsule dot
+        gsap.to(capsule, {
+          autoAlpha: 1,
+          scale: 1,
           x: lastX,
           y: lastY,
-          width: IDLE_SIZE,
-          height: IDLE_SIZE,
-          borderRadius: 999,
-          backgroundColor: "transparent",
-          borderColor: "color-mix(in oklab, var(--ch-muted) 40%, transparent)",
-          duration: 0.4,
+          width: IDLE_W,
+          height: IDLE_H,
+          borderRadius: IDLE_RADIUS,
+          backgroundColor: "rgba(245, 245, 242, 0.9)",
+          backdropFilter: "none",
+          webkitBackdropFilter: "none",
+          borderWidth: "0px",
+          borderColor: "transparent",
+          boxShadow: "none",
+          duration: 0.3,
           ease: "power3.out",
         });
-        gsap.to(dot, { scale: 1, duration: 0.2 });
       };
+
       el.addEventListener("mouseenter", onEnter);
-      el.addEventListener("mousemove", onMoveTarget);
       el.addEventListener("mouseleave", onLeave);
-      return { el, onEnter, onMoveTarget, onLeave };
+      return { el, onEnter, onLeave };
     });
 
     return () => {
       document.documentElement.classList.remove("has-custom-cursor");
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseleave", onLeaveWindow);
+      window.removeEventListener("mousedown", onDown);
+      window.removeEventListener("mouseup", onUp);
       magnetHandlers.forEach(({ el, onMoveMagnet, onLeaveMagnet }) => {
         el.removeEventListener("mousemove", onMoveMagnet);
         el.removeEventListener("mouseleave", onLeaveMagnet);
       });
-      cursorHandlers.forEach(({ el, onEnter, onMoveTarget, onLeave }) => {
+      cursorHandlers.forEach(({ el, onEnter, onLeave }) => {
         el.removeEventListener("mouseenter", onEnter);
-        el.removeEventListener("mousemove", onMoveTarget);
         el.removeEventListener("mouseleave", onLeave);
       });
     };
   }, []);
 
   return (
-    <>
-      <div
-        ref={dotRef}
-        className="pointer-events-none fixed left-0 top-0 z-[100] h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-text opacity-0"
-        aria-hidden="true"
-      />
-      <div
-        ref={shapeRef}
-        className="pointer-events-none fixed left-0 top-0 z-[100] -translate-x-1/2 -translate-y-1/2 rounded-full border border-muted/40 opacity-0"
-        style={{ width: IDLE_SIZE, height: IDLE_SIZE, backgroundColor: "transparent" }}
-        aria-hidden="true"
-      />
-    </>
+    <div
+      ref={capsuleRef}
+      className="pointer-events-none fixed left-0 top-0 z-[100] -translate-x-1/2 -translate-y-1/2 opacity-0"
+      style={{
+        width: IDLE_W,
+        height: IDLE_H,
+        borderRadius: IDLE_RADIUS,
+        backgroundColor: "rgba(245, 245, 242, 0.9)",
+        border: "none",
+        transition: "none",
+      }}
+      aria-hidden="true"
+    />
   );
 }

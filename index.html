@@ -2,136 +2,377 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="icon" href="/cogniheim-mark.png" type="image/png" sizes="1012x986">
-    <link rel="apple-touch-icon" href="/cogniheim-mark.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <meta name="theme-color" content="#050505">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#050505" />
 
-    <title>Cogniheim — World of Thinkers | Technology & Product Studio</title>
-    <meta name="description" content="Cogniheim is a technology and product studio that thinks, designs, and builds digital products, web apps, and SaaS software for businesses and people.">
-    <meta name="keywords" content="Cogniheim, product studio, software studio, product design, web application development, SaaS development, digital product design, technology studio">
-    <meta name="author" content="Cogniheim">
-    <meta name="robots" content="index, follow, max-image-preview:large">
-    <link rel="canonical" href="https://cogniheim.in/">
+    <!-- Favicon & App Icons -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/cogniheim-mark.png" type="image/png" sizes="1012x986" />
+    <link rel="apple-touch-icon" href="/cogniheim-mark.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Cogniheim">
-    <meta property="og:url" content="https://cogniheim.in/">
-    <meta property="og:title" content="Cogniheim — World of Thinkers">
-    <meta property="og:description" content="We think, design, and build digital products that solve real problems: web apps, product design, software engineering, and SaaS.">
-    <meta property="og:image" content="https://cogniheim.in/og-share.jpg">
-    <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:image:width" content="1170">
-    <meta property="og:image:height" content="514">
-    <meta property="og:image:alt" content="Cogniheim — World of Thinkers">
-    <meta property="og:locale" content="en_US">
+    <!-- Primary SEO Metadata -->
+    <title>Cogniheim — World of Thinkers | Technology &amp; Product Studio</title>
+    <meta
+      name="description"
+      content="Cogniheim is a technology and product studio that thinks, designs, and builds digital products, web apps, and SaaS software for businesses and people."
+    />
+    <meta
+      name="keywords"
+      content="Cogniheim, product studio, software studio, product design, web application development, SaaS development, digital product design, technology studio, full-stack engineering, interface design"
+    />
+    <meta name="author" content="Cogniheim" />
+    <meta name="publisher" content="Cogniheim" />
+    <link rel="canonical" href="https://cogniheim.in/" />
+    <link rel="alternate" hreflang="x-default" href="https://cogniheim.in/" />
+    <link rel="alternate" hreflang="en" href="https://cogniheim.in/" />
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Cogniheim — World of Thinkers">
-    <meta name="twitter:description" content="A technology and product studio that thinks, designs, and builds digital products, web apps, and SaaS software.">
-    <meta name="twitter:image" content="https://cogniheim.in/og-share.jpg">
+    <!-- Google Search Engine Directives -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 
-    <!-- Organization + WebSite structured data (JSON-LD), read directly from
-         the static HTML by search engines and AI/LLM crawlers that don't
-         execute JavaScript. -->
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="googlefd74a2ca9edbe5ec" />
+
+    <!-- Open Graph (Facebook, LinkedIn, Slack, WhatsApp) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Cogniheim" />
+    <meta property="og:url" content="https://cogniheim.in/" />
+    <meta property="og:title" content="Cogniheim — World of Thinkers | Technology &amp; Product Studio" />
+    <meta
+      property="og:description"
+      content="We think, design, and build digital products that solve real problems: web apps, product design, software engineering, and SaaS."
+    />
+    <meta property="og:image" content="https://cogniheim.in/og-share.jpg" />
+    <meta property="og:image:secure_url" content="https://cogniheim.in/og-share.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Cogniheim — World of Thinkers" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Cogniheim — World of Thinkers | Technology &amp; Product Studio" />
+    <meta
+      name="twitter:description"
+      content="A technology and product studio that thinks, designs, and builds digital products, web apps, and SaaS software."
+    />
+    <meta name="twitter:image" content="https://cogniheim.in/og-share.jpg" />
+    <meta name="twitter:image:alt" content="Cogniheim — Technology &amp; Product Studio" />
+
+    <!-- Structured Data (JSON-LD) for Google Knowledge Graph, Rich Snippets, and Sitelinks -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Cogniheim",
-        "alternateName": "World of Thinkers",
-        "url": "https://cogniheim.in/",
-        "logo": "https://cogniheim.in/cogniheim-mark.png",
-        "description": "Cogniheim is a technology and product studio that combines product thinking, interface design, and software engineering to build digital products, web applications, and SaaS software.",
-        "slogan": "World of Thinkers",
-        "email": "hello@cogniheim.com",
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "email": "hello@cogniheim.com",
-          "contactType": "sales"
-        },
-        "knowsAbout": [
-          "Product design",
-          "Web application development",
-          "Software engineering",
-          "SaaS development",
-          "Digital product strategy"
+        "@graph": [
+          {
+            "@type": ["Organization", "ProfessionalService"],
+            "@id": "https://cogniheim.in/#organization",
+            "name": "Cogniheim",
+            "alternateName": "World of Thinkers",
+            "url": "https://cogniheim.in/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://cogniheim.in/logo.png",
+              "caption": "Cogniheim Logo"
+            },
+            "image": "https://cogniheim.in/og-share.jpg",
+            "description": "Cogniheim is a technology and product studio that combines product thinking, interface design, and software engineering to build digital products, web applications, and SaaS software.",
+            "slogan": "World of Thinkers",
+            "email": "hello@cogniheim.com",
+            "priceRange": "$$$",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "email": "hello@cogniheim.com",
+              "contactType": "sales",
+              "availableLanguage": ["English"]
+            },
+            "areaServed": "Worldwide",
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Studio Capabilities",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Digital Products",
+                    "description": "Websites, web applications, internal tools, and customer-facing platforms designed around real user needs."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Product Design",
+                    "description": "Clear information architecture, refined interfaces, responsive systems, and interaction design."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Software Engineering",
+                    "description": "Modern frontend and backend systems built for maintainability, performance, security, and scale."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "SaaS Development",
+                    "description": "From first prototype to production-ready software, turning validated ideas into high-performing SaaS products."
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://cogniheim.in/#website",
+            "url": "https://cogniheim.in/",
+            "name": "Cogniheim",
+            "description": "Technology & Product Studio — World of Thinkers.",
+            "publisher": {
+              "@id": "https://cogniheim.in/#organization"
+            },
+            "inLanguage": "en"
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://cogniheim.in/#webpage",
+            "url": "https://cogniheim.in/",
+            "name": "Cogniheim — World of Thinkers | Technology & Product Studio",
+            "isPartOf": {
+              "@id": "https://cogniheim.in/#website"
+            },
+            "about": {
+              "@id": "https://cogniheim.in/#organization"
+            },
+            "description": "Cogniheim is a technology and product studio that thinks, designs, and builds digital products, web apps, and SaaS software for businesses and people.",
+            "inLanguage": "en"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "name": [
+              "Home",
+              "Capabilities",
+              "Process",
+              "Selected Work",
+              "Philosophy",
+              "Contact"
+            ],
+            "url": [
+              "https://cogniheim.in/#top",
+              "https://cogniheim.in/#capabilities",
+              "https://cogniheim.in/#process",
+              "https://cogniheim.in/#work",
+              "https://cogniheim.in/#philosophy",
+              "https://cogniheim.in/#contact"
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is Cogniheim?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Cogniheim is a technology and product studio built on the principle 'World of Thinkers.' We combine product thinking, interface design, and software engineering to create useful software for businesses and people."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What services and capabilities does Cogniheim offer?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Cogniheim specializes in Digital Products, UI/UX Product Design, Full-Stack Software Engineering, and SaaS Development."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How does Cogniheim approach software design and engineering?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Our process follows four core phases: Think (understand the problem, constraints, and opportunity), Design (shape experience and visual language), Build (clean, dependable engineering), and Evolve (measure, refine, and optimize)."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do I get in touch with Cogniheim to start a project?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "You can reach out directly via email at hello@cogniheim.com to discuss your project requirements."
+                }
+              }
+            ]
+          }
         ]
       }
     </script>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Cogniheim",
-        "url": "https://cogniheim.in/"
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        background-color: #050505;
+        color: #f5f5f7;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       }
-    </script>
+      .ch-preloader {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #050505;
+      }
+      .ch-preloader-logo {
+        height: 48px;
+        width: auto;
+        object-fit: contain;
+        animation: ch-pulse 1.8s ease-in-out infinite alternate;
+        filter: drop-shadow(0 0 24px rgba(57, 185, 176, 0.3));
+      }
+      .ch-preloader-track {
+        margin-top: 24px;
+        width: 48px;
+        height: 2px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+        position: relative;
+      }
+      .ch-preloader-bar {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent, #39b9b0, transparent);
+        animation: ch-shimmer 1.4s ease-in-out infinite;
+      }
+      @keyframes ch-pulse {
+        0% { transform: scale(0.95); opacity: 0.65; }
+        100% { transform: scale(1.02); opacity: 1; }
+      }
+      @keyframes ch-shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+      }
+      .ch-seo-fallback {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    </style>
   </head>
-  <body>
+  <body style="background-color: #050505; color: #f5f5f7; margin: 0;">
+    <!-- Loading Screen + Pre-rendered SEO fallback for search engine crawlers -->
     <div id="root">
-      <!--
-        Static fallback content: mirrors the live copy (see
-        src/content/defaultContent.ts) so crawlers that fetch this HTML
-        without running JavaScript — most AI/LLM answer-engine bots included
-        — still get real, accurate text. React replaces this on hydration.
-      -->
-      <main>
+      <div class="ch-preloader" aria-label="Loading Cogniheim">
+        <img src="/logo.png" alt="Cogniheim" class="ch-preloader-logo" />
+        <div class="ch-preloader-track">
+          <div class="ch-preloader-bar"></div>
+        </div>
+      </div>
+
+      <div class="ch-seo-fallback">
         <header>
-          <h2>Cogniheim — World of Thinkers</h2>
-          <p>Technology &amp; Product Studio</p>
+          <nav aria-label="Main Navigation">
+            <a href="#top">Cogniheim</a>
+            <a href="#capabilities">Capabilities</a>
+            <a href="#process">Process</a>
+            <a href="#work">Work</a>
+            <a href="#philosophy">Philosophy</a>
+            <a href="#contact">Contact</a>
+          </nav>
         </header>
-        <section>
-          <h1>We think, design, and build products that matter.</h1>
-          <p>We turn ideas, problems, and opportunities into thoughtful digital experiences and reliable software.</p>
-        </section>
-        <section>
-          <h2>Good software starts with good thinking.</h2>
-          <p>Cogniheim is a technology and product studio built around a simple belief: the best digital products begin with understanding the problem before writing the code. We combine product thinking, interface design, and engineering to create useful software for businesses and people.</p>
-        </section>
-        <section>
-          <h2>Capabilities</h2>
-          <ul>
-            <li><strong>Digital Products</strong> — Websites, web applications, internal tools, and customer-facing platforms designed around real user needs.</li>
-            <li><strong>Product Design</strong> — Clear information architecture, refined interfaces, responsive systems, and interaction design.</li>
-            <li><strong>Software Engineering</strong> — Modern frontend and backend systems built for maintainability, performance, security, and growth.</li>
-            <li><strong>SaaS Development</strong> — From first prototype to production-ready software, we help turn validated ideas into products.</li>
-          </ul>
-        </section>
-        <section>
-          <h2>Process</h2>
-          <ol>
-            <li><strong>Think</strong> — Understand the problem, users, constraints, and opportunity.</li>
-            <li><strong>Design</strong> — Shape the experience, structure, and visual language.</li>
-            <li><strong>Build</strong> — Engineer the product with clean, dependable technology.</li>
-            <li><strong>Evolve</strong> — Measure, learn, refine, and keep making the product better.</li>
-          </ol>
-        </section>
-        <section>
-          <h2>Selected work: CinemaFocus</h2>
-          <p>A refined digital storefront and brand experience connecting premium audio, home cinema, products, and showroom discovery.</p>
-        </section>
-        <section>
-          <h2>Technology is the medium. Thinking is the foundation.</h2>
-          <p>We don't build for the sake of building. We look for the clearest way to turn an idea into something useful.</p>
-        </section>
-        <section>
-          <h2>Ideas become products.</h2>
-          <p>Some of the problems we encounter deserve more than a one-off solution. Cogniheim explores, prototypes, and develops products of its own — with a long-term focus on useful software and SaaS.</p>
-        </section>
-        <section>
-          <h2>Have a problem worth solving?</h2>
-          <p>Tell us what you're trying to build, improve, or simplify. <a href="mailto:hello@cogniheim.com">hello@cogniheim.com</a></p>
-        </section>
+        <main>
+          <article>
+            <header>
+              <p>World of Thinkers — Technology &amp; Product Studio</p>
+              <h1>We think, design, and build products that matter.</h1>
+              <p>We turn ideas, problems, and opportunities into thoughtful digital experiences and reliable software.</p>
+              <a href="#contact">Start a project</a>
+              <a href="#work">Explore our work</a>
+            </header>
+
+            <section id="intro">
+              <h2>Good software starts with good thinking.</h2>
+              <p>Cogniheim is a technology and product studio built around a simple belief: the best digital products begin with understanding the problem before writing the code.</p>
+              <p>We combine product thinking, interface design, and engineering to create useful software for businesses and people.</p>
+            </section>
+
+            <section id="capabilities">
+              <h2>Capabilities</h2>
+              <ul>
+                <li>
+                  <h3>Digital Products</h3>
+                  <p>Websites, web applications, internal tools, and customer-facing platforms designed around real user needs.</p>
+                </li>
+                <li>
+                  <h3>Product Design</h3>
+                  <p>Clear information architecture, refined interfaces, responsive systems, and interaction design.</p>
+                </li>
+                <li>
+                  <h3>Software Engineering</h3>
+                  <p>Modern frontend and backend systems built for maintainability, performance, security, and growth.</p>
+                </li>
+                <li>
+                  <h3>SaaS Development</h3>
+                  <p>From first prototype to production-ready software, we help turn validated ideas into products.</p>
+                </li>
+              </ul>
+            </section>
+
+            <section id="process">
+              <h2>Process</h2>
+              <ol>
+                <li><strong>Think</strong> — Understand the problem, users, constraints, and opportunity.</li>
+                <li><strong>Design</strong> — Shape the experience, structure, and visual language.</li>
+                <li><strong>Build</strong> — Engineer the product with clean, dependable technology.</li>
+                <li><strong>Evolve</strong> — Measure, learn, refine, and keep making the product better.</li>
+              </ol>
+            </section>
+
+            <section id="work">
+              <h2>Selected Work</h2>
+              <h3>CinemaFocus</h3>
+              <p>A refined digital storefront and brand experience connecting premium audio, home cinema, products, and showroom discovery.</p>
+            </section>
+
+            <section id="philosophy">
+              <h2>Philosophy</h2>
+              <p>Technology is the medium. Thinking is the foundation. We don't build for the sake of building. We look for the clearest way to turn an idea into something useful.</p>
+            </section>
+
+            <section id="contact">
+              <h2>Contact Cogniheim</h2>
+              <p>Have a problem worth solving? Tell us what you're trying to build, improve, or simplify.</p>
+              <p>Email: <a href="mailto:hello@cogniheim.com">hello@cogniheim.com</a></p>
+            </section>
+          </article>
+        </main>
         <footer>
-          <p>© 2026 Cogniheim. All rights reserved.</p>
+          <p>&copy; Cogniheim. All rights reserved. World of Thinkers.</p>
         </footer>
-      </main>
+      </div>
     </div>
+
+    <noscript>
+      <div style="padding: 2rem; color: #fff; background: #050505; font-family: sans-serif;">
+        <p>JavaScript is required to view the full interactive experience of Cogniheim. Please contact hello@cogniheim.com for inquiries.</p>
+      </div>
+    </noscript>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

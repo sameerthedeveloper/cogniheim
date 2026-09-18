@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://cogniheim.in/</loc>
-    <lastmod>2026-09-16</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-09-17T15:28:36+05:30</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cogniheim.in/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://cogniheim.in/" />
+    <image:image>
+      <image:loc>https://cogniheim.in/og-share.jpg</image:loc>
+      <image:title>Cogniheim — Technology &amp; Product Studio</image:title>
+      <image:caption>Cogniheim — World of Thinkers</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://cogniheim.in/logo.png</image:loc>
+      <image:title>Cogniheim Logo</image:title>
+      <image:caption>Cogniheim Brand Identity</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://cogniheim.in/cogniheim-mark.png</image:loc>
+      <image:title>Cogniheim Mark</image:title>
+      <image:caption>Cogniheim Emblem</image:caption>
+    </image:image>
   </url>
 </urlset>
