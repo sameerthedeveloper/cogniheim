@@ -5,6 +5,14 @@ import { Menu, X } from 'lucide-react';
 import gsap from 'gsap';
 import { cn } from '../lib/utils.js';
 
+function GitHubMark({ className = 'h-4 w-4' }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
+      <path d="M12 2C6.477 2 2 6.582 2 12.253c0 4.512 2.865 8.33 6.84 9.683.5.095.682-.218.682-.484 0-.238-.009-.866-.013-1.697-2.782.606-3.37-1.34-3.37-1.34-.454-1.153-1.11-1.458-1.11-1.458-.907-.621.069-.608.069-.608 1.005.071 1.536 1.033 1.536 1.033.893 1.533 2.341 1.09 2.912.834.09-.647.35-1.09.636-1.338-2.221-.253-4.555-1.114-4.555-4.95 0-1.093.39-1.988 1.03-2.687-.103-.252-.448-1.272.098-2.653 0 0 .843-.27 2.759 1.028A9.56 9.56 0 0 1 12 6.84c.854 0 1.716.115 2.52.337 1.914-1.298 2.758-1.028 2.758-1.028.547 1.381.203 2.401.1 2.653.64.699 1.03 1.594 1.03 2.687 0 3.839-2.337 4.694-4.566 4.942.359.31.679.922.679 1.856 0 1.339-.012 2.415-.012 2.744 0 .268.179.58.688.482A10.263 10.263 0 0 0 22 12.253C22 6.582 17.523 2 12 2Z" />
+    </svg>
+  );
+}
+
 const LINKS = [
   { href: '#work', label: 'Work' },
   { href: '#capabilities', label: 'Capabilities' },
@@ -163,13 +171,26 @@ export default function Nav() {
           ))}
         </ul>
 
-        <a
-          href="#contact"
-          data-nav-item
-          className="magnetic hidden rounded-full bg-accent px-5 py-2.5 text-[13px] font-medium text-white transition-opacity hover:opacity-90 md:inline-block"
-        >
-          Start the Build
-        </a>
+        <div className="ml-auto hidden items-center gap-3 md:flex">
+          <a
+            href="https://github.com/sameerthedeveloper"
+            target="_blank"
+            rel="noreferrer"
+            data-nav-item
+            aria-label="GitHub profile"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition-colors hover:border-accent hover:text-accent"
+          >
+            <GitHubMark className="h-4 w-4" />
+          </a>
+
+          <a
+            href="#contact"
+            data-nav-item
+            className="magnetic rounded-full bg-accent px-5 py-2.5 text-[13px] font-medium text-white transition-opacity hover:opacity-90"
+          >
+            Start the Build
+          </a>
+        </div>
 
         <button
           type="button"

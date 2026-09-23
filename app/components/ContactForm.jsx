@@ -23,7 +23,7 @@ export default function ContactForm() {
 
     const subject = `New inquiry from ${name}`;
     const body = `${message}\n\n— ${name}\n${email}`;
-    const mailto = `mailto:hello@cogniheim.in?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const mailto = `mailto:info@cogniheim.in?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
     setStatus('sending');
     window.setTimeout(() => {
@@ -40,7 +40,7 @@ export default function ContactForm() {
           Name
         </label>
         <Input id="contact-name" name="name" type="text" placeholder="Your name" autoComplete="name" required
-          className="border-white/20 bg-white/[0.06] text-white placeholder:text-white/40 focus-visible:border-white/50 focus-visible:ring-white/10" />
+          className="border-white/20 bg-white/6 text-white placeholder:text-white/40 focus-visible:border-white/50 focus-visible:ring-white/10" />
       </div>
 
       <div className="flex flex-col gap-2">
@@ -48,7 +48,7 @@ export default function ContactForm() {
           Email
         </label>
         <Input id="contact-email" name="email" type="email" placeholder="you@email.com" autoComplete="email" required
-          className="border-white/20 bg-white/[0.06] text-white placeholder:text-white/40 focus-visible:border-white/50 focus-visible:ring-white/10" />
+          className="border-white/20 bg-white/6 text-white placeholder:text-white/40 focus-visible:border-white/50 focus-visible:ring-white/10" />
       </div>
 
       <div className="flex flex-col gap-2">
@@ -56,7 +56,7 @@ export default function ContactForm() {
           Message
         </label>
         <Textarea id="contact-message" name="message" rows={4} placeholder="What are you building?" required
-          className="border-white/20 bg-white/[0.06] text-white placeholder:text-white/40 focus-visible:border-white/50 focus-visible:ring-white/10" />
+          className="border-white/20 bg-white/6 text-white placeholder:text-white/40 focus-visible:border-white/50 focus-visible:ring-white/10" />
       </div>
 
       <Button type="submit" variant="invert" className="mt-1 w-52 self-start disabled:opacity-70" disabled={status !== 'idle'}>
