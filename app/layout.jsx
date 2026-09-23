@@ -33,7 +33,7 @@ export const metadata = {
     canonical: '/',
   },
   icons: {
-    icon: '/logo.png',
+    icon: '/favico.png',
   },
   robots: {
     index: true,
