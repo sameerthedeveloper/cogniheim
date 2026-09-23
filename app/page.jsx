@@ -545,6 +545,7 @@ export default function Home() {
           id="work"
           className="
             scroll-mt-24
+            min-h-svh
             bg-surface-2
             px-5
             py-28
@@ -600,6 +601,7 @@ export default function Home() {
           id="capabilities"
           className="
             scroll-mt-24
+            min-h-svh
             px-5
             py-28
             sm:px-8
@@ -730,6 +732,7 @@ export default function Home() {
           id="philosophy"
           className="
             scroll-mt-24
+            min-h-svh
             bg-noir
             px-5
             py-32
@@ -786,6 +789,7 @@ export default function Home() {
           id="process"
           className="
             scroll-mt-24
+            min-h-svh
             px-5
             py-28
             sm:px-8
@@ -883,6 +887,7 @@ export default function Home() {
           id="labs"
           className="
             scroll-mt-24
+            min-h-svh
             bg-surface-2
             px-5
             py-28
@@ -951,6 +956,7 @@ export default function Home() {
           id="about"
           className="
             scroll-mt-24
+            min-h-svh
             px-5
             py-28
             sm:px-8
@@ -1026,6 +1032,7 @@ export default function Home() {
           id="faq"
           className="
             scroll-mt-24
+            min-h-svh
             bg-surface-2
             px-5
             py-28
@@ -1061,7 +1068,7 @@ export default function Home() {
           className="
             relative
             flex
-            min-h-[80vh]
+            min-h-svh
             items-center
             overflow-hidden
             bg-noir
