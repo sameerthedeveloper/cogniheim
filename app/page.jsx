@@ -658,8 +658,12 @@ export default function Home() {
                     className="
                       group
                       border-b
-                      border-line
+                      border-line/40
                       py-8
+                      transition-colors
+                      hover:bg-white/2
+                      px-4
+                      -mx-4
                     "
                   >
 
@@ -670,6 +674,7 @@ export default function Home() {
                           pt-1
                           font-mono
                           text-sm
+                          font-semibold
                           text-faint
                           transition-colors
                           group-hover:text-accent
@@ -686,7 +691,7 @@ export default function Home() {
                             items-center
                             gap-3
                             text-2xl
-                            font-medium
+                            font-semibold
                             text-ink
                             transition-colors
                             group-hover:text-accent
@@ -820,7 +825,7 @@ export default function Home() {
             </h2>
 
 
-            <div className="mt-20 grid gap-x-10 gap-y-0 md:grid-cols-2 lg:gap-x-16">
+            <div className="mt-16 grid gap-8 md:grid-cols-2 lg:gap-12">
 
               {PROCESS.map(
                 ({ number, title, body, icon: Icon }) => (
@@ -829,19 +834,26 @@ export default function Home() {
                     key={title}
                     className="
                       process-item
-                      border-t
-                      border-line
-                      px-0
-                      py-10
+                      rounded-xl
+                      border
+                      border-line/30
+                      bg-white/2.5
+                      px-6
+                      py-8
                       md:px-8
-                      md:py-12
+                      md:py-10
+                      transition-all
+                      duration-300
+                      hover:border-accent/30
+                      hover:bg-white/5
+                      hover:shadow-[0_8px_24px_-12px_rgba(217,119,87,0.15)]
                     "
                   >
 
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between pb-4">
 
-                      <span className="font-mono text-sm text-faint">
-                        {number}
+                      <span className="font-mono text-xs font-semibold text-faint/80 uppercase tracking-wide">
+                        Step {number}
                       </span>
 
                       <Icon className="h-5 w-5 text-accent" />
@@ -850,9 +862,9 @@ export default function Home() {
 
                     <h3
                       className="
-                        mt-8
-                        text-3xl
-                        font-medium
+                        mt-6
+                        text-2xl
+                        font-semibold
                         text-ink
                       "
                     >
@@ -1044,11 +1056,11 @@ export default function Home() {
               Clear answers about Cogniheim.
             </h2>
 
-            <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
               {FAQ_ITEMS.map((item) => (
-                <div key={item.question} className="rounded-2xl border border-line bg-white/30 p-6">
-                  <h3 className="text-xl font-medium text-ink">{item.question}</h3>
-                  <p className="mt-3 leading-relaxed text-muted">{item.answer}</p>
+                <div key={item.question} className="group rounded-2xl border border-line/50 bg-white/3 p-7 transition-all duration-300 hover:border-accent/40 hover:bg-white/6 hover:shadow-[0_12px_32px_-8px_rgba(217,119,87,0.12)]">
+                  <h3 className="text-lg font-semibold text-ink transition-colors group-hover:text-accent">{item.question}</h3>
+                  <p className="mt-4 leading-relaxed text-muted">{item.answer}</p>
                 </div>
               ))}
             </div>
