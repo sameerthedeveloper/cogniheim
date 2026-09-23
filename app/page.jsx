@@ -553,7 +553,7 @@ export default function Home() {
           "
         >
 
-          <div className="mx-auto max-w-wide">
+          <div className="mx-auto grid max-w-wide gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-end lg:gap-20">
 
             <div className="max-w-2xl">
 
@@ -582,7 +582,7 @@ export default function Home() {
             </div>
 
 
-            <div className="mt-16">
+            <div className="lg:pb-1">
 
               <WorkGrid work={WORK} />
 
@@ -614,8 +614,9 @@ export default function Home() {
               grid
               max-w-wide
               gap-12
-              lg:grid-cols-[1fr_1.7fr]
+              lg:grid-cols-[0.8fr_1.7fr]
               lg:gap-20
+              lg:items-start
             "
           >
 
@@ -741,7 +742,7 @@ export default function Home() {
           "
         >
 
-          <div className="mx-auto max-w-wide">
+          <div className="mx-auto grid max-w-wide gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-center lg:gap-20">
 
             <p className="text-sm tracking-[0.2em] text-white/50">
               03 — {PHILOSOPHY.eyebrow}
@@ -817,7 +818,7 @@ export default function Home() {
             </h2>
 
 
-            <div className="mt-20 grid gap-0 md:grid-cols-2">
+            <div className="mt-20 grid gap-x-10 gap-y-0 md:grid-cols-2 lg:gap-x-16">
 
               {PROCESS.map(
                 ({ number, title, body, icon: Icon }) => (
@@ -895,7 +896,7 @@ export default function Home() {
           "
         >
 
-          <div className="mx-auto max-w-wide">
+          <div className="mx-auto grid max-w-wide gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-end lg:gap-20">
 
             <p className="text-sm tracking-[0.2em] text-accent">
               05 — {LABS.eyebrow}
@@ -936,6 +937,7 @@ export default function Home() {
                 text-accent
                 transition-opacity
                 hover:opacity-70
+                lg:justify-self-end
               "
             >
               {LABS.action.label}
@@ -969,7 +971,7 @@ export default function Home() {
               grid
               max-w-wide
               gap-12
-              lg:grid-cols-[1fr_1.5fr]
+              lg:grid-cols-[0.75fr_1.5fr]
               lg:gap-20
             "
           >
@@ -1047,7 +1049,7 @@ export default function Home() {
               Clear answers about Cogniheim.
             </h2>
 
-            <div className="mt-12 grid gap-6 lg:grid-cols-2">
+            <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
               {FAQ_ITEMS.map((item) => (
                 <div key={item.question} className="rounded-2xl border border-line bg-white/30 p-6">
                   <h3 className="text-xl font-medium text-ink">{item.question}</h3>
