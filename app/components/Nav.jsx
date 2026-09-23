@@ -127,14 +127,14 @@ export default function Nav() {
       ref={headerRef}
       className={cn(
         'fixed inset-x-4 top-4 z-50 mx-auto w-auto max-w-4xl border border-white/10 bg-noir/90 px-4 shadow-[0_8px_30px_-14px_rgba(0,0,0,0.4)] backdrop-blur-xl sm:inset-x-10 sm:top-6 sm:px-0',
-        open ? 'rounded-[28px]' : 'rounded-full'
+        open ? 'flex flex-col rounded-[28px]' : 'flex rounded-full',
       )}
     >
-      <nav ref={navRef} className="mx-auto flex h-14 max-w-full items-center justify-between px-5 sm:px-8">
+      <nav ref={navRef} className="mx-auto flex h-14 w-full max-w-full items-center justify-between px-5 sm:px-8">
         <a
           href="#top"
           data-nav-item
-          className="relative flex items-center"
+          className="relative flex items-center justify-center"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -184,7 +184,7 @@ export default function Nav() {
         </button>
       </nav>
 
-      <div id="mobile-nav" ref={mobilePanelRef} className="hidden overflow-hidden md:hidden" style={{ height: 0, opacity: 0 }}>
+      <div id="mobile-nav" ref={mobilePanelRef} className="hidden w-full overflow-hidden md:hidden" style={{ height: 0, opacity: 0 }}>
         <ul ref={mobileListRef} className="flex flex-col gap-1 border-t border-white/10 px-5 pb-5 pt-4">
           {LINKS.map((link) => (
             <li key={link.href} data-mobile-item>
