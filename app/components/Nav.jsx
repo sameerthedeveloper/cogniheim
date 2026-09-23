@@ -126,7 +126,7 @@ export default function Nav() {
     <header
       ref={headerRef}
       className={cn(
-        'fixed left-1/2 top-4 z-50 w-full max-w-4xl -translate-x-1/2 border border-white/10 bg-noir/90 backdrop-blur-xl  sm:top-6 sm:px-0 shadow-[0_8px_30px_-14px_rgba(0,0,0,0.4)]',
+        'fixed inset-x-4 top-4 z-50 mx-auto w-auto max-w-4xl border border-white/10 bg-noir/90 px-4 shadow-[0_8px_30px_-14px_rgba(0,0,0,0.4)] backdrop-blur-xl sm:inset-x-10 sm:top-6 sm:px-0',
         open ? 'rounded-[28px]' : 'rounded-full'
       )}
     >
@@ -166,7 +166,7 @@ export default function Nav() {
         <a
           href="#contact"
           data-nav-item
-          className="magnetic hidden rounded-full bg-accent ml-20 px-5 py-2.5 text-[13px] font-medium text-white transition-opacity hover:opacity-90 md:inline-block"
+          className="magnetic hidden rounded-full bg-accent px-5 py-2.5 text-[13px] font-medium text-white transition-opacity hover:opacity-90 md:inline-block"
         >
           Start the Build
         </a>
