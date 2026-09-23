@@ -554,7 +554,7 @@ export default function Home() {
 
           <div className="mx-auto grid max-w-wide gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-end lg:gap-20">
 
-            <div className="max-w-2xl">
+            <div>
 
               <p className="section-eyebrow text-sm tracking-[0.2em] text-accent">
                 01 — SELECTED WORK
@@ -573,17 +573,19 @@ export default function Home() {
                 Work built with purpose.
               </h2>
 
-              <p className="mt-5 text-lg text-muted">
-                A selection of digital products and experiences we&apos;ve
-                designed and engineered.
-              </p>
-
             </div>
 
 
             <div className="lg:pb-1">
 
-              <WorkGrid work={WORK} />
+              <p className="max-w-xl text-lg leading-relaxed text-muted">
+                A selection of digital products and experiences we&apos;ve
+                designed and engineered.
+              </p>
+
+              <div className="mt-10">
+                <WorkGrid work={WORK} />
+              </div>
 
             </div>
 
@@ -637,15 +639,16 @@ export default function Home() {
                 We build the whole product.
               </h2>
 
-              <p className="mt-5 max-w-sm text-muted">
+            </div>
+
+
+            <div>
+              <p className="mb-8 max-w-xl leading-relaxed text-muted">
                 From product thinking and interface design to software
                 engineering and SaaS development.
               </p>
 
-            </div>
-
-
-            <ol className="border-t border-line">
+              <ol className="border-t border-line">
 
               {SERVICES.map(
                 ({ number, title, body, icon: Icon }) => (
@@ -716,7 +719,8 @@ export default function Home() {
                 )
               )}
 
-            </ol>
+              </ol>
+            </div>
 
           </div>
 
@@ -742,29 +746,30 @@ export default function Home() {
 
           <div className="mx-auto grid max-w-wide gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-center lg:gap-20">
 
-            <p className="text-sm tracking-[0.2em] text-white/50">
-              03 — {PHILOSOPHY.eyebrow}
-            </p>
+            <div>
+              <p className="text-sm tracking-[0.2em] text-white/50">
+                03 — {PHILOSOPHY.eyebrow}
+              </p>
 
-            <h2
-              className="
-                philosophy-title
-                mt-8
-                max-w-5xl
-                text-5xl
-                font-semibold
-                tracking-[-0.04em]
-                sm:text-7xl
-                lg:text-8xl
-              "
-            >
-              {PHILOSOPHY.title}
-            </h2>
+              <h2
+                className="
+                  philosophy-title
+                  mt-8
+                  max-w-5xl
+                  text-5xl
+                  font-semibold
+                  tracking-[-0.04em]
+                  sm:text-7xl
+                  lg:text-8xl
+                "
+              >
+                {PHILOSOPHY.title}
+              </h2>
+            </div>
 
             <p
               className="
                 philosophy-description
-                mt-10
                 max-w-2xl
                 text-lg
                 leading-relaxed
@@ -894,52 +899,47 @@ export default function Home() {
 
           <div className="mx-auto grid max-w-wide gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-end lg:gap-20">
 
-            <p className="text-sm tracking-[0.2em] text-accent">
-              05 — {LABS.eyebrow}
-            </p>
+            <div>
+              <p className="text-sm tracking-[0.2em] text-accent">
+                05 — {LABS.eyebrow}
+              </p>
 
-            <h2
-              className="
-                mt-4
-                text-5xl
-                font-semibold
-                tracking-tight
-                text-ink
-                sm:text-7xl
-              "
-            >
-              {LABS.title}
-            </h2>
+              <h2
+                className="
+                  mt-4
+                  text-5xl
+                  font-semibold
+                  tracking-tight
+                  text-ink
+                  sm:text-7xl
+                "
+              >
+                {LABS.title}
+              </h2>
+            </div>
 
-            <p
-              className="
-                mt-6
-                max-w-2xl
-                text-lg
-                leading-relaxed
-                text-muted
-              "
-            >
-              {LABS.description}
-            </p>
+            <div>
+              <p className="max-w-2xl text-lg leading-relaxed text-muted">
+                {LABS.description}
+              </p>
 
-            <a
-              href={LABS.action.href}
-              className="
-                mt-8
-                inline-flex
-                items-center
-                gap-2
-                text-accent
-                transition-opacity
-                hover:opacity-70
-                lg:justify-self-end
-              "
-            >
-              {LABS.action.label}
+              <a
+                href={LABS.action.href}
+                className="
+                  mt-8
+                  inline-flex
+                  items-center
+                  gap-2
+                  text-accent
+                  transition-opacity
+                  hover:opacity-70
+                "
+              >
+                {LABS.action.label}
 
-              <ArrowUpRight className="h-4 w-4" />
-            </a>
+                <ArrowUpRight className="h-4 w-4" />
+              </a>
+            </div>
 
           </div>
 
@@ -977,13 +977,9 @@ export default function Home() {
                 06 — {ABOUT.eyebrow}
               </p>
 
-            </div>
-
-
-            <div>
-
               <h2
                 className="
+                  mt-8
                   text-4xl
                   font-semibold
                   leading-tight
@@ -995,7 +991,12 @@ export default function Home() {
                 {ABOUT.title}
               </h2>
 
-              <div className="mt-10 space-y-6">
+            </div>
+
+
+            <div>
+
+              <div className="space-y-6">
 
                 <p className="max-w-2xl text-lg leading-relaxed text-muted">
                   Cogniheim is a technology and product studio focused on building modern web products, software, and SaaS experiences.
