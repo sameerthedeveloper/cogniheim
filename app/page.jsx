@@ -1146,7 +1146,6 @@ export default function Home() {
                     inline-flex
                     items-center
                     gap-2
-                    border-b
                     border-white/30
                     pb-1.5
                     text-base
@@ -1167,7 +1166,7 @@ export default function Home() {
                       target="_blank"
                       rel="noreferrer"
                       aria-label={label}
-                      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-sm font-semibold text-white transition-colors hover:border-accent hover:text-accent"
+                      className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/5 text-sm font-semibold text-white transition-colors hover:bg-white/10 hover:text-accent"
                     >
                       <SocialGlyph kind={kind} className="h-4 w-4" />
                     </a>
