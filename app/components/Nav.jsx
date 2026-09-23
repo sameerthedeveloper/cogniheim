@@ -134,7 +134,7 @@ export default function Nav() {
     <header
       ref={headerRef}
       className={cn(
-        'fixed inset-x-4 top-4 z-50 mx-auto w-auto max-w-4xl border border-white/10 bg-noir/90 px-4 shadow-[0_8px_30px_-14px_rgba(0,0,0,0.4)] backdrop-blur-xl sm:inset-x-10 sm:top-6 sm:px-0',
+        'fixed inset-x-4 top-4 z-50 mx-auto w-auto max-w-5xl border border-white/10 bg-noir/90 px-4 shadow-[0_8px_30px_-14px_rgba(0,0,0,0.4)] backdrop-blur-xl sm:inset-x-10 sm:top-6 sm:px-0',
         open ? 'flex flex-col rounded-[28px]' : 'flex rounded-full',
       )}
     >
@@ -155,7 +155,7 @@ export default function Nav() {
         <ul ref={listRef} className="relative hidden items-center gap-8 md:flex">
           <span
             ref={indicatorRef}
-            className="pointer-events-none absolute -bottom-[9px] left-0 h-0.5 rounded-full bg-accent opacity-0"
+            className="pointer-events-none absolute -bottom-2.25 left-0 h-0.5 rounded-full bg-accent opacity-0"
           />
           {LINKS.map((link) => (
             <li key={link.href} data-nav-item>
