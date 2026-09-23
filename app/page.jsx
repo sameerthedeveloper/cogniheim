@@ -13,6 +13,12 @@ import Nav from "./components/Nav";
 import { Button } from "./components/ui/button";
 import WorkGrid from "./components/WorkGrid";
 import ContactForm from "./components/ContactForm";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faGithub,
+  faInstagram,
+  faLinkedinIn,
+} from "@fortawesome/free-brands-svg-icons";
 
 /*
 |--------------------------------------------------------------------------
@@ -285,41 +291,21 @@ export const CONTACT = {
   },
 };
 
-function SocialGlyph({ kind, className = 'h-4 w-4' }) {
-  if (kind === 'github') {
-    return (
-      <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
-        <path d="M12 2C6.477 2 2 6.582 2 12.253c0 4.512 2.865 8.33 6.84 9.683.5.095.682-.218.682-.484 0-.238-.009-.866-.013-1.697-2.782.606-3.37-1.34-3.37-1.34-.454-1.153-1.11-1.458-1.11-1.458-.907-.621.069-.608.069-.608 1.005.071 1.536 1.033 1.536 1.033.893 1.533 2.341 1.09 2.912.834.09-.647.35-1.09.636-1.338-2.221-.253-4.555-1.114-4.555-4.95 0-1.093.39-1.988 1.03-2.687-.103-.252-.448-1.272.098-2.653 0 0 .843-.27 2.759 1.028A9.56 9.56 0 0 1 12 6.84c.854 0 1.716.115 2.52.337 1.914-1.298 2.758-1.028 2.758-1.028.547 1.381.203 2.401.1 2.653.64.699 1.03 1.594 1.03 2.687 0 3.839-2.337 4.694-4.566 4.942.359.31.679.922.679 1.856 0 1.339-.012 2.415-.012 2.744 0 .268.179.58.688.482A10.263 10.263 0 0 0 22 12.253C22 6.582 17.523 2 12 2Z" />
-      </svg>
-    );
-  }
-
-  if (kind === 'linkedin') {
-    return <span className={className}>in</span>;
-  }
-
-  if (kind === 'instagram') {
-    return <span className={className}>ig</span>;
-  }
-
-  return null;
-}
-
 export const SOCIAL_LINKS = [
   {
     label: 'LinkedIn',
     href: 'https://www.linkedin.com/company/cogniheim',
-    kind: 'linkedin',
+    icon: faLinkedinIn,
   },
   {
     label: 'Instagram',
     href: 'https://www.instagram.com/cogniheim',
-    kind: 'instagram',
+    icon: faInstagram,
   },
   {
     label: 'GitHub',
     href: 'https://github.com/sameerthedeveloper',
-    kind: 'github',
+    icon: faGithub,
   },
 ];
 
@@ -1159,7 +1145,7 @@ export default function Home() {
                 </a>
 
                 <div className="mt-8 flex flex-wrap items-center gap-3">
-                  {SOCIAL_LINKS.map(({ label, href, kind }) => (
+                  {SOCIAL_LINKS.map(({ label, href, icon }) => (
                     <a
                       key={label}
                       href={href}
@@ -1168,7 +1154,7 @@ export default function Home() {
                       aria-label={label}
                       className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/5 text-sm font-semibold text-white transition-colors hover:bg-white/10 hover:text-accent"
                     >
-                      <SocialGlyph kind={kind} className="h-4 w-4" />
+                      <FontAwesomeIcon icon={icon} className="h-4 w-4" aria-hidden="true" />
                     </a>
                   ))}
                 </div>
