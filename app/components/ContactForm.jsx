@@ -21,9 +21,9 @@ export default function ContactForm() {
     const email = form.email.value.trim();
     const message = form.message.value.trim();
 
-    const subject = `Portfolio contact from ${name}`;
-    const body = `${message}\n\n— ${name} (${email})`;
-    const mailto = `mailto:mohamedsameer.s.2007@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const subject = `New inquiry from ${name}`;
+    const body = `${message}\n\n— ${name}\n${email}`;
+    const mailto = `mailto:hello@cogniheim.in?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
     setStatus('sending');
     window.setTimeout(() => {

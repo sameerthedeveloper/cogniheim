@@ -1,479 +1,1151 @@
-import { ExternalLink, LayoutTemplate, WifiOff, Activity, Accessibility, ArrowUpRight, Mail, Code2, Zap, Braces } from 'lucide-react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faGithub,
-  faLinkedin,
-  faReact,
-  faJs,
-  faTypescript,
-  faTailwindCss,
-  faNodeJs,
-  faGitAlt,
-  faFigma,
-  faPostgresql,
-  faPython,
-  faJava,
-} from '@fortawesome/free-brands-svg-icons';
-import Nav from './components/Nav.jsx';
-import ScrollProgress from './components/ScrollProgress.jsx';
-import ContactForm from './components/ContactForm.jsx';
-import ServiceArt from './components/ServiceArt.jsx';
-import SplitHeading from './components/SplitHeading.jsx';
-import { Button } from './components/ui/button.jsx';
-import WorkGrid from './components/WorkGrid.jsx';
-import {
-  NextjsIcon,
-  SupabaseIcon,
-  FirebaseIcon,
-  CIcon,
-  CplusplusIcon,
-  ExpressIcon,
-  MongodbIcon,
-} from './components/icons.jsx';
+  Layers3,
+  Code2,
+  Rocket,
+  Lightbulb,
+  PenTool,
+  Wrench,
+  RefreshCw,
+  ArrowUpRight,
+  Mail,
+} from "lucide-react";
+import Nav from "./components/Nav";
+import { Button } from "./components/ui/button";
+import WorkGrid from "./components/WorkGrid";
+import ContactForm from "./components/ContactForm";
 
-const HERO_DOODLES = [
-  { icon: Code2, className: 'top-[20%] left-[6%] lg:left-[11%]', rotate: -12, size: 32 },
-  { icon: WifiOff, className: 'top-[28%] right-[7%] lg:right-[12%]', rotate: 8, size: 30 },
-  { icon: Zap, className: 'bottom-[24%] left-[9%] lg:left-[14%]', rotate: 6, size: 26 },
-  { icon: Accessibility, className: 'bottom-[18%] right-[9%] lg:right-[15%]', rotate: -8, size: 34 },
-  { icon: Braces, className: 'top-[52%] left-[2%] lg:left-[5%]', rotate: 10, size: 24 },
-];
+/*
+|--------------------------------------------------------------------------
+| COGNIHEIM — COMPANY CONTENT
+|--------------------------------------------------------------------------
+|
+| This replaces the personal portfolio content.
+|
+| Visual reference:
+| - mohamedsameer.tech
+|
+| Company content:
+| - cogniheim.in
+|
+| Existing creative direction:
+| - cogniheim.lovable.app
+|
+| CMS:
+| - Firebase Firestore
+|
+| Animation:
+| - GSAP + ScrollTrigger
+|
+|--------------------------------------------------------------------------
+*/
 
-const WORK = [
-  {
-    name: 'cinemafocus.in',
-    href: 'https://cinemafocus.in',
-    image: '/projects/cinemafocus.webp',
-    stack: ['Next.js', 'Supabase', 'Tailwind CSS'],
-    description: 'A live Next.js site backed by Supabase, styled with Tailwind CSS.',
-  },
-  {
-    name: 'SalahSync',
-    image: '/projects/salahsync.webp',
-    stack: ['Next.js', 'Capacitor', 'OCR'],
-    description: 'A prayer-time companion wrapped as a native app with Capacitor, built offline-first.',
-    highlight: '100 users on offline storage',
-  },
-  {
-    name: 'RetailFlow',
-    image: '/projects/retailflow.webp',
-    stack: ['Next.js', 'React', 'Supabase'],
-    description: 'A Next.js and React storefront experience backed by Supabase for live product data.',
-    highlight: '30% increase in engagement',
-  },
-  {
-    name: 'IslamicTamilPod',
-    image: '/projects/islamictamilpod.svg',
-    href: 'https://islamic-tamil-pod-pwa.vercel.app',
-    stack: ['Service Workers', 'IndexedDB'],
-    description: 'A podcast PWA using service workers and IndexedDB to keep episodes available offline.',
-    highlight: '85 Lighthouse score, 50% faster loads',
-  },
-  {
-    name: 'OpenNotes',
-    image: '/projects/opennotes.png',
-    href: 'https://open-notes-web.vercel.app',
-    stack: ['React', 'Vite', 'Shadcn/ui', 'Firebase', 'TipTap'],
-    description: 'A note-taking app built with React and Shadcn/ui, with Firebase sync and TipTap editing.',
-  },
-  {
-    name: 'FoodGuard 2.0',
-    image: '/projects/foodguard.webp',
-    stack: ['React 19', 'Vite', 'Firebase', 'Leaflet', 'Framer Motion'],
-    description: 'A React 19 app for tracking food safety, with Leaflet maps and Framer Motion interactions.',
-  },
-  {
-    name: 'Record Lab',
-    href: 'https://record-lab.vercel.app/',
-    image: '/projects/recordlab.webp',
-    stack: ['Next.js','html2pdf', 'Putter.js'],
-    description: 'A Next.js tool for generating print-ready records with true A4 pagination.',
-    highlight: 'Custom watermarking on every export',
-  },
-];
 
-const SERVICES = [
-  {
-    title: 'Frontend Development',
-    body: 'Component-driven UIs in React and Next.js, built to a real design system rather than one-off pages.',
-    icon: LayoutTemplate,
-    tone: 'frontend',
+/* -------------------------------------------------------------------------- */
+/* HERO                                                                       */
+/* -------------------------------------------------------------------------- */
+
+export const HERO = {
+  eyebrow: "TECHNOLOGY & PRODUCT STUDIO",
+
+  title: "Ideas deserve to become real.",
+
+  description:
+    "We think, design, and build digital products that solve real problems — from ambitious web experiences to reliable software and SaaS.",
+
+  primaryAction: {
+    label: "Start a project",
+    href: "#contact",
   },
-  {
-    title: 'PWA & offline-first engineering',
-    body: 'Apps that keep working without a connection — service workers, IndexedDB, and sync queues done properly.',
-    icon: WifiOff,
-    tone: 'offline',
+
+  secondaryAction: {
+    label: "Explore our work",
+    href: "#work",
   },
+};
+
+
+/* -------------------------------------------------------------------------- */
+/* CAPABILITIES                                                               */
+/* -------------------------------------------------------------------------- */
+
+export const SERVICES = [
   {
-    title: 'Real-time & sync systems',
-    body: 'Live device sync and real-time tracking, built to stay consistent under flaky networks.',
-    icon: Activity,
-    tone: 'realtime',
+    number: "01",
+    title: "Digital Products",
+
+    body:
+      "Useful, coherent products shaped around real problems, clear thinking, and meaningful user needs.",
+
+    icon: Layers3,
+    tone: "products",
   },
+
   {
-    title: 'Accessibility-first UI',
-    body: 'Keyboard navigation, visible focus, and screen-reader support treated as requirements, not polish.',
-    icon: Accessibility,
-    tone: 'accessibility',
+    number: "02",
+    title: "Product Design",
+
+    body:
+      "Clear interfaces, thoughtful experiences, and design systems built to make complex products feel simple.",
+
+    icon: PenTool,
+    tone: "design",
+  },
+
+  {
+    number: "03",
+    title: "Software Engineering",
+
+    body:
+      "Reliable, maintainable software engineered with modern technologies, strong foundations, and attention to detail.",
+
+    icon: Code2,
+    tone: "engineering",
+  },
+
+  {
+    number: "04",
+    title: "SaaS Development",
+
+    body:
+      "From product direction to production software, we build focused SaaS products designed to grow with their users.",
+
+    icon: Rocket,
+    tone: "saas",
   },
 ];
 
-// Each chip stays in the site's muted paper tone until hover, when it
-// switches to the tool's own brand color — bg/fg/ring drive .skill-chip
-// in globals.css. `icon` is a FontAwesome brand glyph; `Svg` is a local
-// logo component (icons.jsx) for the few tools FontAwesome doesn't ship.
-// Grouped by what each tool is actually for, not alphabetically — a
-// resume reader scans for "does he know backend" faster than a flat wall
-// of 17 chips lets them.
-const SKILL_GROUPS = [
+
+/* -------------------------------------------------------------------------- */
+/* SELECTED WORK                                                              */
+/* -------------------------------------------------------------------------- */
+
+export const WORK = [
   {
-    label: 'Languages',
-    items: [
-      { name: 'JavaScript', icon: faJs, bg: '#f0db4f', fg: '#1a1a1a', ring: '#f0db4f' },
-      { name: 'TypeScript', icon: faTypescript, bg: '#3178c6', fg: '#ffffff', ring: '#3178c6' },
-      { name: 'Java', icon: faJava, bg: '#007396', fg: '#ffffff', ring: '#007396' },
-      { name: 'C++', Svg: CplusplusIcon, bg: '#00599c', fg: '#ffffff', ring: '#00599c' },
-      { name: 'C', Svg: CIcon, bg: '#a8b9cc', fg: '#1a2b34', ring: '#a8b9cc' },
-      { name: 'Python', icon: faPython, bg: '#306998', fg: '#ffffff', ring: '#ffd43b' },
+    name: "CinemaFocus",
+
+    slug: "cinemafocus",
+
+    href: "https://cinemafocus.in",
+
+    image: "/projects/cinemafocus.webp",
+
+    category: "Digital Product",
+
+    stack: [
+      "Next.js",
+      "Tailwind CSS",
+      "AWS",
     ],
+
+    description:
+      "A premium digital experience for CinemaFocus, bringing high-end audio and home cinema into a clear, immersive web experience.",
+
+    highlight:
+      "Premium audio & home cinema experience",
+
+    featured: true,
   },
+
+  /*
+   * Add future Cogniheim client/product projects here.
+   *
+   * These should eventually come from Firebase instead of
+   * being hard-coded.
+   */
+
+  // {
+  //   name: "Project Name",
+  //   slug: "project-name",
+  //   image: "/projects/project-name.webp",
+  //   category: "SaaS",
+  //   stack: ["Next.js", "Firebase"],
+  //   description: "...",
+  //   featured: false,
+  // },
+];
+
+
+/* -------------------------------------------------------------------------- */
+/* PHILOSOPHY                                                                */
+/* -------------------------------------------------------------------------- */
+
+export const PHILOSOPHY = {
+  eyebrow: "OUR PHILOSOPHY",
+
+  title: "Good software starts with good thinking.",
+
+  description:
+    "Technology is the medium. Thinking is the foundation. We start by understanding the problem, questioning assumptions, and finding the simplest meaningful way forward.",
+};
+
+
+/* -------------------------------------------------------------------------- */
+/* PROCESS                                                                    */
+/* -------------------------------------------------------------------------- */
+
+export const PROCESS = [
   {
-    label: 'Frontend',
-    items: [
-      { name: 'React', icon: faReact, bg: '#61dafb', fg: '#0b2027', ring: '#61dafb' },
-      { name: 'Next.js', Svg: NextjsIcon, bg: '#000000', fg: '#ffffff', ring: '#404040' },
-      { name: 'Tailwind CSS', icon: faTailwindCss, bg: '#38bdf8', fg: '#06232f', ring: '#38bdf8' },
-    ],
+    number: "01",
+    title: "Think",
+
+    body:
+      "We find the real problem before reaching for a solution. We ask questions, understand context, and define what actually matters.",
+
+    icon: Lightbulb,
   },
+
   {
-    label: 'Backend & data',
-    items: [
-      { name: 'Node.js', icon: faNodeJs, bg: '#3c873a', fg: '#ffffff', ring: '#3c873a' },
-      { name: 'Express.js', Svg: ExpressIcon, bg: '#000000', fg: '#ffffff', ring: '#404040' },
-      { name: 'MongoDB', Svg: MongodbIcon, bg: '#47a248', fg: '#ffffff', ring: '#47a248' },
-      { name: 'PostgreSQL', icon: faPostgresql, bg: '#336791', fg: '#ffffff', ring: '#336791' },
-      { name: 'Supabase', Svg: SupabaseIcon, bg: '#3ecf8e', fg: '#0b2118', ring: '#3ecf8e' },
-      { name: 'Firebase', Svg: FirebaseIcon, bg: '#ffa000', fg: '#3a2400', ring: '#ffa000' },
-    ],
+    number: "02",
+    title: "Design",
+
+    body:
+      "We turn complexity into a clear product direction through thoughtful interfaces, systems, and experiences.",
+
+    icon: PenTool,
   },
+
   {
-    label: 'Tools',
-    items: [
-      { name: 'Git', icon: faGitAlt, bg: '#f05033', fg: '#ffffff', ring: '#f05033' },
-      {
-        name: 'Figma',
-        icon: faFigma,
-        bg: 'linear-gradient(135deg, #0acf83, #1abcfe, #a259ff, #ff7262, #f24e1e)',
-        fg: '#ffffff',
-        ring: '#a259ff',
-      },
-    ],
+    number: "03",
+    title: "Build",
+
+    body:
+      "We engineer the product with care, using modern technologies and foundations that are designed to remain maintainable.",
+
+    icon: Wrench,
+  },
+
+  {
+    number: "04",
+    title: "Evolve",
+
+    body:
+      "We learn from real usage, refine what matters, and help the product become stronger over time.",
+
+    icon: RefreshCw,
   },
 ];
 
-const SOCIALS = [
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/mdsameers/', icon: faLinkedin, brand: true },
-  { label: 'GitHub', href: 'https://github.com/sameerthedeveloper', icon: faGithub, brand: true },
-  { label: 'mohamedsameer.s.2007@gmail.com', href: 'mailto:mohamedsameer.s.2007@gmail.com', icon: Mail, brand: false },
+
+/* -------------------------------------------------------------------------- */
+/* LABS                                                                       */
+/* -------------------------------------------------------------------------- */
+
+export const LABS = {
+  eyebrow: "COGNIHEIM LABS",
+
+  title: "Ideas become products.",
+
+  description:
+    "Labs is where we explore promising ideas, question assumptions, and shape focused experiments into useful products.",
+
+  action: {
+    label: "Explore Labs",
+    href: "/labs",
+  },
+};
+
+
+/* -------------------------------------------------------------------------- */
+/* ABOUT                                                                      */
+/* -------------------------------------------------------------------------- */
+
+export const ABOUT = {
+  eyebrow: "ABOUT COGNIHEIM",
+
+  title:
+    "A technology and product studio for thoughtful ideas that deserve serious craft.",
+
+  paragraphs: [
+    "Cogniheim brings product thinking, design, and engineering together to turn ideas into useful digital products.",
+
+    "We work across digital products, product design, software engineering, and SaaS — from the first question to the working product.",
+
+    "Our approach is intentionally focused: understand the problem, make thoughtful decisions, build with care, and keep improving.",
+  ],
+};
+
+
+/* -------------------------------------------------------------------------- */
+/* CONTACT                                                                    */
+/* -------------------------------------------------------------------------- */
+
+export const CONTACT = {
+  eyebrow: "START A CONVERSATION",
+
+  title: "Have an idea worth building?",
+
+  description:
+    "Tell us what you're thinking. Whether you're starting from an idea, solving a difficult problem, or looking to improve an existing product, we'd love to hear about it.",
+
+  email: "hello@cogniheim.in",
+
+  action: {
+    label: "Get in touch",
+    href: "mailto:hello@cogniheim.in",
+  },
+};
+
+
+/* -------------------------------------------------------------------------- */
+/* NAVIGATION                                                                 */
+/* -------------------------------------------------------------------------- */
+
+export const NAVIGATION = [
+  {
+    label: "Work",
+    href: "#work",
+  },
+
+  {
+    label: "Capabilities",
+    href: "#capabilities",
+  },
+
+  {
+    label: "Process",
+    href: "#process",
+  },
+
+  {
+    label: "Labs",
+    href: "/labs",
+  },
+
+  {
+    label: "About",
+    href: "#about",
+  },
+
+  {
+    label: "Contact",
+    href: "#contact",
+  },
 ];
 
-// Ordered chronologically by start date — a timeline only reads as one
-// if it's actually in time order, not the order the info was written.
-const TIMELINE = [
-  {
-    date: '2024',
-    role: 'Front End Development Certification',
-    place: 'Global Tech Computer Education',
-  },
-  {
-    date: '2024 — 2028',
-    role: 'BTech, Computer Science Engineering',
-    place: 'BSA Crescent Institute of Science and Technology',
-  },
-  {
-    date: '2025',
-    role: 'MERN Stack Certification',
-    place: 'Global Tech Computer Education',
-  },
-  {
-    date: '2025 — Present',
-    role: 'Web Developer',
-    place: 'Freelancer',
-    current: true,
-  },
-  {
-    date: '2026',
-    role: 'Full Stack Intern',
-    place: 'Global Tech Computer Education, Chennai',
-  },
-];
+
+/* -------------------------------------------------------------------------- */
+/* FOOTER                                                                     */
+/* -------------------------------------------------------------------------- */
+
+export const FOOTER = {
+  brand: "COGNIHEIM",
+
+  tagline: "Technology & Product Studio",
+
+  description:
+    "We think, design, and build digital products that solve real problems.",
+
+  email: "hello@cogniheim.in",
+
+  copyright: "© Cogniheim",
+
+  links: [
+    {
+      label: "Work",
+      href: "/work",
+    },
+
+    {
+      label: "Labs",
+      href: "/labs",
+    },
+
+    {
+      label: "About",
+      href: "/about",
+    },
+
+    {
+      label: "Contact",
+      href: "/contact",
+    },
+  ],
+};
+
+
+/* -------------------------------------------------------------------------- */
+/* HOME PAGE                                                                  */
+/* -------------------------------------------------------------------------- */
 
 export default function Home() {
   return (
     <>
+      {/* ------------------------------------------------------------------ */}
+      {/* NAVIGATION                                                         */}
+      {/* ------------------------------------------------------------------ */}
+
       <Nav />
-      <ScrollProgress />
+
+
+      {/* ------------------------------------------------------------------ */}
+      {/* HERO                                                               */}
+      {/* ------------------------------------------------------------------ */}
 
       <main id="top">
-        {/* HERO */}
-        <section className="hero-surface hero-gradient-bg relative flex min-h-svh flex-col justify-center overflow-hidden px-5 pt-24 pb-16 sm:px-8">
-          <div className="pointer-events-none absolute inset-0 hidden md:block" aria-hidden="true">
-            {HERO_DOODLES.map(({ icon: Icon, className, rotate, size }, i) => (
-              <span
-                key={i}
-                className={`hero-doodle hero-doodle-${i} absolute text-accent/40 opacity-0 ${className}`}
-                style={{ '--doodle-rot': `${rotate}deg` }}
+
+        <section
+          id="hero"
+          className="
+            relative
+            flex
+            min-h-svh
+            flex-col
+            justify-center
+            overflow-hidden
+            px-5
+            py-24
+            sm:px-8
+          "
+        >
+
+          <div className="mx-auto w-full max-w-wide text-center">
+
+            <p className="hero-eyebrow text-sm tracking-[0.2em] text-accent">
+              {HERO.eyebrow}
+            </p>
+
+            <h1
+              className="
+                hero-title
+                mx-auto
+                mt-6
+                max-w-6xl
+                text-5xl
+                font-semibold
+                tracking-[-0.04em]
+                text-ink
+                sm:text-7xl
+                lg:text-8xl
+              "
+            >
+              {HERO.title}
+            </h1>
+
+            <p
+              className="
+                hero-description
+                mx-auto
+                mt-8
+                max-w-2xl
+                text-lg
+                leading-relaxed
+                text-muted
+                sm:text-xl
+              "
+            >
+              {HERO.description}
+            </p>
+
+            <div className="hero-actions mt-10 flex flex-wrap justify-center gap-4">
+
+              <Button
+                as="a"
+                href={HERO.primaryAction.href}
               >
-                <Icon width={size} height={size} strokeWidth={1.5} />
-              </span>
-            ))}
+                {HERO.primaryAction.label}
+
+                <ArrowUpRight className="ml-2 h-4 w-4" />
+              </Button>
+
+              <Button
+                as="a"
+                href={HERO.secondaryAction.href}
+                variant="ghost"
+              >
+                {HERO.secondaryAction.label}
+              </Button>
+
+            </div>
+
           </div>
 
-          <div className="relative mx-auto max-w-content text-center">
-            <h1 className="text-[2.75rem] leading-[1.05] font-semibold tracking-tight text-ink sm:text-6xl md:text-7xl">
-              {"Built to work when the network doesn't.".split(' ').map((word, i) => (
-                <span key={i} className="hero-word inline-block">
-                  {word}&nbsp;
-                </span>
-              ))}
-            </h1>
-            <p className="hero-typed mt-5 flex min-h-7 items-center justify-center px-4 text-lg font-medium text-accent sm:min-h-8 sm:text-2xl">
-              <span className="hero-typed-text whitespace-nowrap" aria-hidden="true"></span>
-              <span className="hero-typed-cursor" aria-hidden="true"></span>
-              <span className="sr-only">
-                Frontend developer. I build with React and Next.js. I ship offline-first PWAs. I care about accessibility.
-              </span>
-            </p>
-            <p className="hero-subhead mx-auto mt-6 max-w-xl text-lg text-muted sm:text-xl">
-              I&apos;m Mohamed Sameer S, A Full-Stack Developer in Chennai. I ship React and
-              Next.js apps that keep working offline — for real clients and real
-              communities.
-            </p>
-            <div className="hero-actions mt-9 flex items-center justify-center gap-4">
-              <Button as="a" href="/resume.pdf" target="_blank">
-                View resume
-              </Button>
-              <Button as="a" href="#work" variant="ghost">
-                See the work
-              </Button>
-            </div>
-          </div>
         </section>
 
-        {/* SERVICES */}
-        <section id="services" className="flex min-h-svh scroll-mt-24 flex-col justify-center px-5 py-24 sm:px-8">
-          <div className="mx-auto grid max-w-wide gap-10 lg:grid-cols-[1fr_1.7fr] lg:gap-16">
-            <div className="lg:sticky lg:top-28 lg:self-start">
-              <SplitHeading
-                text="Where I focus."
-                className="text-4xl font-semibold tracking-tight text-ink sm:text-5xl"
-              />
-              <p className="reveal mt-4 max-w-xs text-muted">
-                Four things I actually specialize in, not a list of every technology I&apos;ve touched.
+
+        {/* ---------------------------------------------------------------- */}
+        {/* SELECTED WORK                                                    */}
+        {/* ---------------------------------------------------------------- */}
+
+        <section
+          id="work"
+          className="
+            scroll-mt-24
+            bg-surface-2
+            px-5
+            py-28
+            sm:px-8
+          "
+        >
+
+          <div className="mx-auto max-w-wide">
+
+            <div className="max-w-2xl">
+
+              <p className="section-eyebrow text-sm tracking-[0.2em] text-accent">
+                01 — SELECTED WORK
               </p>
+
+              <h2
+                className="
+                  mt-4
+                  text-4xl
+                  font-semibold
+                  tracking-tight
+                  text-ink
+                  sm:text-6xl
+                "
+              >
+                Work built with purpose.
+              </h2>
+
+              <p className="mt-5 text-lg text-muted">
+                A selection of digital products and experiences we've
+                designed and engineered.
+              </p>
+
             </div>
+
+
+            <div className="mt-16">
+
+              <WorkGrid work={WORK} />
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        {/* ---------------------------------------------------------------- */}
+        {/* CAPABILITIES                                                     */}
+        {/* ---------------------------------------------------------------- */}
+
+        <section
+          id="capabilities"
+          className="
+            scroll-mt-24
+            px-5
+            py-28
+            sm:px-8
+          "
+        >
+
+          <div
+            className="
+              mx-auto
+              grid
+              max-w-wide
+              gap-12
+              lg:grid-cols-[1fr_1.7fr]
+              lg:gap-20
+            "
+          >
+
+            <div className="lg:sticky lg:top-28 lg:self-start">
+
+              <p className="text-sm tracking-[0.2em] text-accent">
+                02 — CAPABILITIES
+              </p>
+
+              <h2
+                className="
+                  mt-4
+                  text-4xl
+                  font-semibold
+                  tracking-tight
+                  text-ink
+                  sm:text-6xl
+                "
+              >
+                We build the whole product.
+              </h2>
+
+              <p className="mt-5 max-w-sm text-muted">
+                From product thinking and interface design to software
+                engineering and SaaS development.
+              </p>
+
+            </div>
+
 
             <ol className="border-t border-line">
-              {SERVICES.map(({ title, body, icon: Icon, tone }, i) => (
-                <li key={title} className="reveal service-row group relative border-b border-line py-6">
-                  <span className="service-row-bar pointer-events-none absolute -left-5 top-0 bottom-0 w-0.75 origin-center scale-y-0 bg-accent transition-transform duration-300 ease-out group-hover:scale-y-100 sm:-left-6" />
-                  <div className="flex items-start gap-4 sm:gap-6">
-                    <span className="pt-1 font-mono text-sm text-faint transition-colors duration-300 group-hover:text-accent">
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <h3 className="flex items-center gap-2.5 text-xl font-medium text-ink transition-colors duration-300 group-hover:text-accent sm:text-2xl">
-                        <Icon className="h-4.5 w-4.5 shrink-0 text-accent" aria-hidden="true" />
-                        {title}
-                      </h3>
-                      <p className="mt-2 max-w-md text-[15px] leading-relaxed text-muted">{body}</p>
-                    </div>
-                    <span className="hidden h-16 w-16 shrink-0 overflow-hidden rounded-xl transition-transform duration-300 group-hover:scale-105 sm:block">
-                      <ServiceArt tone={tone} />
-                    </span>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
 
-        {/* STACK */}
-        <section id="stack" className="flex min-h-svh scroll-mt-24 flex-col justify-center px-5 py-24 sm:px-8">
-          <div className="mx-auto grid max-w-wide gap-10 lg:grid-cols-[1fr_1.7fr] lg:gap-16">
-            <div className="lg:sticky lg:top-28 lg:self-start">
-              <SplitHeading
-                text="What I reach for."
-                className="text-4xl font-semibold tracking-tight text-ink sm:text-5xl"
-              />
-              <p className="reveal mt-4 max-w-xs text-muted">
-                Seventeen tools that show up across these projects — hover one for its real color.
-              </p>
-            </div>
+              {SERVICES.map(
+                ({ number, title, body, icon: Icon }) => (
 
-            <div className="space-y-8">
-              {SKILL_GROUPS.map(({ label, items }) => (
-                <div key={label} className="reveal">
-                  <p className="mb-3 text-sm font-medium text-muted">{label}</p>
-                  <div className="flex flex-wrap gap-3">
-                    {items.map(({ name, icon, Svg, bg, fg, ring }) => (
+                  <li
+                    key={title}
+                    className="
+                      group
+                      border-b
+                      border-line
+                      py-8
+                    "
+                  >
+
+                    <div className="flex gap-5">
+
                       <span
-                        key={name}
-                        className="skill-chip inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2.5 text-sm font-medium text-muted"
-                        style={{ '--chip-bg': bg, '--chip-fg': fg, '--chip-ring': ring }}
+                        className="
+                          pt-1
+                          font-mono
+                          text-sm
+                          text-faint
+                          transition-colors
+                          group-hover:text-accent
+                        "
                       >
-                        {icon ? (
-                          <FontAwesomeIcon icon={icon} className="h-4 w-4" aria-hidden="true" />
-                        ) : (
-                          <Svg className="h-4 w-4" />
-                        )}
-                        {name}
+                        {number}
                       </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
 
-        {/* WORK */}
-        <section id="work" className="flex min-h-svh scroll-mt-24 flex-col justify-center bg-surface-2 px-5 py-24 sm:px-8">
-          <div className="mx-auto max-w-wide">
-            <div className="flex flex-wrap items-end justify-between gap-6">
-              <div className="max-w-lg">
-                <SplitHeading
-                  text="Selected work."
-                  className="text-4xl font-semibold tracking-tight text-ink sm:text-5xl"
-                />
-                <p className="reveal mt-4 text-lg text-muted">Seven projects, shipped and in use.</p>
-              </div>
-              <a
-                href="https://linkedin.com/in/mdsameers/"
-                target="_blank"
-                rel="noopener"
-                className="reveal inline-flex items-center gap-1.5 text-[15px] text-accent transition-opacity hover:opacity-70"
-              >
-                More on LinkedIn <ExternalLink className="h-4 w-4" aria-hidden="true" />
-              </a>
-            </div>
+                      <div className="flex-1">
 
-            <WorkGrid work={WORK} />
-          </div>
-        </section>
+                        <h3
+                          className="
+                            flex
+                            items-center
+                            gap-3
+                            text-2xl
+                            font-medium
+                            text-ink
+                            transition-colors
+                            group-hover:text-accent
+                          "
+                        >
 
-        {/* JOURNEY */}
-        <section id="journey" className="flex min-h-svh scroll-mt-24 flex-col justify-center px-5 py-24 sm:px-8">
-          <div className="mx-auto grid max-w-wide gap-10 lg:grid-cols-[1fr_1.7fr] lg:gap-16">
-            <div className="lg:sticky lg:top-28 lg:self-start">
-              <SplitHeading
-                text="How I got here."
-                className="text-4xl font-semibold tracking-tight text-ink sm:text-5xl"
-              />
-              <p className="reveal mt-4 max-w-xs text-muted">
-                Five stops so far, in order — two certifications and a still-running degree,
-                with the freelance and internship work built on top.
-              </p>
-            </div>
+                          <Icon className="h-5 w-5 text-accent" />
 
-            <div className="journey-rail relative">
-              <span
-                className="pointer-events-none absolute left-1.75 top-2 bottom-2 w-px bg-line"
-                aria-hidden="true"
-              />
-              <span
-                className="journey-rail-fill pointer-events-none absolute left-1.75 top-2 bottom-2 w-px origin-top scale-y-0 bg-accent"
-                aria-hidden="true"
-              />
-              <ol className="space-y-10">
-                {TIMELINE.map((item) => (
-                  <li key={item.role} className="reveal journey-row group relative pl-10">
-                    <span
-                      className={`journey-dot absolute left-0 top-1 h-3.5 w-3.5 rounded-full border-2 bg-surface-3 transition-colors duration-300 ${
-                        item.current
-                          ? 'journey-dot-current border-accent bg-accent'
-                          : 'border-line group-hover:border-accent'
-                      }`}
-                      aria-hidden="true"
-                    />
-                    <p className="text-sm text-muted">
-                      {item.date}
-                      {item.current && <span className="ml-2 text-accent">· ongoing</span>}
-                    </p>
-                    <h3 className="mt-1 text-xl font-medium text-ink transition-colors duration-300 group-hover:text-accent sm:text-2xl">
-                      {item.role}
-                    </h3>
-                    <p className="mt-1 text-[15px] text-muted">{item.place}</p>
+                          {title}
+
+                        </h3>
+
+                        <p
+                          className="
+                            mt-3
+                            max-w-xl
+                            leading-relaxed
+                            text-muted
+                          "
+                        >
+                          {body}
+                        </p>
+
+                      </div>
+
+                    </div>
+
                   </li>
-                ))}
-              </ol>
-            </div>
+
+                )
+              )}
+
+            </ol>
+
           </div>
+
         </section>
 
-        {/* CONTACT CTA */}
-        <section id="contact" className="relative flex min-h-svh scroll-mt-24 flex-col justify-center overflow-hidden bg-noir px-5 py-24 sm:px-8">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-0 h-144 w-xl -translate-x-1/2 -translate-y-1/3 rounded-full bg-accent/20 blur-[120px]"
-          />
-          <div className="relative mx-auto max-w-wide">
-            <div className="text-center">
-              <p className="reveal text-sm text-white/50">Open to internships and freelance work</p>
-              <SplitHeading
-                text="Let's build something that works."
-                className="mt-3 text-4xl font-semibold tracking-tight text-white sm:text-5xl"
-              />
+
+        {/* ---------------------------------------------------------------- */}
+        {/* PHILOSOPHY                                                       */}
+        {/* ---------------------------------------------------------------- */}
+
+        <section
+          id="philosophy"
+          className="
+            scroll-mt-24
+            bg-noir
+            px-5
+            py-32
+            text-white
+            sm:px-8
+          "
+        >
+
+          <div className="mx-auto max-w-wide">
+
+            <p className="text-sm tracking-[0.2em] text-white/50">
+              03 — {PHILOSOPHY.eyebrow}
+            </p>
+
+            <h2
+              className="
+                philosophy-title
+                mt-8
+                max-w-5xl
+                text-5xl
+                font-semibold
+                tracking-[-0.04em]
+                sm:text-7xl
+                lg:text-8xl
+              "
+            >
+              {PHILOSOPHY.title}
+            </h2>
+
+            <p
+              className="
+                philosophy-description
+                mt-10
+                max-w-2xl
+                text-lg
+                leading-relaxed
+                text-white/60
+                sm:text-xl
+              "
+            >
+              {PHILOSOPHY.description}
+            </p>
+
+          </div>
+
+        </section>
+
+
+        {/* ---------------------------------------------------------------- */}
+        {/* PROCESS                                                          */}
+        {/* ---------------------------------------------------------------- */}
+
+        <section
+          id="process"
+          className="
+            scroll-mt-24
+            px-5
+            py-28
+            sm:px-8
+          "
+        >
+
+          <div className="mx-auto max-w-wide">
+
+            <p className="text-sm tracking-[0.2em] text-accent">
+              04 — OUR PROCESS
+            </p>
+
+            <h2
+              className="
+                mt-4
+                max-w-3xl
+                text-4xl
+                font-semibold
+                tracking-tight
+                text-ink
+                sm:text-6xl
+              "
+            >
+              From first question to working product.
+            </h2>
+
+
+            <div className="mt-20 grid gap-0 md:grid-cols-2">
+
+              {PROCESS.map(
+                ({ number, title, body, icon: Icon }) => (
+
+                  <article
+                    key={title}
+                    className="
+                      process-item
+                      border-t
+                      border-line
+                      px-0
+                      py-10
+                      md:px-8
+                      md:py-12
+                    "
+                  >
+
+                    <div className="flex items-center justify-between">
+
+                      <span className="font-mono text-sm text-faint">
+                        {number}
+                      </span>
+
+                      <Icon className="h-5 w-5 text-accent" />
+
+                    </div>
+
+                    <h3
+                      className="
+                        mt-8
+                        text-3xl
+                        font-medium
+                        text-ink
+                      "
+                    >
+                      {title}
+                    </h3>
+
+                    <p
+                      className="
+                        mt-4
+                        max-w-md
+                        leading-relaxed
+                        text-muted
+                      "
+                    >
+                      {body}
+                    </p>
+
+                  </article>
+
+                )
+              )}
+
             </div>
 
-            <div className="mt-16 flex flex-col items-center justify-center gap-14 lg:flex-row lg:items-start lg:gap-20">
-              <div className="reveal">
+          </div>
+
+        </section>
+
+
+        {/* ---------------------------------------------------------------- */}
+        {/* LABS                                                             */}
+        {/* ---------------------------------------------------------------- */}
+
+        <section
+          id="labs"
+          className="
+            scroll-mt-24
+            bg-surface-2
+            px-5
+            py-28
+            sm:px-8
+          "
+        >
+
+          <div className="mx-auto max-w-wide">
+
+            <p className="text-sm tracking-[0.2em] text-accent">
+              05 — {LABS.eyebrow}
+            </p>
+
+            <h2
+              className="
+                mt-4
+                text-5xl
+                font-semibold
+                tracking-tight
+                text-ink
+                sm:text-7xl
+              "
+            >
+              {LABS.title}
+            </h2>
+
+            <p
+              className="
+                mt-6
+                max-w-2xl
+                text-lg
+                leading-relaxed
+                text-muted
+              "
+            >
+              {LABS.description}
+            </p>
+
+            <a
+              href={LABS.action.href}
+              className="
+                mt-8
+                inline-flex
+                items-center
+                gap-2
+                text-accent
+                transition-opacity
+                hover:opacity-70
+              "
+            >
+              {LABS.action.label}
+
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+
+          </div>
+
+        </section>
+
+
+        {/* ---------------------------------------------------------------- */}
+        {/* ABOUT                                                            */}
+        {/* ---------------------------------------------------------------- */}
+
+        <section
+          id="about"
+          className="
+            scroll-mt-24
+            px-5
+            py-28
+            sm:px-8
+          "
+        >
+
+          <div
+            className="
+              mx-auto
+              grid
+              max-w-wide
+              gap-12
+              lg:grid-cols-[1fr_1.5fr]
+              lg:gap-20
+            "
+          >
+
+            <div>
+
+              <p className="text-sm tracking-[0.2em] text-accent">
+                06 — {ABOUT.eyebrow}
+              </p>
+
+            </div>
+
+
+            <div>
+
+              <h2
+                className="
+                  text-4xl
+                  font-semibold
+                  leading-tight
+                  tracking-tight
+                  text-ink
+                  sm:text-6xl
+                "
+              >
+                {ABOUT.title}
+              </h2>
+
+              <div className="mt-10 space-y-6">
+
+                {ABOUT.paragraphs.map((paragraph) => (
+
+                  <p
+                    key={paragraph}
+                    className="
+                      max-w-2xl
+                      text-lg
+                      leading-relaxed
+                      text-muted
+                    "
+                  >
+                    {paragraph}
+                  </p>
+
+                ))}
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        {/* ---------------------------------------------------------------- */}
+        {/* CONTACT                                                          */}
+        {/* ---------------------------------------------------------------- */}
+
+        <section
+          id="contact"
+          className="
+            relative
+            flex
+            min-h-[80vh]
+            items-center
+            overflow-hidden
+            bg-noir
+            px-5
+            py-28
+            text-white
+            sm:px-8
+          "
+        >
+
+          <div
+            className="
+              pointer-events-none
+              absolute
+              left-1/2
+              top-0
+              h-96
+              w-96
+              -translate-x-1/2
+              -translate-y-1/2
+              rounded-full
+              bg-accent/20
+              blur-[120px]
+            "
+          />
+
+          <div className="relative mx-auto w-full max-w-wide">
+
+            <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
+
+              <div>
+                <p className="text-sm tracking-[0.2em] text-white/40">
+                  07 — {CONTACT.eyebrow}
+                </p>
+
+                <h2
+                  className="
+                    contact-title
+                    mt-6
+                    max-w-3xl
+                    text-4xl
+                    font-semibold
+                    tracking-[-0.04em]
+                    sm:text-6xl
+                    lg:text-7xl
+                  "
+                >
+                  {CONTACT.title}
+                </h2>
+
+                <p
+                  className="
+                    mt-6
+                    max-w-xl
+                    text-base
+                    leading-relaxed
+                    text-white/60
+                    sm:text-lg
+                  "
+                >
+                  {CONTACT.description}
+                </p>
+
+                <a
+                  href={`mailto:${CONTACT.email}`}
+                  className="
+                    mt-8
+                    inline-flex
+                    items-center
+                    gap-2
+                    border-b
+                    border-white/30
+                    pb-1.5
+                    text-base
+                    transition-colors
+                    hover:border-accent
+                    hover:text-accent
+                  "
+                >
+                  <Mail className="h-4 w-4" />
+                  {CONTACT.email}
+                </a>
+              </div>
+
+              <div className="flex items-center">
                 <ContactForm />
               </div>
 
-              <div className="reveal flex flex-col gap-3">
-                <p className="text-sm text-white/50">Find me elsewhere</p>
-                <ul className="flex flex-col gap-1">
-                  {SOCIALS.map(({ label, href, icon, brand }) => {
-                    const iconClass = 'h-[18px] w-[18px] text-white/40 transition-colors group-hover:text-accent';
-                    const Icon = icon;
-                    return (
-                      <li key={label}>
-                        <a
-                          href={href}
-                          target={href.startsWith('mailto:') ? undefined : '_blank'}
-                          rel={href.startsWith('mailto:') ? undefined : 'noopener'}
-                          className="group flex items-center gap-3 py-2 text-[15px] text-white/70 transition-colors hover:text-white"
-                        >
-                          {brand ? (
-                            <FontAwesomeIcon icon={Icon} className={iconClass} aria-hidden="true" />
-                          ) : (
-                            <Icon className={iconClass} aria-hidden="true" />
-                          )}
-                          {label}
-                        </a>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
             </div>
+
           </div>
+
         </section>
+
       </main>
 
-      <footer className="bg-noir px-5 pb-10 pt-8 sm:px-8">
-        <div className="reveal mx-auto flex max-w-wide flex-col items-center gap-4 border-t border-white/10 pt-8 text-center sm:flex-row sm:justify-between sm:text-left">
-          <p className="text-[13px] text-white/40">© Mohamed Sameer S — 2026</p>
+
+      {/* ------------------------------------------------------------------ */}
+      {/* FOOTER                                                             */}
+      {/* ------------------------------------------------------------------ */}
+
+      <footer className="bg-noir px-5 pb-10 sm:px-8">
+
+        <div
+          className="
+            mx-auto
+            flex
+            max-w-wide
+            flex-col
+            gap-6
+            border-t
+            border-white/10
+            pt-8
+            sm:flex-row
+            sm:items-end
+            sm:justify-between
+          "
+        >
+
+          <div>
+
+            <p className="text-lg font-medium text-white">
+              {FOOTER.brand}
+            </p>
+
+            <p className="mt-1 text-sm text-white/40">
+              {FOOTER.tagline}
+            </p>
+
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/40">
+              {FOOTER.description}
+            </p>
+
+          </div>
+
+
+          <div className="flex flex-wrap gap-5">
+
+            {FOOTER.links.map((link) => (
+
+              <a
+                key={link.label}
+                href={link.href}
+                className="
+                  text-sm
+                  text-white/50
+                  transition-colors
+                  hover:text-white
+                "
+              >
+                {link.label}
+              </a>
+
+            ))}
+
+          </div>
+
+        </div>
+
+
+        <div
+          className="
+            mx-auto
+            mt-10
+            flex
+            max-w-wide
+            items-center
+            justify-between
+            border-t
+            border-white/10
+            pt-6
+          "
+        >
+
+          <p className="text-xs text-white/30">
+            {FOOTER.copyright}
+          </p>
+
           <a
             href="#top"
-            className="magnetic group inline-flex items-center gap-1 text-[13px] text-white/60 transition-colors hover:text-white"
+            className="
+              text-xs
+              text-white/40
+              transition-colors
+              hover:text-white
+            "
           >
-            Back to top
-            <span className="inline-block transition-transform duration-300 ease-out group-hover:-translate-y-1">↑</span>
+            Back to top ↑
           </a>
+
         </div>
+
       </footer>
     </>
   );

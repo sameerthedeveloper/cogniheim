@@ -4,25 +4,22 @@ import { useEffect, useRef, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import gsap from 'gsap';
 import { cn } from '../lib/utils.js';
-import { initNavCondense } from '../animations/navCondense.js';
 
 const LINKS = [
-  { href: '#services', label: 'Services' },
-  { href: '#stack', label: 'Stack' },
   { href: '#work', label: 'Work' },
-  { href: '#journey', label: 'Journey' },
+  { href: '#capabilities', label: 'Capabilities' },
+  { href: '#process', label: 'Process' },
+  { href: '#about', label: 'About' },
   { href: '#contact', label: 'Contact' },
 ];
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(null);
-  const [condensed, setCondensed] = useState(false);
   const headerRef = useRef(null);
   const navRef = useRef(null);
   const listRef = useRef(null);
   const indicatorRef = useRef(null);
-  const signatureRef = useRef(null);
   const mobilePanelRef = useRef(null);
   const mobileListRef = useRef(null);
 
@@ -70,9 +67,7 @@ export default function Nav() {
     });
   }, [active]);
 
-  // One entrance moment: the pill drops in and the wordmark, links and
-  // resume label cascade after it — then the pill quietly condenses as
-  // the visitor actually starts scrolling.
+  // Entrance moment: the pill drops in and the links cascade after it
   useEffect(() => {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const header = headerRef.current;
@@ -92,22 +87,7 @@ export default function Nav() {
         '-=0.3'
       );
     }
-
-    const stopCondense = initNavCondense(navRef.current, reducedMotion, setCondensed);
-    return stopCondense;
   }, []);
-
-  // A small drawn flourish under the wordmark — a signature, not a
-  // generic underline — that traces in on hover/focus and erases on exit.
-  const handleSignatureEnter = () => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    gsap.to(signatureRef.current, { strokeDashoffset: 0, duration: 0.5, ease: 'power2.out' });
-  };
-
-  const handleSignatureLeave = () => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    gsap.to(signatureRef.current, { strokeDashoffset: 1, duration: 0.35, ease: 'power2.in' });
-  };
 
   // The mobile panel expands/collapses with GSAP rather than snapping in
   // and out with the conditional render, and its links cascade in after.
@@ -146,41 +126,22 @@ export default function Nav() {
     <header
       ref={headerRef}
       className={cn(
-        'fixed inset-x-4 top-4 z-50 border border-line bg-surface-3/80 backdrop-blur-xl transition-[border-radius,box-shadow] duration-300 sm:inset-x-10 sm:top-6',
-        open ? 'rounded-[28px]' : 'rounded-full',
-        condensed
-          ? 'shadow-[0_14px_36px_-16px_rgba(61,57,41,0.45)]'
-          : 'shadow-[0_8px_30px_-14px_rgba(61,57,41,0.35)]'
+        'fixed left-1/2 top-4 z-50 w-full max-w-4xl -translate-x-1/2 border border-white/10 bg-noir/90 backdrop-blur-xl px-4 sm:top-6 sm:px-0 shadow-[0_8px_30px_-14px_rgba(0,0,0,0.4)]',
+        open ? 'rounded-[28px]' : 'rounded-full'
       )}
     >
-      <nav ref={navRef} className="mx-auto flex h-14 max-w-wide items-center justify-between px-5 sm:px-8">
+      <nav ref={navRef} className="mx-auto flex h-14 max-w-full items-center justify-between px-5 sm:px-8">
         <a
           href="#top"
           data-nav-item
-          onMouseEnter={handleSignatureEnter}
-          onMouseLeave={handleSignatureLeave}
-          onFocus={handleSignatureEnter}
-          onBlur={handleSignatureLeave}
-          className="relative text-[15px] font-semibold tracking-tight text-ink"
+          className="relative flex items-center"
         >
-          Mohamed Sameer
-          <svg
-            className="pointer-events-none absolute -bottom-1.5 left-0 h-2 w-[68px]"
-            viewBox="0 0 68 8"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path
-              ref={signatureRef}
-              d="M1 5.5C10 1.5 16 1.5 22 4.5C28 7.2 34 2 40 3.5C46 5 50 6.5 56 3C60 0.8 63 2 67 4"
-              stroke="var(--color-accent)"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              pathLength="1"
-              strokeDasharray="1"
-              strokeDashoffset="1"
-            />
-          </svg>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo.png"
+            alt="Cogniheim"
+            className="h-10 w-auto object-contain transition-transform duration-200 hover:scale-105"
+          />
         </a>
 
         <ul ref={listRef} className="relative hidden items-center gap-8 md:flex">
@@ -193,7 +154,7 @@ export default function Nav() {
               <a
                 href={link.href}
                 className={`text-[13px] transition-colors ${
-                  active === link.href ? 'text-ink' : 'text-muted hover:text-ink'
+                  active === link.href ? 'text-white' : 'text-white/60 hover:text-white'
                 }`}
               >
                 {link.label}
@@ -203,12 +164,11 @@ export default function Nav() {
         </ul>
 
         <a
-          href="/resume.pdf"
-          target="_blank"
+          href="#contact"
           data-nav-item
-          className="magnetic hidden text-[13px] text-accent transition-opacity hover:opacity-70 md:inline-block"
+          className="magnetic hidden rounded-full bg-accent px-5 py-2.5 text-[13px] font-medium text-white transition-opacity hover:opacity-90 md:inline-block"
         >
-          Resume
+          Start the Build
         </a>
 
         <button
@@ -217,7 +177,7 @@ export default function Nav() {
           aria-expanded={open}
           aria-controls="mobile-nav"
           onClick={() => setOpen((v) => !v)}
-          className="text-ink md:hidden"
+          className="text-white md:hidden"
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
@@ -225,13 +185,13 @@ export default function Nav() {
       </nav>
 
       <div id="mobile-nav" ref={mobilePanelRef} className="hidden overflow-hidden md:hidden" style={{ height: 0, opacity: 0 }}>
-        <ul ref={mobileListRef} className="flex flex-col gap-1 border-t border-line px-5 pb-5 pt-4">
+        <ul ref={mobileListRef} className="flex flex-col gap-1 border-t border-white/10 px-5 pb-5 pt-4">
           {LINKS.map((link) => (
             <li key={link.href} data-mobile-item>
               <a
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className={`block py-2 text-[15px] ${active === link.href ? 'text-accent' : 'text-ink'}`}
+                className={`block py-2 text-[15px] ${active === link.href ? 'text-accent' : 'text-white/80'}`}
               >
                 {link.label}
               </a>
