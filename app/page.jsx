@@ -239,8 +239,8 @@ export const LABS = {
     "Labs is where we explore promising ideas, question assumptions, and shape focused experiments into useful products.",
 
   action: {
-    label: "Explore Labs",
-    href: "/labs",
+    label: "Start a project",
+    href: "#contact",
   },
 };
 
@@ -285,6 +285,34 @@ export const CONTACT = {
   },
 };
 
+export const FAQ_ITEMS = [
+  {
+    question: "What is Cogniheim?",
+    answer:
+      "Cogniheim is a technology and product studio focused on building modern web products, software, and SaaS experiences.",
+  },
+  {
+    question: "What does Cogniheim do?",
+    answer:
+      "Cogniheim helps teams and founders turn ideas into useful digital products through product thinking, design, software engineering, and SaaS development.",
+  },
+  {
+    question: "What services does Cogniheim provide?",
+    answer:
+      "Cogniheim works across product design, software engineering, SaaS development, web applications, digital product development, and product strategy.",
+  },
+  {
+    question: "Does Cogniheim build SaaS products?",
+    answer:
+      "Yes. Cogniheim builds software and SaaS experiences designed to solve real problems and evolve with product needs.",
+  },
+  {
+    question: "Who founded Cogniheim?",
+    answer:
+      "Cogniheim was founded by S. Mohamed Sameer.",
+  },
+];
+
 
 /* -------------------------------------------------------------------------- */
 /* NAVIGATION                                                                 */
@@ -304,11 +332,6 @@ export const NAVIGATION = [
   {
     label: "Process",
     href: "#process",
-  },
-
-  {
-    label: "Labs",
-    href: "/labs",
   },
 
   {
@@ -342,23 +365,47 @@ export const FOOTER = {
   links: [
     {
       label: "Work",
-      href: "/work",
+      href: "#work",
     },
 
     {
-      label: "Labs",
-      href: "/labs",
+      label: "Capabilities",
+      href: "#capabilities",
     },
 
     {
       label: "About",
-      href: "/about",
+      href: "#about",
     },
 
     {
       label: "Contact",
-      href: "/contact",
+      href: "#contact",
     },
+  ],
+};
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Cogniheim',
+  url: 'https://cogniheim.in',
+  logo: 'https://cogniheim.in/logo.png',
+  description:
+    'Cogniheim is a technology and product studio focused on building modern web products, software, and SaaS experiences.',
+  founder: {
+    '@type': 'Person',
+    name: 'S. Mohamed Sameer',
+    url: 'https://mohamedsameer.tech',
+  },
+  knowsAbout: [
+    'Technology and product studio',
+    'Product design',
+    'Software engineering',
+    'SaaS development',
+    'Web applications',
+    'Digital products',
+    'Product strategy',
   ],
 };
 
@@ -370,6 +417,10 @@ export const FOOTER = {
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
       {/* ------------------------------------------------------------------ */}
       {/* NAVIGATION                                                         */}
       {/* ------------------------------------------------------------------ */}
@@ -499,7 +550,7 @@ export default function Home() {
               </h2>
 
               <p className="mt-5 text-lg text-muted">
-                A selection of digital products and experiences we've
+                A selection of digital products and experiences we&apos;ve
                 designed and engineered.
               </p>
 
@@ -919,6 +970,10 @@ export default function Home() {
 
               <div className="mt-10 space-y-6">
 
+                <p className="max-w-2xl text-lg leading-relaxed text-muted">
+                  Cogniheim is a technology and product studio focused on building modern web products, software, and SaaS experiences.
+                </p>
+
                 {ABOUT.paragraphs.map((paragraph) => (
 
                   <p
@@ -941,6 +996,35 @@ export default function Home() {
 
           </div>
 
+        </section>
+
+        <section
+          id="faq"
+          className="
+            scroll-mt-24
+            bg-surface-2
+            px-5
+            py-28
+            sm:px-8
+          "
+        >
+          <div className="mx-auto max-w-wide">
+            <p className="text-sm tracking-[0.2em] text-accent">
+              FREQUENTLY ASKED QUESTIONS
+            </p>
+            <h2 className="mt-4 text-4xl font-semibold tracking-tight text-ink sm:text-6xl">
+              Clear answers about Cogniheim.
+            </h2>
+
+            <div className="mt-12 grid gap-6 lg:grid-cols-2">
+              {FAQ_ITEMS.map((item) => (
+                <div key={item.question} className="rounded-2xl border border-line bg-white/30 p-6">
+                  <h3 className="text-xl font-medium text-ink">{item.question}</h3>
+                  <p className="mt-3 leading-relaxed text-muted">{item.answer}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
 
 

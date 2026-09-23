@@ -197,11 +197,6 @@ export default function Nav() {
               </a>
             </li>
           ))}
-          <li data-mobile-item>
-            <a href="/resume.pdf" target="_blank" onClick={() => setOpen(false)} className="block py-2 text-[15px] text-accent">
-              Resume
-            </a>
-          </li>
         </ul>
       </div>
     </header>
