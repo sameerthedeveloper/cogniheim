@@ -552,7 +552,7 @@ export default function Home() {
           "
         >
 
-          <div className="mx-auto grid max-w-wide gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-end lg:gap-20">
+          <div className="mx-auto grid max-w-wide gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-20">
 
             <div>
 
@@ -573,19 +573,17 @@ export default function Home() {
                 Work built with purpose.
               </h2>
 
-            </div>
-
-
-            <div className="lg:pb-1">
-
-              <p className="max-w-xl text-lg leading-relaxed text-muted">
+              <p className="mt-6 max-w-md text-lg leading-relaxed text-muted">
                 A selection of digital products and experiences we&apos;ve
                 designed and engineered.
               </p>
 
-              <div className="mt-10">
-                <WorkGrid work={WORK} />
-              </div>
+            </div>
+
+
+            <div>
+
+              <WorkGrid work={WORK} />
 
             </div>
 
