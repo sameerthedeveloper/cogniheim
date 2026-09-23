@@ -138,11 +138,11 @@ export default function Nav() {
         open ? 'flex flex-col rounded-[28px]' : 'flex rounded-full',
       )}
     >
-      <nav ref={navRef} className="mx-auto flex h-14 w-full max-w-full items-center justify-between px-5 sm:px-8">
+      <nav ref={navRef} className="mx-auto flex h-14 w-full max-w-full items-center justify-between px-5 sm:px-8 md:grid md:grid-cols-[1fr_auto_1fr]">
         <a
           href="#top"
           data-nav-item
-          className="relative flex items-center justify-center"
+          className="relative flex shrink-0 items-center justify-center md:justify-self-start"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -152,7 +152,7 @@ export default function Nav() {
           />
         </a>
 
-        <ul ref={listRef} className="relative hidden items-center gap-8 md:flex">
+        <ul ref={listRef} className="relative hidden items-center gap-8 md:flex md:justify-self-center">
           <span
             ref={indicatorRef}
             className="pointer-events-none absolute -bottom-2.25 left-0 h-0.5 rounded-full bg-accent opacity-0"
@@ -171,7 +171,7 @@ export default function Nav() {
           ))}
         </ul>
 
-        <div className="ml-auto hidden items-center gap-3 md:flex">
+        <div className="ml-auto hidden items-center gap-3 md:flex md:justify-self-end">
           <a
             href="https://github.com/sameerthedeveloper"
             target="_blank"
