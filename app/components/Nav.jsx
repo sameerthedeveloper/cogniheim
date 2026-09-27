@@ -134,12 +134,12 @@ export default function Nav() {
     >
 <nav
   ref={navRef}
-  className="mx-auto flex h-14 w-full max-w-full items-center justify-between px-5 sm:px-8 md:grid md:grid-cols-[1fr_auto_1fr] md:pl-8 md:pr-2"
+  className="mx-auto flex h-14 w-full max-w-full items-center justify-between px-5 sm:px-8 md:grid md:grid-cols-[1fr_auto_1fr] md:pl-4 md:pr-2"
 >
         <a
           href="/"
           data-nav-item
-          className="relative flex shrink-0 items-center justify-center md:justify-self-start"
+          className="relative flex shrink-0 items-center justify-center md:justify-self-start mt-1"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
