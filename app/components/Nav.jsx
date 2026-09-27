@@ -143,7 +143,7 @@ export default function Nav() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/logo.png"
+            src="/logo.webp"
             alt="Cogniheim"
             className="h-10 w-auto object-contain transition-transform duration-200 hover:scale-105"
           />
