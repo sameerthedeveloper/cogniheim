@@ -128,13 +128,16 @@ export default function Nav() {
     <header
       ref={headerRef}
       className={cn(
-        'fixed inset-x-4 top-4 z-50 mx-auto w-auto max-w-5xl border border-white/10 bg-noir/90 px-4 shadow-[0_8px_30px_-14px_rgba(0,0,0,0.4)] backdrop-blur-xl sm:inset-x-10 sm:top-6 sm:px-0',
+        'fixed inset-x-4 top-4 z-50 mx-auto w-auto max-w-5xl border border-white/10 bg-noir/90  shadow-[0_8px_30px_-14px_rgba(0,0,0,0.4)] backdrop-blur-xl sm:inset-x-10 sm:top-6 sm:px-0',
         open ? 'flex flex-col rounded-[28px]' : 'flex rounded-full',
       )}
     >
-      <nav ref={navRef} className="mx-auto flex h-14 w-full max-w-full items-center justify-between px-5 sm:px-8 md:grid md:grid-cols-[1fr_auto_1fr]">
+<nav
+  ref={navRef}
+  className="mx-auto flex h-14 w-full max-w-full items-center justify-between px-5 sm:px-8 md:grid md:grid-cols-[1fr_auto_1fr] md:pl-8 md:pr-2"
+>
         <a
-          href="#top"
+          href="/"
           data-nav-item
           className="relative flex shrink-0 items-center justify-center md:justify-self-start"
         >
