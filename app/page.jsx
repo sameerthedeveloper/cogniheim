@@ -10,8 +10,10 @@ import {
   Mail,
 } from "lucide-react";
 import Nav from "./components/Nav";
+import Velaris from "./components/ui/velaris";
 import { Button } from "./components/ui/button";
-import WorkGrid from "./components/WorkGrid";
+import ProjectShowcase from "./components/ProjectShowcase";
+import { Faq3 } from "./components/ui/faq3";
 import ContactForm from "./components/ContactForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -22,25 +24,16 @@ import {
 
 /*
 |--------------------------------------------------------------------------
-| COGNIHEIM — COMPANY CONTENT
+| COGNIHEIM — COMPANY CONTENT (v2 — sharper copy pass)
 |--------------------------------------------------------------------------
 |
-| This replaces the personal portfolio content.
+| Same schema/keys as your original file — icons, hrefs, slugs, stack
+| arrays, tone strings, and action objects are untouched. Only copy
+| (title/eyebrow/description/body/answer strings) has been rewritten.
 |
-| Visual reference:
-| - mohamedsameer.tech
-|
-| Company content:
-| - cogniheim.in
-|
-| Existing creative direction:
-| - cogniheim.lovable.app
-|
-| CMS:
-| - Firebase Firestore
-|
-| Animation:
-| - GSAP + ScrollTrigger
+| Drop-in replacement: keep your existing imports (Layers3, PenTool,
+| Code2, Rocket, Lightbulb, Wrench, RefreshCw, faLinkedinIn, faInstagram,
+| faGithub) exactly as they are in your current file.
 |
 |--------------------------------------------------------------------------
 */
@@ -53,10 +46,10 @@ import {
 export const HERO = {
   eyebrow: "TECHNOLOGY & PRODUCT STUDIO",
 
-  title: "Ideas deserve to become real.",
+  title: "Your idea, engineered like it matters.",
 
   description:
-    "We think, design, and build digital products that solve real problems — from ambitious web experiences to reliable software and SaaS.",
+    "Cogniheim turns ambitious ideas into web products, software, and SaaS that actually ship — designed with care, built to last, grounded in real product thinking, not templates.",
 
   primaryAction: {
     label: "Start a project",
@@ -64,7 +57,7 @@ export const HERO = {
   },
 
   secondaryAction: {
-    label: "Explore our work",
+    label: "See the work",
     href: "#work",
   },
 };
@@ -77,10 +70,10 @@ export const HERO = {
 export const SERVICES = [
   {
     number: "01",
-    title: "Digital Products",
+    title: "Product Strategy",
 
     body:
-      "Useful, coherent products shaped around real problems, clear thinking, and meaningful user needs.",
+      "Before anything gets designed or built, we pressure-test the idea — who it's for, the smallest version that proves it, and what will actually break.",
 
     icon: Layers3,
     tone: "products",
@@ -91,7 +84,7 @@ export const SERVICES = [
     title: "Product Design",
 
     body:
-      "Clear interfaces, thoughtful experiences, and design systems built to make complex products feel simple.",
+      "Interfaces and systems designed to make complex products feel obvious to use — structure first, decoration second.",
 
     icon: PenTool,
     tone: "design",
@@ -102,7 +95,7 @@ export const SERVICES = [
     title: "Software Engineering",
 
     body:
-      "Reliable, maintainable software engineered with modern technologies, strong foundations, and attention to detail.",
+      "Production-grade code: solid architecture, tested where it matters, documented enough that another engineer isn't lost in six months.",
 
     icon: Code2,
     tone: "engineering",
@@ -113,7 +106,7 @@ export const SERVICES = [
     title: "SaaS Development",
 
     body:
-      "From product direction to production software, we build focused SaaS products designed to grow with their users.",
+      "End-to-end builds — auth, billing, multi-tenancy — the unglamorous infrastructure that decides whether a SaaS product survives real users.",
 
     icon: Rocket,
     tone: "saas",
@@ -144,10 +137,10 @@ export const WORK = [
     ],
 
     description:
-      "A premium digital experience for CinemaFocus, bringing high-end audio and home cinema into a clear, immersive web experience.",
+      "A premium home-cinema and hi-fi audio brand needed a web experience that matched the craftsmanship of the hardware it sells — most competitors in this space look like generic e-commerce templates. We built a clean, image-forward, editorial-feeling site on Next.js designed to hold up next to premium physical showrooms, not just look good in a browser.",
 
     highlight:
-      "Premium audio & home cinema experience",
+      "Built to match a premium, craftsmanship-led brand",
 
     featured: true,
   },
@@ -157,6 +150,12 @@ export const WORK = [
    *
    * These should eventually come from Firebase instead of
    * being hard-coded.
+   *
+   * PRIORITY: when you add the next case study, include one
+   * concrete outcome if you have it — a real number (load time,
+   * lead volume, timeline) or a specific constraint you solved.
+   * A studio page with zero quantified results reads as a
+   * portfolio; one with even one hard detail reads as a business.
    */
 
   // {
@@ -178,10 +177,10 @@ export const WORK = [
 export const PHILOSOPHY = {
   eyebrow: "OUR PHILOSOPHY",
 
-  title: "Good software starts with good thinking.",
+  title: "We'd rather say no to the wrong build than yes to a fast one.",
 
   description:
-    "Technology is the medium. Thinking is the foundation. We start by understanding the problem, questioning assumptions, and finding the simplest meaningful way forward.",
+    "Most technical debt isn't a coding mistake — it's a thinking mistake made in week one. We slow down exactly once, at the start, to make sure we're solving the right problem. After that, we move fast, because the direction is actually correct.",
 };
 
 
@@ -195,7 +194,7 @@ export const PROCESS = [
     title: "Think",
 
     body:
-      "We find the real problem before reaching for a solution. We ask questions, understand context, and define what actually matters.",
+      "We interview, question, and define the real problem — including telling you if the thing you asked for isn't the thing you need.",
 
     icon: Lightbulb,
   },
@@ -205,7 +204,7 @@ export const PROCESS = [
     title: "Design",
 
     body:
-      "We turn complexity into a clear product direction through thoughtful interfaces, systems, and experiences.",
+      "Wireframes to high-fidelity interfaces, reviewed with you at each stage — no surprise reveals at the end.",
 
     icon: PenTool,
   },
@@ -215,7 +214,7 @@ export const PROCESS = [
     title: "Build",
 
     body:
-      "We engineer the product with care, using modern technologies and foundations that are designed to remain maintainable.",
+      "Engineering in short, visible cycles — you see progress as it happens, not a black box until 'done.'",
 
     icon: Wrench,
   },
@@ -225,7 +224,7 @@ export const PROCESS = [
     title: "Evolve",
 
     body:
-      "We learn from real usage, refine what matters, and help the product become stronger over time.",
+      "We watch real usage data and iterate after launch — a launch is a starting line, not a finish line.",
 
     icon: RefreshCw,
   },
@@ -239,13 +238,13 @@ export const PROCESS = [
 export const LABS = {
   eyebrow: "COGNIHEIM LABS",
 
-  title: "Ideas become products.",
+  title: "Where we build things nobody asked for yet.",
 
   description:
-    "Labs is where we explore promising ideas, question assumptions, and shape focused experiments into useful products.",
+    "Labs is our R&D arm — internal products and experiments we build to stay sharp and stress-test new tools before bringing them to client work. Some die in a weekend. Some become products. All of it means client work benefits from lessons we already learned on our own time.",
 
   action: {
-    label: "Start a project",
+    label: "See what we're building",
     href: "#contact",
   },
 };
@@ -259,14 +258,14 @@ export const ABOUT = {
   eyebrow: "ABOUT COGNIHEIM",
 
   title:
-    "A technology and product studio for thoughtful ideas that deserve serious craft.",
+    "Built by an engineer who got tired of studios that talk more than they ship.",
 
   paragraphs: [
-    "Cogniheim brings product thinking, design, and engineering together to turn ideas into useful digital products.",
+    "Cogniheim was founded by S. Mohamed Sameer, a full-stack developer who's shipped production client work (CinemaFocus) and built internal tools end-to-end — not a strategist who outsources the build.",
 
-    "We work across digital products, product design, software engineering, and SaaS — from the first question to the working product.",
+    "That's the whole model: fewer layers between the person who understands your problem and the person writing the code.",
 
-    "Our approach is intentionally focused: understand the problem, make thoughtful decisions, build with care, and keep improving.",
+    "We work across product strategy, design, engineering, and SaaS — and we're selective about what we take on, because craft doesn't scale past a certain number of projects at once.",
   ],
 };
 
@@ -278,10 +277,10 @@ export const ABOUT = {
 export const CONTACT = {
   eyebrow: "START A CONVERSATION",
 
-  title: "Have an idea worth building?",
+  title: "Got an idea? Let's find out if it's worth building.",
 
   description:
-    "Tell us what you're thinking. Whether you're starting from an idea, solving a difficult problem, or looking to improve an existing product, we'd love to hear about it.",
+    "No pitch decks required. Tell us the problem, the constraint, or the mess you're trying to untangle — we'll tell you honestly whether it's a good fit.",
 
   email: "info@cogniheim.in",
 
@@ -313,27 +312,37 @@ export const FAQ_ITEMS = [
   {
     question: "What is Cogniheim?",
     answer:
-      "Cogniheim is a technology and product studio focused on building modern web products, software, and SaaS experiences.",
+      "A technology and product studio that designs and builds web products, software, and SaaS — end to end, from strategy to shipped code.",
   },
   {
-    question: "What does Cogniheim do?",
+    question: "What makes Cogniheim different from a typical dev agency?",
     answer:
-      "Cogniheim helps teams and founders turn ideas into useful digital products through product thinking, design, software engineering, and SaaS development.",
+      "No handoffs between 'the strategist,' 'the designer,' and 'the developer' — the person shaping your product is the person building it.",
   },
   {
-    question: "What services does Cogniheim provide?",
+    question: "Does Cogniheim only build websites, or full products?",
     answer:
-      "Cogniheim works across product design, software engineering, SaaS development, web applications, digital product development, and product strategy.",
+      "Full products — web apps, SaaS platforms, and the infrastructure behind them (auth, databases, hosting, billing), not just front-end.",
   },
   {
-    question: "Does Cogniheim build SaaS products?",
+    question: "What's the typical project timeline?",
     answer:
-      "Yes. Cogniheim builds software and SaaS experiences designed to solve real problems and evolve with product needs.",
+      "Depends on scope — a focused MVP is usually weeks, not months. We'll give you a real timeline after the first conversation, not a generic range.",
+  },
+  {
+    question: "Do you work with early-stage founders, or only established companies?",
+    answer:
+      "Both — but especially early-stage, because that's where getting the thinking right before the build matters most.",
   },
   {
     question: "Who founded Cogniheim?",
     answer:
       "Cogniheim was founded by S. Mohamed Sameer.",
+  },
+  {
+    question: "How do we start?",
+    answer:
+      "Email or the contact form below. The first step is a conversation, not a contract.",
   },
 ];
 
@@ -462,6 +471,7 @@ export default function Home() {
           id="hero"
           className="
             relative
+            isolate
             flex
             min-h-svh
             flex-col
@@ -473,7 +483,23 @@ export default function Home() {
           "
         >
 
-          <div className="mx-auto w-full max-w-wide text-center">
+          {/* Warm cream → peach → terracotta drift, from the site tokens
+              (surface-3 / accent / amber). Decorative only. */}
+          <Velaris
+            bg="#f4f1ea"
+            colors={["#f6dcc4", "#eab08f", "#e6bd85", "#f4f1ea"]}
+            speed={0.6}
+            grain={0.15}
+            height="100%"
+            className="absolute inset-0 -z-10 w-full"
+          />
+
+          <div
+            className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-surface-3/30 via-transparent to-surface-3/60"
+            aria-hidden="true"
+          />
+
+          <div className="relative z-10 mx-auto w-full max-w-wide text-center">
 
             <p className="hero-eyebrow text-sm tracking-[0.2em] text-accent">
               {HERO.eyebrow}
@@ -543,6 +569,7 @@ export default function Home() {
 
         <section
           id="work"
+          aria-labelledby="work-heading"
           className="
             scroll-mt-24
             bg-surface-2
@@ -552,7 +579,7 @@ export default function Home() {
           "
         >
 
-          <div className="mx-auto grid max-w-wide gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-20">
+          <div className="mx-auto max-w-wide">
 
             <div>
 
@@ -561,6 +588,7 @@ export default function Home() {
               </p>
 
               <h2
+                id="work-heading"
                 className="
                   mt-4
                   text-4xl
@@ -580,10 +608,9 @@ export default function Home() {
 
             </div>
 
+            <div className="mt-14">
 
-            <div>
-
-              <WorkGrid work={WORK} />
+              <ProjectShowcase work={WORK} />
 
             </div>
 
@@ -736,43 +763,81 @@ export default function Home() {
 
         <section
           id="philosophy"
+          aria-labelledby="philosophy-heading"
           className="
+            relative
+            isolate
             scroll-mt-24
-            min-h-svh
+            overflow-hidden
             bg-noir
             px-5
-            py-32
+            py-28
             text-white
             sm:px-8
+            lg:py-36
           "
         >
 
-          <div className="mx-auto grid max-w-wide gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-center lg:gap-20">
+          {/* Fine grid fading out toward the top, plus a faint accent glow
+              rising from the bottom edge. Decorative, kept very low-contrast. */}
+          <div
+            aria-hidden="true"
+            className="
+              pointer-events-none
+              absolute
+              inset-x-0
+              bottom-0
+              -z-10
+              h-2/5
+              bg-[linear-gradient(to_right,rgb(255_255_255/0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgb(255_255_255/0.05)_1px,transparent_1px)]
+              bg-size-[64px_64px]
+              mask-[linear-gradient(to_top,black,transparent)]
+            "
+          />
 
-            <div>
-              <p className="text-sm tracking-[0.2em] text-white/50">
-                03 — {PHILOSOPHY.eyebrow}
-              </p>
+          <div
+            aria-hidden="true"
+            className="
+              pointer-events-none
+              absolute
+              inset-x-0
+              bottom-0
+              -z-10
+              h-1/2
+              bg-[radial-gradient(ellipse_60%_100%_at_50%_100%,color-mix(in_srgb,var(--color-accent)_16%,transparent),transparent)]
+            "
+          />
 
-              <h2
-                className="
-                  philosophy-title
-                  mt-8
-                  max-w-5xl
-                  text-5xl
-                  font-semibold
-                  tracking-[-0.04em]
-                  sm:text-7xl
-                  lg:text-8xl
-                "
-              >
-                {PHILOSOPHY.title}
-              </h2>
-            </div>
+          <div className="mx-auto max-w-5xl text-center">
+
+            <p className="reveal text-sm tracking-[0.2em] text-accent">
+              03 — {PHILOSOPHY.eyebrow}
+            </p>
+
+            <h2
+              id="philosophy-heading"
+              className="
+                reveal
+                mx-auto
+                mt-8
+                max-w-4xl
+                text-balance
+                text-4xl
+                font-semibold
+                tracking-[-0.04em]
+                sm:text-5xl
+                lg:text-6xl
+                xl:text-7xl
+              "
+            >
+              {PHILOSOPHY.title}
+            </h2>
 
             <p
               className="
-                philosophy-description
+                reveal
+                mx-auto
+                mt-8
                 max-w-2xl
                 text-lg
                 leading-relaxed
@@ -782,6 +847,13 @@ export default function Home() {
             >
               {PHILOSOPHY.description}
             </p>
+
+            <div className="reveal mt-10 flex justify-center">
+              <Button as="a" href="#process">
+                See how we work
+                <ArrowUpRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
 
           </div>
 
@@ -1038,6 +1110,7 @@ export default function Home() {
 
         <section
           id="faq"
+          aria-labelledby="faq-heading"
           className="
             scroll-mt-24
             bg-surface-2
@@ -1047,21 +1120,16 @@ export default function Home() {
           "
         >
           <div className="mx-auto max-w-wide">
-            <p className="text-sm tracking-[0.2em] text-accent">
-              FREQUENTLY ASKED QUESTIONS
-            </p>
-            <h2 className="mt-4 text-4xl font-semibold tracking-tight text-ink sm:text-6xl">
-              Clear answers about Cogniheim.
-            </h2>
-
-            <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {FAQ_ITEMS.map((item) => (
-                <div key={item.question} className="group rounded-2xl border border-line/50 bg-white/3 p-7 transition-all duration-300 hover:border-accent/40 hover:bg-white/6 hover:shadow-[0_12px_32px_-8px_rgba(217,119,87,0.12)]">
-                  <h3 className="text-lg font-semibold text-ink transition-colors group-hover:text-accent">{item.question}</h3>
-                  <p className="mt-4 leading-relaxed text-muted">{item.answer}</p>
-                </div>
-              ))}
-            </div>
+            <Faq3
+              eyebrow="FREQUENTLY ASKED QUESTIONS"
+              heading="Clear answers about Cogniheim."
+              items={FAQ_ITEMS}
+              support={{
+                text: "Something we didn't cover?",
+                label: CONTACT.email,
+                href: `mailto:${CONTACT.email}`,
+              }}
+            />
           </div>
         </section>
 
