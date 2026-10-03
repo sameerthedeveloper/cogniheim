@@ -43,8 +43,9 @@ export function Footer({
       <div className="mx-auto max-w-wide border-t border-white/10 pt-16 sm:pt-20">
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr] lg:gap-20">
           <div className="sm:col-span-2 lg:col-span-1">
-            <a href="#top" className="inline-block text-lg font-semibold tracking-tight text-white">
-              Cogniheim
+            <a href="#top" className="inline-block transition-opacity hover:opacity-80">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.webp" alt="Cogniheim" width={136} height={40} className="h-10 w-auto object-contain" />
             </a>
             <p className="mt-4 max-w-xs text-[15px] leading-relaxed text-white/60">{description}</p>
             <p className="mt-4 text-sm text-white/50">

@@ -130,6 +130,9 @@ export const WORK = [
 
     image: "/projects/cinemafocus.webp",
 
+    summary:
+      "An image-forward, editorial site for a premium home-cinema and hi-fi audio brand, built to hold up next to its physical showrooms.",
+
     category: "Digital Product",
 
     stack: [
@@ -144,7 +147,62 @@ export const WORK = [
     highlight:
       "Built to match a premium, craftsmanship-led brand",
 
+    status: "Live",
+
     featured: true,
+  },
+
+  {
+    name: "GROS",
+
+    slug: "gros",
+
+    brand: "by Cogniheim",
+
+    // Real capture of the interactive prototype's Command view (demo data).
+    image: "/projects/gros.webp",
+
+    summary:
+      "A growth workspace for local businesses — products, search presence, customer feedback and enquiries in one place.",
+
+    category: "Local Business / Commerce",
+
+    stack: [
+      "JavaScript",
+      "Tailwind CSS",
+      "Puter.js",
+    ],
+
+    description:
+      "GROS connects a local business's products, website, search presence, feedback and conversations into one growth layer. The current interactive prototype covers a business overview, SEO checks, a product shelf, AI-assisted feedback analysis and an enquiry queue. Messaging channels, payments, shipping and marketplace integrations are planned, not built.",
+
+    highlight:
+      "Interactive prototype — commerce integrations are next",
+
+    status: "Prototype",
+  },
+
+  {
+    name: "ClearBiz",
+
+    slug: "clearbiz",
+
+    brand: "by Cogniheim",
+
+    // Product overview artwork supplied for ClearBiz (concept visuals).
+    image: "/projects/clearbiz.webp",
+
+    summary:
+      "A simple workspace for small businesses to run their day-to-day — invoices, quotes, expenses, customers and reports in one place.",
+
+    category: "Business Management / SaaS",
+
+    stack: [],
+
+    description:
+      "ClearBiz is a business management app for small and local businesses: one simple workspace for invoices, quotes, expenses, customers, vendors, banking, accounting and reports, instead of scattered spreadsheets and notebooks. It is still in development.",
+
+    status: "In development",
   },
 
   /*
@@ -571,6 +629,7 @@ export default function Home() {
           id="work"
           aria-labelledby="work-heading"
           className="
+            overflow-x-clip
             scroll-mt-24
             bg-surface-2
             px-5
@@ -602,8 +661,8 @@ export default function Home() {
               </h2>
 
               <p className="mt-6 max-w-md text-lg leading-relaxed text-muted">
-                A selection of digital products and experiences we&apos;ve
-                designed and engineered.
+                Client work, and the products we&apos;re building
+                ourselves.
               </p>
 
             </div>

@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { X, ExternalLink } from 'lucide-react';
 import gsap from 'gsap';
 import { Button } from './ui/button.jsx';
+import { ProjectCoverPlaceholder } from './ui/notched-project-card';
 
 // A single project's full write-up — description, stack, and the one
 // stat worth bragging about — surfaced on demand instead of cramming it
@@ -49,7 +50,7 @@ export default function ProjectModal({ project, onClose }) {
 
   if (!project) return null;
 
-  const { name, image, description, stack, highlight, href } = project;
+  const { name, image, description, stack, highlight, href, status, brand } = project;
 
   return (
     <div
@@ -67,8 +68,12 @@ export default function ProjectModal({ project, onClose }) {
         className="max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-3xl border border-line bg-surface shadow-[0_30px_60px_-20px_rgba(61,57,41,0.45)]"
       >
         <div className="relative aspect-16/9 overflow-hidden rounded-t-3xl bg-surface-2">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={image} alt={`${name} preview`} className="h-full w-full object-cover" />
+          {image ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={image} alt={`${name} preview`} className="h-full w-full object-cover object-top" />
+          ) : (
+            <ProjectCoverPlaceholder name={name} brand={brand} className="aspect-auto h-full" />
+          )}
           <button
             ref={closeRef}
             type="button"
@@ -95,6 +100,12 @@ export default function ProjectModal({ project, onClose }) {
               </a>
             )}
           </h3>
+
+          {(brand || status) && (
+            <p className="mt-1 text-sm text-muted">
+              {[brand, status].filter(Boolean).join(' · ')}
+            </p>
+          )}
 
           {stack?.length ? (
             <ul className="mt-4 flex flex-wrap gap-2">
