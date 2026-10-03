@@ -184,7 +184,7 @@ export default function Nav() {
           <a
             href="#contact"
             data-nav-item
-            className="magnetic rounded-full bg-accent px-5 py-2.5 text-[13px] font-medium text-white transition-opacity hover:opacity-90"
+            className="magnetic rounded-full bg-accent-strong px-5 py-2.5 text-[13px] font-medium text-white transition-opacity hover:opacity-90"
           >
             Start a project
           </a>
@@ -196,7 +196,7 @@ export default function Nav() {
           aria-expanded={open}
           aria-controls="mobile-nav"
           onClick={() => setOpen((v) => !v)}
-          className="text-white md:hidden"
+          className="-m-2.5 p-2.5 text-white md:hidden"
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>

@@ -29,7 +29,7 @@ export const Faq3 = ({ eyebrow, heading, items, support, className }: Faq3Props)
     <div className={cn("grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20", className)}>
       <div className="lg:sticky lg:top-28 lg:self-start">
         {eyebrow && (
-          <p className="text-sm tracking-[0.2em] text-accent">{eyebrow}</p>
+          <p className="text-sm tracking-[0.2em] text-accent-hover">{eyebrow}</p>
         )}
 
         <h2
@@ -44,7 +44,7 @@ export const Faq3 = ({ eyebrow, heading, items, support, className }: Faq3Props)
             {support.text}{" "}
             <a
               href={support.href}
-              className="inline-flex items-center gap-1 font-medium text-accent transition-colors hover:text-accent-hover"
+              className="inline-flex items-center gap-1 font-medium text-accent-hover underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent"
             >
               {support.label}
               <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
@@ -73,7 +73,7 @@ export const Faq3 = ({ eyebrow, heading, items, support, className }: Faq3Props)
                   <span
                     className={cn(
                       "text-lg font-semibold tracking-tight transition-colors sm:text-xl",
-                      isOpen ? "text-accent" : "text-ink group-hover:text-accent"
+                      isOpen ? "text-accent-hover" : "text-ink group-hover:text-accent-hover"
                     )}
                   >
                     {item.question}

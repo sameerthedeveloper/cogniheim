@@ -7,15 +7,17 @@ import {
   Wrench,
   RefreshCw,
   ArrowUpRight,
-  Mail,
 } from "lucide-react";
 import Nav from "./components/Nav";
-import Velaris from "./components/ui/velaris";
+import { MeshGradient } from "./components/ui/mesh-gradient";
+import { Features } from "./components/ui/features-8";
+import { Timeline } from "./components/ui/timeline-01";
+import { Footer } from "./components/ui/footer-7";
 import { Button } from "./components/ui/button";
 import ProjectShowcase from "./components/ProjectShowcase";
 import { Faq3 } from "./components/ui/faq3";
-import ContactForm from "./components/ContactForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ContactForm from "./components/ContactForm";
 import {
   faGithub,
   faInstagram,
@@ -384,37 +386,16 @@ export const NAVIGATION = [
 /* -------------------------------------------------------------------------- */
 
 export const FOOTER = {
-  brand: "COGNIHEIM",
-
-  tagline: "Technology & Product Studio",
-
   description:
-    "We think, design, and build digital products that solve real problems. Based in Chennai, India.",
-
-  email: "info@cogniheim.in",
-
-  copyright: "© Cogniheim",
+    "A technology and product studio building modern web products, software and SaaS. Based in Chennai, India.",
 
   links: [
-    {
-      label: "Work",
-      href: "#work",
-    },
-
-    {
-      label: "Capabilities",
-      href: "#capabilities",
-    },
-
-    {
-      label: "About",
-      href: "#about",
-    },
-
-    {
-      label: "Contact",
-      href: "#contact",
-    },
+    { label: "Work", href: "#work" },
+    { label: "Capabilities", href: "#capabilities" },
+    { label: "Process", href: "#process" },
+    { label: "About", href: "#about" },
+    { label: "FAQ", href: "#faq" },
+    { label: "Contact", href: "#contact" },
   ],
 };
 
@@ -501,31 +482,26 @@ export default function Home() {
             flex-col
             justify-center
             overflow-hidden
+            bg-surface-3
             px-5
             py-24
             sm:px-8
           "
         >
 
-          {/* Warm cream → peach → terracotta drift, from the site tokens
-              (surface-3 / accent / amber). Decorative only. */}
-          <Velaris
-            bg="#f4f1ea"
-            colors={["#f6dcc4", "#eab08f", "#e6bd85", "#f4f1ea"]}
-            speed={0.6}
-            grain={0.15}
-            height="100%"
-            className="absolute inset-0 -z-10 w-full"
-          />
+          {/* Drifting blobs of the brand accent and gold — CSS-only, paused
+              off-screen, static under reduced motion. Decorative only. */}
+          <MeshGradient className="-z-10" />
 
+          {/* Melts the mesh into the next section instead of cutting it off. */}
           <div
-            className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-surface-3/30 via-transparent to-surface-3/60"
+            className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-40 bg-linear-to-b from-transparent to-surface-2"
             aria-hidden="true"
           />
 
           <div className="relative z-10 mx-auto w-full max-w-wide text-center">
 
-            <p className="hero-eyebrow text-sm tracking-[0.2em] text-accent">
+            <p className="hero-eyebrow text-sm tracking-[0.2em] text-accent-hover">
               {HERO.eyebrow}
             </p>
 
@@ -607,7 +583,7 @@ export default function Home() {
 
             <div>
 
-              <p className="section-eyebrow text-sm tracking-[0.2em] text-accent">
+              <p className="section-eyebrow text-sm tracking-[0.2em] text-accent-hover">
                 01 — SELECTED WORK
               </p>
 
@@ -649,6 +625,7 @@ export default function Home() {
 
         <section
           id="capabilities"
+          aria-labelledby="capabilities-heading"
           className="
             scroll-mt-24
             px-5
@@ -657,124 +634,36 @@ export default function Home() {
           "
         >
 
-          <div
-            className="
-              mx-auto
-              grid
-              max-w-wide
-              gap-12
-              lg:grid-cols-[0.8fr_1.7fr]
-              lg:gap-20
-              lg:items-start
-            "
-          >
+          <div className="mx-auto max-w-wide">
 
-            <div className="lg:sticky lg:top-28 lg:self-start">
+            <div className="grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end lg:gap-20">
+              <div>
+                <p className="text-sm tracking-[0.2em] text-accent-hover">
+                  02 — CAPABILITIES
+                </p>
 
-              <p className="text-sm tracking-[0.2em] text-accent">
-                02 — CAPABILITIES
-              </p>
+                <h2
+                  id="capabilities-heading"
+                  className="
+                    mt-4
+                    text-4xl
+                    font-semibold
+                    tracking-tight
+                    text-ink
+                    sm:text-6xl
+                  "
+                >
+                  We build the whole product.
+                </h2>
+              </div>
 
-              <h2
-                className="
-                  mt-4
-                  text-4xl
-                  font-semibold
-                  tracking-tight
-                  text-ink
-                  sm:text-6xl
-                "
-              >
-                We build the whole product.
-              </h2>
-
-            </div>
-
-
-            <div>
-              <p className="mb-8 max-w-xl leading-relaxed text-muted">
+              <p className="max-w-xl text-lg leading-relaxed text-muted">
                 From product thinking and interface design to software
                 engineering and SaaS development.
               </p>
-
-              <ol className="border-t border-line">
-
-              {SERVICES.map(
-                ({ number, title, body, icon: Icon }) => (
-
-                  <li
-                    key={title}
-                    className="
-                      group
-                      border-b
-                      border-line/40
-                      py-8
-                      transition-colors
-                      hover:bg-white/2
-                      px-4
-                      -mx-4
-                    "
-                  >
-
-                    <div className="flex gap-5">
-
-                      <span
-                        className="
-                          pt-1
-                          font-mono
-                          text-sm
-                          font-semibold
-                          text-faint
-                          transition-colors
-                          group-hover:text-accent
-                        "
-                      >
-                        {number}
-                      </span>
-
-                      <div className="flex-1">
-
-                        <h3
-                          className="
-                            flex
-                            items-center
-                            gap-3
-                            text-2xl
-                            font-semibold
-                            text-ink
-                            transition-colors
-                            group-hover:text-accent
-                          "
-                        >
-
-                          <Icon className="h-5 w-5 text-accent" />
-
-                          {title}
-
-                        </h3>
-
-                        <p
-                          className="
-                            mt-3
-                            max-w-xl
-                            leading-relaxed
-                            text-muted
-                          "
-                        >
-                          {body}
-                        </p>
-
-                      </div>
-
-                    </div>
-
-                  </li>
-
-                )
-              )}
-
-              </ol>
             </div>
+
+            <Features items={SERVICES} className="mt-14" />
 
           </div>
 
@@ -890,6 +779,7 @@ export default function Home() {
 
         <section
           id="process"
+          aria-labelledby="process-heading"
           className="
             scroll-mt-24
             px-5
@@ -898,90 +788,39 @@ export default function Home() {
           "
         >
 
-          <div className="mx-auto max-w-wide">
+          <div className="mx-auto grid max-w-wide gap-16 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
 
-            <p className="text-sm tracking-[0.2em] text-accent">
-              04 — OUR PROCESS
-            </p>
+            <div className="lg:sticky lg:top-28 lg:self-start">
+              <p className="text-sm tracking-[0.2em] text-accent-hover">
+                04 — OUR PROCESS
+              </p>
 
-            <h2
-              className="
-                mt-4
-                max-w-3xl
-                text-4xl
-                font-semibold
-                tracking-tight
-                text-ink
-                sm:text-6xl
-              "
-            >
-              From first question to working product.
-            </h2>
-
-
-            <div className="mt-16 grid gap-8 md:grid-cols-2 lg:gap-12">
-
-              {PROCESS.map(
-                ({ number, title, body, icon: Icon }) => (
-
-                  <article
-                    key={title}
-                    className="
-                      process-item
-                      rounded-xl
-                      border
-                      border-line/30
-                      bg-white/2.5
-                      px-6
-                      py-8
-                      md:px-8
-                      md:py-10
-                      transition-all
-                      duration-300
-                      hover:border-accent/30
-                      hover:bg-white/5
-                      hover:shadow-[0_8px_24px_-12px_rgba(217,119,87,0.15)]
-                    "
-                  >
-
-                    <div className="flex items-center justify-between pb-4">
-
-                      <span className="font-mono text-xs font-semibold text-faint/80 uppercase tracking-wide">
-                        Step {number}
-                      </span>
-
-                      <Icon className="h-5 w-5 text-accent" />
-
-                    </div>
-
-                    <h3
-                      className="
-                        mt-6
-                        text-2xl
-                        font-semibold
-                        text-ink
-                      "
-                    >
-                      {title}
-                    </h3>
-
-                    <p
-                      className="
-                        mt-4
-                        max-w-md
-                        leading-relaxed
-                        text-muted
-                      "
-                    >
-                      {body}
-                    </p>
-
-                  </article>
-
-                )
-              )}
-
+              <h2
+                id="process-heading"
+                className="
+                  mt-4
+                  max-w-3xl
+                  text-4xl
+                  font-semibold
+                  tracking-tight
+                  text-ink
+                  sm:text-6xl
+                "
+              >
+                From first question to working product.
+              </h2>
             </div>
+
+
+            <Timeline
+              items={PROCESS.map(({ number, title, body, icon }) => ({
+                label: `Step ${number}`,
+                title,
+                body,
+                icon,
+              }))}
+              className="max-w-2xl lg:pt-4"
+            />
 
           </div>
 
@@ -1006,7 +845,7 @@ export default function Home() {
           <div className="mx-auto grid max-w-wide gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-end lg:gap-20">
 
             <div>
-              <p className="text-sm tracking-[0.2em] text-accent">
+              <p className="text-sm tracking-[0.2em] text-accent-hover">
                 05 — {LABS.eyebrow}
               </p>
 
@@ -1036,7 +875,7 @@ export default function Home() {
                   inline-flex
                   items-center
                   gap-2
-                  text-accent
+                  text-accent-hover
                   transition-opacity
                   hover:opacity-70
                 "
@@ -1079,7 +918,7 @@ export default function Home() {
 
             <div>
 
-              <p className="text-sm tracking-[0.2em] text-accent">
+              <p className="text-sm tracking-[0.2em] text-accent-hover">
                 06 — {ABOUT.eyebrow}
               </p>
 
@@ -1164,11 +1003,10 @@ export default function Home() {
 
         <section
           id="contact"
+          aria-labelledby="contact-heading"
           className="
             relative
-            flex
-            min-h-svh
-            items-center
+            scroll-mt-24
             overflow-hidden
             bg-noir
             px-5
@@ -1179,99 +1017,57 @@ export default function Home() {
         >
 
           <div
-            className="
-              pointer-events-none
-              absolute
-              left-1/2
-              top-0
-              h-96
-              w-96
-              -translate-x-1/2
-              -translate-y-1/2
-              rounded-full
-              bg-accent/20
-              blur-[120px]
-            "
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 top-0 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/20 blur-[120px]"
           />
 
           <div className="relative mx-auto w-full max-w-wide">
+            <ContactForm
+              email={CONTACT.email}
+              intro={
+                <>
+                  <p className="reveal text-sm tracking-[0.2em] text-accent">
+                    07 — {CONTACT.eyebrow}
+                  </p>
+                  <h2
+                    id="contact-heading"
+                    className="reveal mt-6 text-4xl font-semibold tracking-[-0.04em] sm:text-5xl lg:text-6xl"
+                  >
+                    {CONTACT.title}
+                  </h2>
+                  <p className="reveal mt-6 max-w-xl text-base leading-relaxed text-white/60 sm:text-lg">
+                    {CONTACT.description}
+                  </p>
+                </>
+              }
+              aside={
+                <div className="reveal flex flex-col gap-3">
+                  <p className="text-sm text-white/50">Prefer email? Write to us directly.</p>
+                  <a
+                    href={`mailto:${CONTACT.email}`}
+                    className="w-fit text-lg font-medium text-white underline decoration-white/25 underline-offset-4 transition-colors hover:decoration-accent"
+                  >
+                    {CONTACT.email}
+                  </a>
 
-            <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
-
-              <div>
-                <p className="text-sm tracking-[0.2em] text-white/40">
-                  07 — {CONTACT.eyebrow}
-                </p>
-
-                <h2
-                  className="
-                    contact-title
-                    mt-6
-                    max-w-3xl
-                    text-4xl
-                    font-semibold
-                    tracking-[-0.04em]
-                    sm:text-6xl
-                    lg:text-7xl
-                  "
-                >
-                  {CONTACT.title}
-                </h2>
-
-                <p
-                  className="
-                    mt-6
-                    max-w-xl
-                    text-base
-                    leading-relaxed
-                    text-white/60
-                    sm:text-lg
-                  "
-                >
-                  {CONTACT.description}
-                </p>
-
-                <a
-                  href={`mailto:${CONTACT.email}`}
-                  className="
-                    mt-8
-                    inline-flex
-                    items-center
-                    gap-2
-                    border-white/30
-                    pb-1.5
-                    text-base
-                    transition-colors
-                    hover:border-accent
-                    hover:text-accent
-                  "
-                >
-                  <Mail className="h-4 w-4" />
-                  {CONTACT.email}
-                </a>
-
-                <div className="mt-8 flex flex-wrap items-center gap-3">
-                  {SOCIAL_LINKS.map(({ label, href, icon }) => (
-                    <a
-                      key={label}
-                      href={href}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={label}
-                      className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/5 text-sm font-semibold text-white transition-colors hover:bg-white/10 hover:text-accent"
-                    >
-                      <FontAwesomeIcon icon={icon} className="h-4 w-4" aria-hidden="true" />
-                    </a>
-                  ))}
+                  <ul className="mt-3 flex flex-wrap items-center gap-3">
+                    {SOCIAL_LINKS.map(({ label, href, icon }) => (
+                      <li key={label}>
+                        <a
+                          href={href}
+                          target="_blank"
+                          rel="noopener"
+                          aria-label={`${label} (opens in a new tab)`}
+                          className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/5 text-white transition-colors hover:bg-white/10 hover:text-accent"
+                        >
+                          <FontAwesomeIcon icon={icon} className="h-4 w-4" aria-hidden="true" />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </div>
-
-              <div className="flex items-center">
-                <ContactForm />
-              </div>
-
-            </div>
-
+              }
+            />
           </div>
 
         </section>
@@ -1279,102 +1075,13 @@ export default function Home() {
       </main>
 
 
-      {/* ------------------------------------------------------------------ */}
-      {/* FOOTER                                                             */}
-      {/* ------------------------------------------------------------------ */}
-
-      <footer className="bg-noir px-5 pb-10 sm:px-8">
-
-        <div
-          className="
-            mx-auto
-            flex
-            max-w-wide
-            flex-col
-            gap-6
-            border-t
-            border-white/10
-            pt-8
-            sm:flex-row
-            sm:items-end
-            sm:justify-between
-          "
-        >
-
-          <div>
-
-            <p className="text-lg font-medium text-white">
-              {FOOTER.brand}
-            </p>
-
-            <p className="mt-1 text-sm text-white/40">
-              {FOOTER.tagline}
-            </p>
-
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/40">
-              {FOOTER.description}
-            </p>
-
-          </div>
-
-
-          <div className="flex flex-wrap gap-5">
-
-            {FOOTER.links.map((link) => (
-
-              <a
-                key={link.label}
-                href={link.href}
-                className="
-                  text-sm
-                  text-white/50
-                  transition-colors
-                  hover:text-white
-                "
-              >
-                {link.label}
-              </a>
-
-            ))}
-
-          </div>
-
-        </div>
-
-
-        <div
-          className="
-            mx-auto
-            mt-10
-            flex
-            max-w-wide
-            items-center
-            justify-between
-            border-t
-            border-white/10
-            pt-6
-          "
-        >
-
-          <p className="text-xs text-white/30">
-            {FOOTER.copyright}
-          </p>
-
-          <a
-            href="#top"
-            className="
-              text-xs
-              text-white/40
-              transition-colors
-              hover:text-white
-            "
-          >
-            Back to top ↑
-          </a>
-
-        </div>
-
-      </footer>
+      <Footer
+        description={FOOTER.description}
+        founder={{ label: "Mohamed Sameer S", href: "https://mohamedsameer.tech" }}
+        email={CONTACT.email}
+        nav={FOOTER.links}
+        socials={SOCIAL_LINKS}
+      />
     </>
   );
 }

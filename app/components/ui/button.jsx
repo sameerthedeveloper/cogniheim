@@ -1,9 +1,9 @@
 import { cn } from '../../lib/utils.js';
 
 const variants = {
-  primary: 'bg-accent text-white hover:bg-accent-hover',
+  primary: 'bg-accent-strong text-white hover:bg-accent-hover',
   secondary: 'bg-surface-2 text-ink hover:bg-line',
-  ghost: 'text-accent hover:opacity-70',
+  ghost: 'text-accent-hover hover:opacity-70',
   invert: 'bg-white text-noir hover:bg-surface-2',
 };
 
