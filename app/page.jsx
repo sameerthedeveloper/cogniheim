@@ -261,7 +261,7 @@ export const ABOUT = {
     "Built by an engineer who got tired of studios that talk more than they ship.",
 
   paragraphs: [
-    "Cogniheim was founded by S. Mohamed Sameer, a full-stack developer who's shipped production client work (CinemaFocus) and built internal tools end-to-end — not a strategist who outsources the build.",
+    "Cogniheim was founded by Mohamed Sameer S, a full-stack developer who's shipped production client work (CinemaFocus) and built internal tools end-to-end — not a strategist who outsources the build.",
 
     "That's the whole model: fewer layers between the person who understands your problem and the person writing the code.",
 
@@ -337,7 +337,7 @@ export const FAQ_ITEMS = [
   {
     question: "Who founded Cogniheim?",
     answer:
-      "Cogniheim was founded by S. Mohamed Sameer.",
+      "Cogniheim was founded by Mohamed Sameer S and is based in Chennai, India.",
   },
   {
     question: "How do we start?",
@@ -389,9 +389,9 @@ export const FOOTER = {
   tagline: "Technology & Product Studio",
 
   description:
-    "We think, design, and build digital products that solve real problems.",
+    "We think, design, and build digital products that solve real problems. Based in Chennai, India.",
 
-  email: "hello@cogniheim.in",
+  email: "info@cogniheim.in",
 
   copyright: "© Cogniheim",
 
@@ -418,27 +418,51 @@ export const FOOTER = {
   ],
 };
 
-const organizationSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Cogniheim',
-  url: 'https://cogniheim.in',
-  logo: 'https://cogniheim.in/logo.png',
-  description:
-    'Cogniheim is a technology and product studio focused on building modern web products, software, and SaaS experiences.',
-  founder: {
-    '@type': 'Person',
-    name: 'S. Mohamed Sameer',
-    url: 'https://mohamedsameer.tech',
-  },
-  knowsAbout: [
-    'Technology and product studio',
-    'Product design',
-    'Software engineering',
-    'SaaS development',
-    'Web applications',
-    'Digital products',
-    'Product strategy',
+const SITE_URL = "https://cogniheim.in";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "Cogniheim",
+      url: SITE_URL,
+      logo: `${SITE_URL}/logo.webp`,
+      email: CONTACT.email,
+      description:
+        "Cogniheim is a technology and product studio focused on building modern web products, software, and SaaS experiences.",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Chennai",
+        addressCountry: "IN",
+      },
+      founder: { "@id": `${SITE_URL}/#founder` },
+      sameAs: SOCIAL_LINKS.filter((l) => l.label !== "GitHub").map((l) => l.href),
+      knowsAbout: [
+        "Product design",
+        "Software engineering",
+        "SaaS development",
+        "Web applications",
+        "Product strategy",
+      ],
+    },
+    {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#founder`,
+      name: "Mohamed Sameer S",
+      jobTitle: "Founder",
+      worksFor: { "@id": `${SITE_URL}/#organization` },
+      url: "https://mohamedsameer.tech",
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: "Cogniheim",
+      inLanguage: "en",
+      publisher: { "@id": `${SITE_URL}/#organization` },
+    },
   ],
 };
 
@@ -452,7 +476,7 @@ export default function Home() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
       />
       {/* ------------------------------------------------------------------ */}
       {/* NAVIGATION                                                         */}

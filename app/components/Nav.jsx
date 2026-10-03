@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
@@ -136,7 +137,7 @@ export default function Nav() {
   ref={navRef}
   className="mx-auto flex h-14 w-full max-w-full items-center justify-between px-5 sm:px-8 md:grid md:grid-cols-[1fr_auto_1fr] md:pl-4 md:pr-2"
 >
-        <a
+        <Link
           href="/"
           data-nav-item
           className="relative flex shrink-0 items-center justify-center md:justify-self-start mt-1"
@@ -147,7 +148,7 @@ export default function Nav() {
             alt="Cogniheim"
             className="h-10 w-auto object-contain transition-transform duration-200 hover:scale-105"
           />
-        </a>
+        </Link>
 
         <ul ref={listRef} className="relative hidden items-center gap-8 md:flex md:justify-self-center">
           <span
@@ -185,7 +186,7 @@ export default function Nav() {
             data-nav-item
             className="magnetic rounded-full bg-accent px-5 py-2.5 text-[13px] font-medium text-white transition-opacity hover:opacity-90"
           >
-            Start the Build
+            Start a project
           </a>
         </div>
 

@@ -95,6 +95,7 @@ export const Faq3 = ({ eyebrow, heading, items, support, className }: Faq3Props)
                 id={panelId}
                 role="region"
                 aria-labelledby={triggerId}
+                inert={!isOpen}
                 className={cn(
                   "grid transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none",
                   isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"

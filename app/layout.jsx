@@ -26,8 +26,8 @@ export const metadata = {
     'web application development',
     'digital product development',
   ],
-  authors: [{ name: 'S. Mohamed Sameer' }],
-  creator: 'S. Mohamed Sameer',
+  authors: [{ name: 'Mohamed Sameer S' }],
+  creator: 'Mohamed Sameer S',
   publisher: 'Cogniheim',
   alternates: {
     canonical: '/',
@@ -54,28 +54,19 @@ export const metadata = {
     title: 'Cogniheim — Technology & Product Studio',
     description:
       'Cogniheim is a technology and product studio focused on building modern web products, software, and SaaS experiences.',
-    images: [
-      {
-        url: '/logo.png',
-        width: 1200,
-        height: 630,
-        alt: 'Cogniheim technology and product studio',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Cogniheim — Technology & Product Studio',
     description:
       'Cogniheim is a technology and product studio focused on building modern web products, software, and SaaS experiences.',
-    images: ['/logo.png'],
   },
 };
 
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#0a0a0a',
+  themeColor: '#f4f1ea',
 };
 
 export default function RootLayout({ children }) {

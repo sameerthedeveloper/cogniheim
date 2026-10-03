@@ -251,7 +251,9 @@ const Velaris = ({
     let visible = true;
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // Smaller screens are usually the weakest GPUs: render at 1x there.
+      const maxDpr = window.innerWidth < 768 ? 1 : 2;
+      const dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
 
       canvas.width = container.clientWidth * dpr;
       canvas.height = container.clientHeight * dpr;
