@@ -72,20 +72,20 @@ export default function ProductsPage() {
       </PageHero>
 
       <section aria-label="Projects" className="bg-surface-2 px-5 py-20 sm:px-8 sm:py-24">
-        <ul className="mx-auto grid max-w-wide gap-8 lg:grid-cols-1">
+        <ul className="mx-auto grid max-w-wide gap-10 sm:gap-14">
           {WORK.map((project, i) => (
             <li
               key={project.slug}
-              className="grid overflow-hidden rounded-3xl border border-line bg-surface lg:grid-cols-2"
+              className="grid overflow-hidden rounded-3xl border border-line bg-surface lg:grid-cols-2 lg:items-center"
             >
-              <div className={`relative aspect-16/10 bg-noir ${i % 2 ? 'lg:order-2' : ''}`}>
+              <div className={`relative m-3 aspect-16/10 overflow-hidden rounded-2xl bg-noir sm:m-4 lg:m-6 ${i % 2 ? 'lg:order-2' : ''}`}>
                 {project.image && (
                   <Image
                     src={project.image}
                     alt={altFor(project)}
                     fill
                     sizes="(min-width: 1024px) 600px, 100vw"
-                    className="object-cover"
+                    className="object-cover object-top"
                   />
                 )}
               </div>
