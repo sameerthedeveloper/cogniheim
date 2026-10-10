@@ -16,7 +16,7 @@ const SECTIONS = [
     body: (
       <>
         <p>
-          This website, cogniheim.in, is operated by Cogniheim, an early-stage, founder-led venture run by {FOUNDER.name}{' '}
+          This website, cogniheim.com, is operated by Cogniheim, an early-stage, founder-led venture run by {FOUNDER.name}{' '}
           in Chennai, Tamil Nadu, India. Cogniheim is not currently a registered or incorporated company.
         </p>
         <p>Contact for any privacy question: {mail}.</p>

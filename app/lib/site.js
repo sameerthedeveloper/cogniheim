@@ -9,7 +9,7 @@ import { faGithub, faInstagram, faLinkedinIn } from '@fortawesome/free-brands-sv
  * customer count or founding date — none of those is verified.
  */
 
-export const SITE_URL = 'https://cogniheim.in';
+export const SITE_URL = 'https://cogniheim.com';
 
 export const BRAND = {
   name: 'Cogniheim',

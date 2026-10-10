@@ -14,7 +14,7 @@ const SECTIONS = [
     heading: 'About these terms',
     body: (
       <p>
-        These terms apply to your use of cogniheim.in, operated by Cogniheim, an early-stage, founder-led venture based
+        These terms apply to your use of cogniheim.com, operated by Cogniheim, an early-stage, founder-led venture based
         in Chennai, India that is not currently a registered or incorporated company. By using the site you agree to
         them. If you don’t agree, please don’t use the site.
       </p>

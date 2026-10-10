@@ -47,7 +47,7 @@ const FACTS = [
   ['Stage', BRAND.stage],
   ['Legal status', 'Not yet formally registered as a company'],
   ['External funding', 'None'],
-  ['Website', 'cogniheim.in'],
+  ['Website', 'cogniheim.com'],
   ['Email', CONTACT.email],
 ];
 

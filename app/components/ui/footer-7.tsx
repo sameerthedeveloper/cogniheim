@@ -96,7 +96,7 @@ export function Footer({
 
         <div className="mt-16 flex flex-col items-center gap-4 border-t border-white/10 pt-8 text-center sm:flex-row sm:justify-between sm:text-left">
           <p className="text-[13px] text-white/55">
-            © {new Date().getFullYear()} Cogniheim · Founder-led venture · Chennai, India · cogniheim.in
+            © {new Date().getFullYear()} Cogniheim · Founder-led venture · Chennai, India · cogniheim.com
           </p>
           <nav aria-label="Legal" className="flex gap-5 text-[13px]">
             {legal.map(({ label, href }) => (

@@ -3,12 +3,12 @@
 > Cogniheim is an early-stage, founder-led, bootstrapped software venture based in Chennai, Tamil Nadu, India. It designs and builds web products, SaaS applications and practical digital tools. Founder: Mohamed Sameer S. Cogniheim is not yet a registered company and has no external funding.
 
 ## Key pages
-- [Home](https://cogniheim.in/): what Cogniheim does, process, and FAQ
-- [Products & Projects](https://cogniheim.in/products): CinemaFocus (live client site), GROS (interactive prototype), ClearBiz (in development)
-- [About](https://cogniheim.in/about): story, focus areas and verified facts about the venture
-- [Contact](https://cogniheim.in/contact): email info@cogniheim.com or send a message
-- [Privacy](https://cogniheim.in/privacy)
-- [Terms](https://cogniheim.in/terms)
+- [Home](https://cogniheim.com/): what Cogniheim does, process, and FAQ
+- [Products & Projects](https://cogniheim.com/products): CinemaFocus (live client site), GROS (interactive prototype), ClearBiz (in development)
+- [About](https://cogniheim.com/about): story, focus areas and verified facts about the venture
+- [Contact](https://cogniheim.com/contact): email info@cogniheim.com or send a message
+- [Privacy](https://cogniheim.com/privacy)
+- [Terms](https://cogniheim.com/terms)
 
 ## Facts
 - Name: Cogniheim
