@@ -1,14 +1,10 @@
 import type { MetadataRoute } from 'next';
+import { PAGES, SITE_URL } from './lib/site.js';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://cogniheim.in';
-
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 1,
-    },
-  ];
+  return PAGES.map(({ path, priority }) => ({
+    url: `${SITE_URL}${path === '/' ? '' : path}`,
+    changeFrequency: path === '/' ? 'weekly' : 'monthly',
+    priority,
+  }));
 }

@@ -8,21 +8,35 @@ import {
   RefreshCw,
   ArrowUpRight,
 } from "lucide-react";
-import Nav from "./components/Nav";
 import { MeshGradient } from "./components/ui/mesh-gradient";
 import { Features } from "./components/ui/features-8";
 import { Timeline } from "./components/ui/timeline-01";
-import { Footer } from "./components/ui/footer-7";
 import { Button } from "./components/ui/button";
 import ProjectShowcase from "./components/ProjectShowcase";
 import { Faq3 } from "./components/ui/faq3";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ContactForm from "./components/ContactForm";
 import {
-  faGithub,
-  faInstagram,
-  faLinkedinIn,
-} from "@fortawesome/free-brands-svg-icons";
+  BRAND,
+  CONTACT,
+  FOOTER_LINKS,
+  FOUNDER,
+  FOUNDER_NODE,
+  ORGANIZATION_NODE,
+  faqNode,
+  SITE_URL,
+  SOCIAL_LINKS,
+  WEBSITE_NODE,
+  WORK,
+} from "./lib/site.js";
+import Link from "next/link";
+import Nav from "./components/Nav";
+import SiteFooter from "./components/SiteFooter";
+
+export const metadata = {
+  alternates: { canonical: "/" },
+};
+
 
 /*
 |--------------------------------------------------------------------------
@@ -46,21 +60,20 @@ import {
 /* -------------------------------------------------------------------------- */
 
 export const HERO = {
-  eyebrow: "TECHNOLOGY & PRODUCT STUDIO",
+  eyebrow: "INDEPENDENT SOFTWARE & PRODUCT STUDIO",
 
-  title: "Your idea, engineered like it matters.",
+  title: "Building thoughtful software for real-world problems.",
 
-  description:
-    "Cogniheim turns ambitious ideas into web products, software, and SaaS that actually ship — designed with care, built to last, grounded in real product thinking, not templates.",
+  description: BRAND.description,
 
   primaryAction: {
-    label: "Start a project",
-    href: "#contact",
+    label: "Explore Our Products",
+    href: "/products",
   },
 
   secondaryAction: {
-    label: "See the work",
-    href: "#work",
+    label: "Contact Cogniheim",
+    href: "/contact",
   },
 };
 
@@ -119,116 +132,6 @@ export const SERVICES = [
 /* -------------------------------------------------------------------------- */
 /* SELECTED WORK                                                              */
 /* -------------------------------------------------------------------------- */
-
-export const WORK = [
-  {
-    name: "CinemaFocus",
-
-    slug: "cinemafocus",
-
-    href: "https://cinemafocus.in",
-
-    image: "/projects/cinemafocus.webp",
-
-    summary:
-      "An image-forward, editorial site for a premium home-cinema and hi-fi audio brand, built to hold up next to its physical showrooms.",
-
-    category: "Digital Product",
-
-    stack: [
-      "Next.js",
-      "Tailwind CSS",
-      "AWS",
-    ],
-
-    description:
-      "A premium home-cinema and hi-fi audio brand needed a web experience that matched the craftsmanship of the hardware it sells — most competitors in this space look like generic e-commerce templates. We built a clean, image-forward, editorial-feeling site on Next.js designed to hold up next to premium physical showrooms, not just look good in a browser.",
-
-    highlight:
-      "Built to match a premium, craftsmanship-led brand",
-
-    status: "Live",
-
-    featured: true,
-  },
-
-  {
-    name: "GROS",
-
-    slug: "gros",
-
-    brand: "by Cogniheim",
-
-    // Real capture of the interactive prototype's Command view (demo data).
-    image: "/projects/gros.webp",
-
-    summary:
-      "A growth workspace for local businesses — products, search presence, customer feedback and enquiries in one place.",
-
-    category: "Local Business / Commerce",
-
-    stack: [
-      "JavaScript",
-      "Tailwind CSS",
-      "Puter.js",
-    ],
-
-    description:
-      "GROS connects a local business's products, website, search presence, feedback and conversations into one growth layer. The current interactive prototype covers a business overview, SEO checks, a product shelf, AI-assisted feedback analysis and an enquiry queue. Messaging channels, payments, shipping and marketplace integrations are planned, not built.",
-
-    highlight:
-      "Interactive prototype — commerce integrations are next",
-
-    status: "Prototype",
-  },
-
-  {
-    name: "ClearBiz",
-
-    slug: "clearbiz",
-
-    brand: "by Cogniheim",
-
-    // Product overview artwork supplied for ClearBiz (concept visuals).
-    image: "/projects/clearbiz.webp",
-
-    summary:
-      "A simple workspace for small businesses to run their day-to-day — invoices, quotes, expenses, customers and reports in one place.",
-
-    category: "Business Management / SaaS",
-
-    stack: [],
-
-    description:
-      "ClearBiz is a business management app for small and local businesses: one simple workspace for invoices, quotes, expenses, customers, vendors, banking, accounting and reports, instead of scattered spreadsheets and notebooks. It is still in development.",
-
-    status: "In development",
-  },
-
-  /*
-   * Add future Cogniheim client/product projects here.
-   *
-   * These should eventually come from Firebase instead of
-   * being hard-coded.
-   *
-   * PRIORITY: when you add the next case study, include one
-   * concrete outcome if you have it — a real number (load time,
-   * lead volume, timeline) or a specific constraint you solved.
-   * A studio page with zero quantified results reads as a
-   * portfolio; one with even one hard detail reads as a business.
-   */
-
-  // {
-  //   name: "Project Name",
-  //   slug: "project-name",
-  //   image: "/projects/project-name.webp",
-  //   category: "SaaS",
-  //   stack: ["Next.js", "Firebase"],
-  //   description: "...",
-  //   featured: false,
-  // },
-];
-
 
 /* -------------------------------------------------------------------------- */
 /* PHILOSOPHY                                                                */
@@ -301,11 +204,11 @@ export const LABS = {
   title: "Where we build things nobody asked for yet.",
 
   description:
-    "Labs is our R&D arm — internal products and experiments we build to stay sharp and stress-test new tools before bringing them to client work. Some die in a weekend. Some become products. All of it means client work benefits from lessons we already learned on our own time.",
+    "Labs is where Cogniheim's own products and experiments live — things built to stay sharp and to test new tools before they reach client work. Some die in a weekend. Some become products, like GROS and ClearBiz.",
 
   action: {
     label: "See what we're building",
-    href: "#contact",
+    href: "/products",
   },
 };
 
@@ -317,15 +220,14 @@ export const LABS = {
 export const ABOUT = {
   eyebrow: "ABOUT COGNIHEIM",
 
-  title:
-    "Built by an engineer who got tired of studios that talk more than they ship.",
+  title: "A founder-led studio where the person who understands the problem writes the code.",
 
   paragraphs: [
-    "Cogniheim was founded by Mohamed Sameer S, a full-stack developer who's shipped production client work (CinemaFocus) and built internal tools end-to-end — not a strategist who outsources the build.",
+    "Cogniheim is an early-stage, founder-led, bootstrapped software venture based in Chennai, India. It was started by Mohamed Sameer S, a software developer who has built and shipped a production client site (CinemaFocus) and is developing Cogniheim's own products, GROS and ClearBiz.",
 
     "That's the whole model: fewer layers between the person who understands your problem and the person writing the code.",
 
-    "We work across product strategy, design, engineering, and SaaS — and we're selective about what we take on, because craft doesn't scale past a certain number of projects at once.",
+    "Cogniheim works across product strategy, design, engineering, and SaaS — and stays selective about what it takes on, because craft doesn't scale past a certain number of projects at once.",
   ],
 };
 
@@ -334,45 +236,11 @@ export const ABOUT = {
 /* CONTACT                                                                    */
 /* -------------------------------------------------------------------------- */
 
-export const CONTACT = {
-  eyebrow: "START A CONVERSATION",
-
-  title: "Got an idea? Let's find out if it's worth building.",
-
-  description:
-    "No pitch decks required. Tell us the problem, the constraint, or the mess you're trying to untangle — we'll tell you honestly whether it's a good fit.",
-
-  email: "info@cogniheim.in",
-
-  action: {
-    label: "Get in touch",
-    href: "mailto:info@cogniheim.in",
-  },
-};
-
-export const SOCIAL_LINKS = [
-  {
-    label: 'LinkedIn',
-    href: 'https://www.linkedin.com/company/cogniheim',
-    icon: faLinkedinIn,
-  },
-  {
-    label: 'Instagram',
-    href: 'https://www.instagram.com/cogniheim',
-    icon: faInstagram,
-  },
-  {
-    label: 'GitHub',
-    href: 'https://github.com/sameerthedeveloper',
-    icon: faGithub,
-  },
-];
-
 export const FAQ_ITEMS = [
   {
     question: "What is Cogniheim?",
     answer:
-      "A technology and product studio that designs and builds web products, software, and SaaS — end to end, from strategy to shipped code.",
+      "A founder-led software venture based in Chennai, India. Cogniheim designs and builds web products, software, and SaaS — end to end, from strategy to shipped code.",
   },
   {
     question: "What makes Cogniheim different from a typical dev agency?",
@@ -397,7 +265,12 @@ export const FAQ_ITEMS = [
   {
     question: "Who founded Cogniheim?",
     answer:
-      "Cogniheim was founded by Mohamed Sameer S and is based in Chennai, India.",
+      "Cogniheim was founded by Mohamed Sameer S and is based in Chennai, Tamil Nadu, India.",
+  },
+  {
+    question: "Is Cogniheim a registered company?",
+    answer:
+      "Not yet. Cogniheim is an early-stage, bootstrapped, founder-led venture without external funding. It is not an incorporated company, and a formal business registration is still being considered.",
   },
   {
     question: "How do we start?",
@@ -408,109 +281,15 @@ export const FAQ_ITEMS = [
 
 
 /* -------------------------------------------------------------------------- */
-/* NAVIGATION                                                                 */
-/* -------------------------------------------------------------------------- */
-
-export const NAVIGATION = [
-  {
-    label: "Work",
-    href: "#work",
-  },
-
-  {
-    label: "Capabilities",
-    href: "#capabilities",
-  },
-
-  {
-    label: "Process",
-    href: "#process",
-  },
-
-  {
-    label: "About",
-    href: "#about",
-  },
-
-  {
-    label: "Contact",
-    href: "#contact",
-  },
-];
-
-
-/* -------------------------------------------------------------------------- */
-/* FOOTER                                                                     */
-/* -------------------------------------------------------------------------- */
-
-export const FOOTER = {
-  description:
-    "A technology and product studio building modern web products, software and SaaS. Based in Chennai, India.",
-
-  links: [
-    { label: "Work", href: "#work" },
-    { label: "Capabilities", href: "#capabilities" },
-    { label: "Process", href: "#process" },
-    { label: "About", href: "#about" },
-    { label: "FAQ", href: "#faq" },
-    { label: "Contact", href: "#contact" },
-  ],
-};
-
-const SITE_URL = "https://cogniheim.in";
-
-const structuredData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": `${SITE_URL}/#organization`,
-      name: "Cogniheim",
-      url: SITE_URL,
-      logo: `${SITE_URL}/logo.webp`,
-      email: CONTACT.email,
-      description:
-        "Cogniheim is a technology and product studio focused on building modern web products, software, and SaaS experiences.",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Chennai",
-        addressCountry: "IN",
-      },
-      founder: { "@id": `${SITE_URL}/#founder` },
-      sameAs: SOCIAL_LINKS.filter((l) => l.label !== "GitHub").map((l) => l.href),
-      knowsAbout: [
-        "Product design",
-        "Software engineering",
-        "SaaS development",
-        "Web applications",
-        "Product strategy",
-      ],
-    },
-    {
-      "@type": "Person",
-      "@id": `${SITE_URL}/#founder`,
-      name: "Mohamed Sameer S",
-      jobTitle: "Founder",
-      worksFor: { "@id": `${SITE_URL}/#organization` },
-      url: "https://mohamedsameer.tech",
-    },
-    {
-      "@type": "WebSite",
-      "@id": `${SITE_URL}/#website`,
-      url: SITE_URL,
-      name: "Cogniheim",
-      inLanguage: "en",
-      publisher: { "@id": `${SITE_URL}/#organization` },
-    },
-  ],
-};
-
-
-/* -------------------------------------------------------------------------- */
 /* HOME PAGE                                                                  */
 /* -------------------------------------------------------------------------- */
 
 export default function Home() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [ORGANIZATION_NODE, FOUNDER_NODE, WEBSITE_NODE, faqNode(FAQ_ITEMS)],
+  };
+
   return (
     <>
       <script
@@ -598,7 +377,7 @@ export default function Home() {
             <div className="hero-actions mt-10 flex flex-wrap justify-center gap-4">
 
               <Button
-                as="a"
+                as={Link}
                 href={HERO.primaryAction.href}
               >
                 {HERO.primaryAction.label}
@@ -607,7 +386,7 @@ export default function Home() {
               </Button>
 
               <Button
-                as="a"
+                as={Link}
                 href={HERO.secondaryAction.href}
                 variant="ghost"
               >
@@ -615,6 +394,17 @@ export default function Home() {
               </Button>
 
             </div>
+
+            <p className="hero-description mt-10 text-sm text-muted">
+              Founded by{" "}
+              <Link href="/about" className="font-medium text-ink underline decoration-accent/50 underline-offset-4 hover:decoration-accent">
+                {FOUNDER.name}
+              </Link>
+              {" · "}Chennai, Tamil Nadu, India{" · "}
+              <a href={`mailto:${CONTACT.email}`} className="underline decoration-accent/50 underline-offset-4 hover:decoration-accent">
+                {CONTACT.email}
+              </a>
+            </p>
 
           </div>
 
@@ -927,7 +717,7 @@ export default function Home() {
                 {LABS.description}
               </p>
 
-              <a
+              <Link
                 href={LABS.action.href}
                 className="
                   mt-8
@@ -942,7 +732,7 @@ export default function Home() {
                 {LABS.action.label}
 
                 <ArrowUpRight className="h-4 w-4" />
-              </a>
+              </Link>
             </div>
 
           </div>
@@ -1002,10 +792,6 @@ export default function Home() {
 
               <div className="space-y-6">
 
-                <p className="max-w-2xl text-lg leading-relaxed text-muted">
-                  Cogniheim is a technology and product studio focused on building modern web products, software, and SaaS experiences.
-                </p>
-
                 {ABOUT.paragraphs.map((paragraph) => (
 
                   <p
@@ -1023,6 +809,14 @@ export default function Home() {
                 ))}
 
               </div>
+
+              <Link
+                href="/about"
+                className="mt-8 inline-flex items-center gap-2 text-accent-hover transition-opacity hover:opacity-70"
+              >
+                More about Cogniheim and its founder
+                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
 
             </div>
 
@@ -1134,13 +928,7 @@ export default function Home() {
       </main>
 
 
-      <Footer
-        description={FOOTER.description}
-        founder={{ label: "Mohamed Sameer S", href: "https://mohamedsameer.tech" }}
-        email={CONTACT.email}
-        nav={FOOTER.links}
-        socials={SOCIAL_LINKS}
-      />
+      <SiteFooter />
     </>
   );
 }

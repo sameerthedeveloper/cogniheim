@@ -32,8 +32,32 @@ function Required() {
 // No backend on this static site — the form builds a mailto: link from the
 // fields and hands off to the visitor's own mail client rather than faking
 // a server round-trip.
+type Errors = Partial<Record<'name' | 'email' | 'message', string>>;
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function validate(name: string, from: string, message: string): Errors {
+  const errors: Errors = {};
+  if (!name) errors.name = 'Please enter your name.';
+  if (!from) errors.email = 'Please enter your email address.';
+  else if (!EMAIL_PATTERN.test(from)) errors.email = 'That doesn’t look like an email address — check for typos, e.g. you@company.com.';
+  if (!message) errors.message = 'Please write a short message.';
+  else if (message.length < 10) errors.message = 'Please add a little more detail (at least 10 characters).';
+  return errors;
+}
+
+function FieldError({ id, message }: { id: string; message?: string }) {
+  if (!message) return null;
+  return (
+    <p id={id} className="text-sm text-[#f2a58a]">
+      {message}
+    </p>
+  );
+}
+
 export default function ContactForm({ email, intro, aside }: { email: string; intro: ReactNode; aside: ReactNode }) {
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
+  const [errors, setErrors] = useState<Errors>({});
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -44,6 +68,14 @@ export default function ContactForm({ email, intro, aside }: { email: string; in
     const from = String(data.get('email') ?? '').trim();
     const topic = String(data.get('topic') ?? TOPICS[0]);
     const message = String(data.get('message') ?? '').trim();
+
+    const found = validate(name, from, message);
+    setErrors(found);
+    if (Object.keys(found).length) {
+      const first = (['name', 'email', 'message'] as const).find((key) => found[key]);
+      event.currentTarget.querySelector<HTMLElement>(`[name="${first}"]`)?.focus();
+      return;
+    }
 
     const subject = `${topic} — ${name}`;
     const body = `${message}\n\n— ${name} (${from})`;
@@ -64,6 +96,7 @@ export default function ContactForm({ email, intro, aside }: { email: string; in
       <form
         id="contact-form"
         aria-label="Contact Cogniheim"
+        noValidate
         className="reveal flex w-full flex-col gap-5 rounded-2xl border border-white/10 bg-white/[0.04] p-6 sm:p-8 lg:col-start-2 lg:row-span-3 lg:row-start-1 lg:self-stretch"
         onSubmit={handleSubmit}
       >
@@ -73,14 +106,16 @@ export default function ContactForm({ email, intro, aside }: { email: string; in
               Name
               <Required />
             </label>
-            <Input id="contact-name" name="name" type="text" placeholder="Your name" autoComplete="name" required className={FIELD} />
+            <Input id="contact-name" name="name" type="text" placeholder="Your name" autoComplete="name" required aria-invalid={!!errors.name} aria-describedby={errors.name ? 'contact-name-error' : undefined} className={FIELD} />
+            <FieldError id="contact-name-error" message={errors.name} />
           </div>
           <div className="flex flex-col gap-2">
             <label htmlFor="contact-email" className={LABEL}>
               Email
               <Required />
             </label>
-            <Input id="contact-email" name="email" type="email" placeholder="you@company.com" autoComplete="email" required className={FIELD} />
+            <Input id="contact-email" name="email" type="email" placeholder="you@company.com" autoComplete="email" required aria-invalid={!!errors.email} aria-describedby={errors.email ? 'contact-email-error' : undefined} className={FIELD} />
+            <FieldError id="contact-email-error" message={errors.email} />
           </div>
         </div>
 
@@ -114,8 +149,11 @@ export default function ContactForm({ email, intro, aside }: { email: string; in
             rows={6}
             placeholder="The problem, the constraint, or the idea you're weighing."
             required
+            aria-invalid={!!errors.message}
+            aria-describedby={errors.message ? 'contact-message-error' : undefined}
             className={`${FIELD} min-h-36 flex-1`}
           />
+          <FieldError id="contact-message-error" message={errors.message} />
         </div>
       </form>
 

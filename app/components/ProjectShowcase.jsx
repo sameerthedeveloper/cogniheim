@@ -25,6 +25,8 @@ export default function ProjectShowcase({ work }) {
   // Decide the mode first; the pinned layout (w-max track, fixed card
   // widths) has to be in the DOM before ScrollTrigger measures it.
   useEffect(() => {
+    // No scroll-pinning inside the /flute motion-capture stage.
+    if (window.location.pathname.startsWith('/flute')) return;
     const mm = gsap.matchMedia();
     mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
       setPinned(true);

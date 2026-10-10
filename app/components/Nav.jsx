@@ -8,13 +8,17 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import gsap from 'gsap';
 import { cn } from '../lib/utils.js';
 
+// `spy` links point at homepage sections; the scroll-spy only highlights
+// them when that section exists on the current page.
 const LINKS = [
-  { href: '#work', label: 'Work' },
-  { href: '#capabilities', label: 'Capabilities' },
-  { href: '#process', label: 'Process' },
-  { href: '#about', label: 'About' },
-  { href: '#contact', label: 'Contact' },
+  { href: '/#work', spy: '#work', label: 'Work' },
+  { href: '/#capabilities', spy: '#capabilities', label: 'Capabilities' },
+  { href: '/products', label: 'Products' },
+  { href: '/about', label: 'About' },
 ];
+
+const CTA = { href: '/contact', label: 'Contact' };
+const SPIED = LINKS.filter((l) => l.spy);
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
@@ -29,7 +33,7 @@ export default function Nav() {
   // Scroll-spy: highlight whichever section currently owns the middle
   // band of the viewport.
   useEffect(() => {
-    const sections = LINKS.map((l) => document.querySelector(l.href)).filter(Boolean);
+    const sections = SPIED.map((l) => document.querySelector(l.spy)).filter(Boolean);
     if (!sections.length) return;
 
     const observer = new IntersectionObserver(
@@ -52,7 +56,7 @@ export default function Nav() {
     const indicator = indicatorRef.current;
     if (!list || !indicator) return;
 
-    const target = active && list.querySelector(`a[href="${active}"]`);
+    const target = active && list.querySelector(`a[data-spy="${active}"]`);
     if (!target) {
       gsap.to(indicator, { opacity: 0, duration: 0.2 });
       return;
@@ -157,14 +161,15 @@ export default function Nav() {
           />
           {LINKS.map((link) => (
             <li key={link.href} data-nav-item>
-              <a
+              <Link
                 href={link.href}
+                data-spy={link.spy}
                 className={`text-[13px] transition-colors ${
-                  active === link.href ? 'text-white' : 'text-white/60 hover:text-white'
+                  active === link.spy ? 'text-white' : 'text-white/60 hover:text-white'
                 }`}
               >
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -181,13 +186,13 @@ export default function Nav() {
             <FontAwesomeIcon icon={faGithub} className="h-4 w-4" aria-hidden="true" />
           </a>
 
-          <a
-            href="#contact"
+          <Link
+            href={CTA.href}
             data-nav-item
             className="magnetic rounded-full bg-accent-strong px-5 py-2.5 text-[13px] font-medium text-white transition-opacity hover:opacity-90"
           >
-            Start a project
-          </a>
+            {CTA.label}
+          </Link>
         </div>
 
         <button
@@ -205,15 +210,15 @@ export default function Nav() {
 
       <div id="mobile-nav" ref={mobilePanelRef} className="hidden w-full overflow-hidden md:hidden" style={{ height: 0, opacity: 0 }}>
         <ul ref={mobileListRef} className="flex flex-col gap-1 border-t border-white/10 px-5 pb-5 pt-4">
-          {LINKS.map((link) => (
+          {[...LINKS, CTA].map((link) => (
             <li key={link.href} data-mobile-item>
-              <a
+              <Link
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className={`block py-2 text-[15px] ${active === link.href ? 'text-accent' : 'text-white/80'}`}
+                className={`block py-2 text-[15px] ${active === link.spy ? 'text-accent' : 'text-white/80'}`}
               >
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
@@ -15,21 +16,26 @@ import { initJourneyProgress } from '../animations/journeyProgress.js';
 // reveals, scroll-triggered word reveals on section headings and the
 // process rail fill — all riding on Lenis smooth scroll.
 export default function SiteEffects() {
-  const initialized = useRef(false);
+  // Re-run on every route change: the layout persists across client-side
+  // navigation, so each new page needs its own reveals and triggers.
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (initialized.current) return;
-    initialized.current = true;
+    // The /flute motion-capture studio renders the page inside a 3D stage;
+    // scroll choreography and smooth scroll would fight it.
+    if (window.location.pathname.startsWith('/flute')) return;
 
     gsap.registerPlugin(ScrollTrigger);
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     let lenis;
+    let tick;
     if (!reducedMotion) {
       lenis = new Lenis({ duration: 1.05, smoothWheel: true });
       lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add((time) => lenis.raf(time * 1000));
+      tick = (time) => lenis.raf(time * 1000);
+      gsap.ticker.add(tick);
       gsap.ticker.lagSmoothing(0);
     }
 
@@ -43,7 +49,8 @@ export default function SiteEffects() {
       document.fonts.ready.then(() => ScrollTrigger.refresh());
     }
 
-    window.addEventListener('load', () => ScrollTrigger.refresh());
+    const handleLoad = () => ScrollTrigger.refresh();
+    window.addEventListener('load', handleLoad);
 
     let resizeTimer;
     const handleResize = () => {
@@ -53,10 +60,14 @@ export default function SiteEffects() {
     window.addEventListener('resize', handleResize);
 
     return () => {
+      clearTimeout(resizeTimer);
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('load', handleLoad);
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      if (tick) gsap.ticker.remove(tick);
       lenis?.destroy();
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }

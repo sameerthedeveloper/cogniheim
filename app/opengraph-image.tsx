@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-export const alt = 'Cogniheim — Technology & Product Studio';
+export const alt = 'Cogniheim — Independent Software & Product Studio';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -20,13 +20,13 @@ export default function OpengraphImage() {
         }}
       >
         <div style={{ fontSize: 28, letterSpacing: 6, color: '#c2653f' }}>
-          TECHNOLOGY &amp; PRODUCT STUDIO
+          INDEPENDENT SOFTWARE &amp; PRODUCT STUDIO
         </div>
         <div style={{ fontSize: 128, fontWeight: 700, letterSpacing: -4, marginTop: 24 }}>
           Cogniheim
         </div>
         <div style={{ fontSize: 36, marginTop: 24, color: '#87795e' }}>
-          Modern web products, software and SaaS — Chennai, India
+          Founder-led software venture — Chennai, India
         </div>
       </div>
     ),

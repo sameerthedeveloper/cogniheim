@@ -1,0 +1,726 @@
+{
+  "version": 1,
+  "id": "cogniheim-tour",
+  "title": "Cogniheim tour",
+  "description": "A slow oblique camera travel down the live Cogniheim homepage.",
+  "definition": {
+    "scene": {
+      "version": 3,
+      "camera": {
+        "x": -40,
+        "y": 0,
+        "z": 0,
+        "perspective": 1600,
+        "rotateX": 8,
+        "rotateY": -24,
+        "rotateZ": 0
+      },
+      "focus": {
+        "distance": 1600,
+        "fStop": 16,
+        "focalLength": 50,
+        "maxBlur": 3
+      },
+      "nodes": [
+        {
+          "id": "page",
+          "transform": {
+            "x": -650,
+            "y": -540,
+            "z": 0,
+            "rotateX": 0,
+            "rotateY": 0,
+            "rotateZ": 0,
+            "scale": 1
+          }
+        }
+      ]
+    },
+    "motion": {
+      "durationMs": 96000,
+      "speed": 1,
+      "tracks": [
+        {
+          "target": {
+            "kind": "camera"
+          },
+          "property": "y",
+          "keyframes": [
+            {
+              "timeMs": 0,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 4000,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 7500,
+              "value": 1010,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 18000,
+              "value": 1010,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 22000,
+              "value": 2070,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 28000,
+              "value": 2070,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 31000,
+              "value": 3060,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 33500,
+              "value": 3060,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 36500,
+              "value": 3890,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 46000,
+              "value": 3890,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 48500,
+              "value": 4790,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 50000,
+              "value": 4790,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 52500,
+              "value": 5330,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 55000,
+              "value": 5330,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 58500,
+              "value": 6070,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 66500,
+              "value": 6070,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 70000,
+              "value": 6970,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 84500,
+              "value": 6970,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 87500,
+              "value": 7480,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 93500,
+              "value": 7480,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 96000,
+              "value": 7480,
+              "easing": "cinematic"
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "camera"
+          },
+          "property": "x",
+          "keyframes": [
+            {
+              "timeMs": 0,
+              "value": -40,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 4000,
+              "value": -40,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 7500,
+              "value": -300,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 18000,
+              "value": -300,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 22000,
+              "value": -430,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 28000,
+              "value": -430,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 31000,
+              "value": -380,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 33500,
+              "value": -380,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 36500,
+              "value": -160,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 46000,
+              "value": -160,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 48500,
+              "value": -300,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 50000,
+              "value": -300,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 52500,
+              "value": -400,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 55000,
+              "value": -400,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 58500,
+              "value": -360,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 66500,
+              "value": -360,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 70000,
+              "value": -170,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 84500,
+              "value": -170,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 87500,
+              "value": -370,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 93500,
+              "value": -370,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 96000,
+              "value": -370,
+              "easing": "cinematic"
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "camera"
+          },
+          "property": "z",
+          "keyframes": [
+            {
+              "timeMs": 0,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 4000,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 7500,
+              "value": -100,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 18000,
+              "value": -100,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 22000,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 28000,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 31000,
+              "value": -120,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 33500,
+              "value": -120,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 36500,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 46000,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 48500,
+              "value": 130,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 50000,
+              "value": 130,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 52500,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 55000,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 58500,
+              "value": 170,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 66500,
+              "value": 170,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 70000,
+              "value": -40,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 84500,
+              "value": -40,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 87500,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 93500,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 96000,
+              "value": 0,
+              "easing": "cinematic"
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "camera"
+          },
+          "property": "rotateX",
+          "keyframes": [
+            {
+              "timeMs": 0,
+              "value": 8,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 4000,
+              "value": 8,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 7500,
+              "value": 3,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 18000,
+              "value": 3,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 22000,
+              "value": 6,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 28000,
+              "value": 6,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 31000,
+              "value": 2,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 33500,
+              "value": 2,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 36500,
+              "value": 5,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 46000,
+              "value": 5,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 48500,
+              "value": 4,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 50000,
+              "value": 4,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 52500,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 55000,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 58500,
+              "value": 5,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 66500,
+              "value": 5,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 70000,
+              "value": 4,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 84500,
+              "value": 4,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 87500,
+              "value": 3,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 93500,
+              "value": 3,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 96000,
+              "value": 3,
+              "easing": "cinematic"
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "camera"
+          },
+          "property": "rotateY",
+          "keyframes": [
+            {
+              "timeMs": 0,
+              "value": -24,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 4000,
+              "value": -24,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 7500,
+              "value": -8,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 18000,
+              "value": -8,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 22000,
+              "value": 16,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 28000,
+              "value": 16,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 31000,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 33500,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 36500,
+              "value": -16,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 46000,
+              "value": -16,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 48500,
+              "value": 6,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 50000,
+              "value": 6,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 52500,
+              "value": -2,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 55000,
+              "value": -2,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 58500,
+              "value": 8,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 66500,
+              "value": 8,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 70000,
+              "value": -12,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 84500,
+              "value": -12,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 87500,
+              "value": 8,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 93500,
+              "value": 8,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 96000,
+              "value": 8,
+              "easing": "cinematic"
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "camera"
+          },
+          "property": "rotateZ",
+          "keyframes": [
+            {
+              "timeMs": 0,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 4000,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 7500,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 18000,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 22000,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 28000,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 31000,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 33500,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 36500,
+              "value": -1,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 46000,
+              "value": -1,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 48500,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 50000,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 52500,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 55000,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 58500,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 66500,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 70000,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 84500,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 87500,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 93500,
+              "value": 0,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 96000,
+              "value": 0,
+              "easing": "cinematic"
+            }
+          ]
+        }
+      ]
+    },
+    "width": 1920,
+    "height": 1080
+  }
+}
