@@ -31,7 +31,7 @@ export const FOUNDER = {
 };
 
 export const CONTACT = {
-  email: 'info@cogniheim.in',
+  email: 'info@cogniheim.com',
 };
 
 export const SOCIAL_LINKS = [

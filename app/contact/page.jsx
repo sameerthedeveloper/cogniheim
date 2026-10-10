@@ -14,7 +14,7 @@ import {
 } from '../lib/site.js';
 
 const description =
-  'Contact Cogniheim, a founder-led software venture in Chennai, India. Email info@cogniheim.in or send a message about a project, product or collaboration.';
+  'Contact Cogniheim, a founder-led software venture in Chennai, India. Email info@cogniheim.com or send a message about a project, product or collaboration.';
 
 export const metadata = pageMetadata({ title: 'Contact', description, path: '/contact' });
 

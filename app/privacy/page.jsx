@@ -4,7 +4,7 @@ import { CONTACT, FOUNDER, pageMetadata } from '../lib/site.js';
 export const metadata = pageMetadata({
   title: 'Privacy Policy',
   description:
-    'How the Cogniheim website handles personal information: what is collected, why, and how to contact the operator at info@cogniheim.in.',
+    'How the Cogniheim website handles personal information: what is collected, why, and how to contact the operator at info@cogniheim.com.',
   path: '/privacy',
 });
 

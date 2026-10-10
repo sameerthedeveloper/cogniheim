@@ -6,7 +6,7 @@
 - [Home](https://cogniheim.in/): what Cogniheim does, process, and FAQ
 - [Products & Projects](https://cogniheim.in/products): CinemaFocus (live client site), GROS (interactive prototype), ClearBiz (in development)
 - [About](https://cogniheim.in/about): story, focus areas and verified facts about the venture
-- [Contact](https://cogniheim.in/contact): email info@cogniheim.in or send a message
+- [Contact](https://cogniheim.in/contact): email info@cogniheim.com or send a message
 - [Privacy](https://cogniheim.in/privacy)
 - [Terms](https://cogniheim.in/terms)
 
@@ -15,5 +15,5 @@
 - Founder: Mohamed Sameer S (https://mohamedsameer.tech)
 - Location: Chennai, Tamil Nadu, India
 - Services: product strategy, product design, software engineering, SaaS development
-- Contact: info@cogniheim.in
+- Contact: info@cogniheim.com
 - Social: https://www.linkedin.com/company/cogniheim, https://www.instagram.com/cogniheim
