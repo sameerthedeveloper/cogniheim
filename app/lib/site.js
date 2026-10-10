@@ -169,6 +169,21 @@ export const WORK = [
     status: 'Live',
     featured: true,
   },
+    {
+    name: 'Record Lab',
+    slug: 'record-lab',
+    brand: 'by Cogniheim',
+    href: 'https://record-lab.vercel.app',
+    image: '/projects/recordlab.webp',
+    summary:
+      'A lab-record builder for engineering students: type the aim, algorithm and code once, get a print-ready fair copy.',
+    category: 'Education / Productivity',
+    stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Firebase'],
+    description:
+      'Record Lab replaces rewriting lab records by hand. Students fill in one panel and watch it lay out on true A4 pages, with their register number watermarked behind every page. It exports to PDF, Word or print, turns program output into terminal-style screenshots (macOS, Linux, CMD, PowerShell), lets them customise the heading table borders, and keeps records in subject folders synced to their account. AI-assisted drafting helps with the aim, algorithm and viva questions. Built for Crescent CSE students.',
+    highlight: 'Live, used for real lab-record season',
+    status: 'Live',
+  },
   {
     name: 'GROS',
     slug: 'gros',
