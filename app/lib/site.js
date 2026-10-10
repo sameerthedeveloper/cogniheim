@@ -174,7 +174,7 @@ export const WORK = [
     slug: 'record-lab',
     brand: 'by Cogniheim',
     href: 'https://record-lab.vercel.app',
-    image: '/projects/recordlab.webp',
+    image: '/projects/recordlab.png',
     summary:
       'A lab-record builder for engineering students: type the aim, algorithm and code once, get a print-ready fair copy.',
     category: 'Education / Productivity',
