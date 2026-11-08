@@ -16,7 +16,7 @@ import {
 const description =
   'Contact Cogniheim, a founder-led software venture in Chennai, India. Email info@cogniheim.com or send a message about a project, product or collaboration.';
 
-export const metadata = pageMetadata({ title: 'Contact', description, path: '/contact' });
+export const metadata = pageMetadata({ title: 'Contact Cogniheim, software studio in Chennai', description, path: '/contact' });
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -53,7 +53,7 @@ export default function ContactPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }}
       />
 
-      <PageHero eyebrow="CONTACT" title="Contact Cogniheim.">
+      <PageHero eyebrow="Contact" title="Tell us what you want to build.">
         <p>
           The quickest way to reach Cogniheim is email. Tell us the problem, the constraint, or the idea you&apos;re
           weighing and we&apos;ll reply personally.

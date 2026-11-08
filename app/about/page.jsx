@@ -19,7 +19,7 @@ import {
 const description =
   'Cogniheim is an early-stage, founder-led software venture in Chennai, India, started by Mohamed Sameer S to build practical, reliable web products and SaaS.';
 
-export const metadata = pageMetadata({ title: 'About', description, path: '/about' });
+export const metadata = pageMetadata({ title: 'About Cogniheim and its founder', description, path: '/about' });
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -53,7 +53,7 @@ const FACTS = [
 
 const FOCUS = [
   ['Software development', 'Custom software and modern web applications, from first prototype to production.'],
-  ['SaaS products', "Cogniheim's own products, currently GROS and ClearBiz, plus the infrastructure SaaS needs."],
+  ['SaaS products', "Cogniheim's own products, currently Record Lab, ClearBiz and GROS, plus the infrastructure SaaS needs."],
   ['Business software', 'Practical tools that replace scattered spreadsheets and manual workflows.'],
   ['AI-powered features', 'Useful, grounded AI capabilities inside products — only where they solve a real problem.'],
 ];
@@ -68,7 +68,7 @@ export default function AboutPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }}
       />
 
-      <PageHero eyebrow="ABOUT COGNIHEIM" title="Practical software, built by the person who designs it.">
+      <PageHero eyebrow="About" title="Practical software, built by the person who designs it.">
         <p>
           Cogniheim is an early-stage, founder-led software venture based in Chennai, India, building web products,
           SaaS applications and useful digital tools.

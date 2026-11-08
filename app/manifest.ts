@@ -8,6 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: BRAND.description,
     start_url: '/',
     display: 'browser',
+    lang: 'en-IN',
+    categories: ['business', 'productivity', 'technology'],
     background_color: '#f4f1ea',
     theme_color: '#f4f1ea',
     icons: [{ src: '/favico.png', type: 'image/png' }],

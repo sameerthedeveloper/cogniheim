@@ -78,15 +78,29 @@ export default function CustomCursor() {
       gsap.to([dot, pointer], { opacity: 1, duration: 0.25, overwrite: 'auto' });
     };
 
+    // Tailwind's rounded-full computes to "3.35544e+07px" — scientific
+    // notation GSAP can't tween, which left pills with a squarish ring.
+    // Clamp every corner to plain pixels, no larger than half the ring's
+    // short side (that is already a perfect pill/circle).
+    const cornerRadius = (el, width, height) => {
+      const max = Math.min(width, height) / 2;
+      const corners = getComputedStyle(el).borderRadius.split(' ').map((v) => Math.min(parseFloat(v) || 0, max));
+      if (corners.every((c) => c === 0)) return '4px';
+      return corners.map((c) => `${Math.round(c * 100) / 100}px`).join(' ');
+    };
+
     const snapToElement = (el) => {
       const rect = el.getBoundingClientRect();
-      const radius = getComputedStyle(el).borderRadius;
+      const ringW = rect.width + SNAP_PADDING * 2;
+      const ringH = rect.height + SNAP_PADDING * 2;
+      // Padding grows the ring, so grow the corner radii with it.
+      const radius = cornerRadius(el, ringW, ringH).split(' ').map((v) => `${parseFloat(v) + (parseFloat(v) > 0 ? SNAP_PADDING : 0)}px`).join(' ');
       moveX(rect.left + rect.width / 2);
       moveY(rect.top + rect.height / 2);
       gsap.to(pointer, {
-        width: rect.width + SNAP_PADDING * 2,
-        height: rect.height + SNAP_PADDING * 2,
-        borderRadius: radius === '0px' ? 4 : radius,
+        width: ringW,
+        height: ringH,
+        borderRadius: radius,
         duration: 0.35,
         ease: 'back.out(1.8)',
         overwrite: 'auto',

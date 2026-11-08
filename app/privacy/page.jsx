@@ -96,7 +96,7 @@ const SECTIONS = [
 export default function PrivacyPage() {
   return (
     <LegalPage
-      eyebrow="LEGAL"
+      eyebrow="Legal"
       title="Privacy Policy"
       intro="What the Cogniheim website collects, why, and how to reach the operator about it."
       sections={SECTIONS}

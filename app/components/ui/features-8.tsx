@@ -1,5 +1,6 @@
 import type { LucideIcon } from 'lucide-react';
 import { Card, CardContent } from './card';
+import { Spotlight } from './spotlight';
 import { cn } from '../../lib/utils.js';
 
 export type Feature = {
@@ -22,17 +23,71 @@ function IconRing({ icon: Icon }: { icon: LucideIcon }) {
   );
 }
 
-function Copy({ number, title, body }: Pick<Feature, 'number' | 'title' | 'body'>) {
+function Copy({ title, body }: Pick<Feature, 'title' | 'body'>) {
   return (
     <div className="space-y-2">
-      <p
-        aria-hidden="true"
-        className="absolute top-5 right-6 font-mono text-sm text-faint transition-colors duration-300 group-hover:text-accent-hover"
-      >
-        {number}
-      </p>
-      <h3 className="text-xl font-semibold tracking-tight text-ink">{title}</h3>
+      <h3 className="font-display text-2xl font-semibold tracking-tight text-ink">{title}</h3>
       <p className="max-w-md leading-relaxed text-muted">{body}</p>
+    </div>
+  );
+}
+
+// Strategy: the three questions the copy promises to answer before any
+// build starts, as a quiet checklist.
+function StrategyVisual() {
+  return (
+    <div aria-hidden="true" className="flex h-full flex-col justify-end gap-2.5">
+      {[
+        ['Who is it for?', true],
+        ['What is the smallest version that proves it?', true],
+        ['What is most likely to break?', false],
+      ].map(([label, done]) => (
+        <div
+          key={label as string}
+          className="flex items-center gap-3 rounded-xl border border-line bg-surface-3 px-3.5 py-2.5 text-sm text-muted"
+        >
+          <span
+            className={cn(
+              'grid size-5 shrink-0 place-items-center rounded-full border text-[11px] leading-none',
+              done ? 'border-accent bg-accent text-white' : 'border-line bg-surface text-faint',
+            )}
+          >
+            {done ? '✓' : '?'}
+          </span>
+          {label as string}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Design: the same screen as a wireframe and as finished UI, structure
+// first, decoration second.
+// Design: the same screen as a wireframe and as finished UI.
+function Bars({ solid }: { solid: boolean }) {
+  return (
+    <div className="space-y-2">
+      <div className={cn('h-2.5 w-2/3 rounded-full', solid ? 'bg-ink/80' : 'border border-dashed border-faint')} />
+      <div className={cn('h-2 w-full rounded-full', solid ? 'bg-line' : 'border border-dashed border-line')} />
+      <div className={cn('h-2 w-5/6 rounded-full', solid ? 'bg-line' : 'border border-dashed border-line')} />
+      <div className="grid grid-cols-2 gap-2 pt-1">
+        <div className={cn('h-10 rounded-lg', solid ? 'bg-accent/25' : 'border border-dashed border-line')} />
+        <div className={cn('h-10 rounded-lg', solid ? 'bg-surface-2' : 'border border-dashed border-line')} />
+      </div>
+      <div className={cn('h-6 w-1/3 rounded-full', solid ? 'bg-accent-strong' : 'border border-dashed border-faint')} />
+    </div>
+  );
+}
+
+function DesignVisual() {
+  return (
+    <div aria-hidden="true" className="grid h-full grid-cols-2 items-center gap-3">
+      <div className="rounded-xl border border-dashed border-line p-3.5">
+        <Bars solid={false} />
+      </div>
+      <div className="rounded-xl border border-line bg-surface-3 p-3.5 shadow-sm">
+        <Bars solid />
+      </div>
     </div>
   );
 }
@@ -43,7 +98,7 @@ function StackStage() {
   return (
     <div
       aria-hidden="true"
-      className="relative sm:-my-2 before:absolute before:inset-y-0 before:left-1/2 before:w-px before:bg-line"
+      className="relative before:absolute before:inset-y-0 before:left-1/2 before:w-px before:bg-line"
     >
       <ul className="relative flex h-full flex-col justify-center gap-5 py-2">
         {[
@@ -75,7 +130,7 @@ function SaasSketch() {
   return (
     <div
       aria-hidden="true"
-      className="relative -mb-6 mt-2 h-fit rounded-tl-xl border-t border-l border-line bg-surface-3 p-5 pt-8 sm:-mr-6 sm:-mb-8 sm:ml-2 sm:mt-8"
+      className="relative h-fit rounded-xl border border-line bg-surface-3 p-5 pt-8 sm:ml-2"
     >
       <div className="absolute top-3 left-3 flex gap-1">
         <span className="size-2 rounded-full border border-line" />
@@ -96,39 +151,51 @@ function SaasSketch() {
 }
 
 const VISUALS: Record<string, () => React.JSX.Element> = {
+  products: StrategyVisual,
+  design: DesignVisual,
   engineering: StackStage,
   saas: SaasSketch,
 };
 
+// Bento widths: narrow/wide on the first row, wide/narrow on the second.
+const SPAN: Record<string, string> = {
+  products: 'sm:col-span-2',
+  design: 'sm:col-span-4',
+  engineering: 'sm:col-span-4',
+  saas: 'sm:col-span-2',
+};
+const WIDE = new Set(['design', 'engineering']);
+
 const cardClass =
   'reveal group relative overflow-hidden transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-accent/50 hover:shadow-[0_18px_32px_-18px_color-mix(in_srgb,var(--color-accent)_45%,transparent)] motion-reduce:transition-colors motion-reduce:hover:translate-y-0';
 
-// Features 8's bento: two plain cards across the top, then two wider cards
-// that pair their copy with a small illustration.
+// Bento grid: four cards, each pairing its copy with a small illustration of
+// what the service actually covers. Wide cards sit copy-left, art-right;
+// narrow cards stack copy over art.
 export function Features({ items, className }: { items: readonly Feature[]; className?: string }) {
   return (
-    <ul className={cn('grid grid-cols-6 gap-4', className)}>
-      {items.map(({ number, title, body, icon, tone }) => {
+    <ul className={cn('grid grid-cols-1 gap-4 sm:grid-cols-6', className)}>
+      {items.map(({ title, body, icon, tone }) => {
         const Visual = tone ? VISUALS[tone] : undefined;
+        const wide = tone ? WIDE.has(tone) : false;
 
         return (
-          <li key={title} className="col-span-full sm:col-span-3">
-            <Card className={cn(cardClass, 'h-full')}>
-              {Visual ? (
-                <CardContent className="grid h-full gap-8 sm:grid-cols-2">
+          <li key={title} className={cn('col-span-full', tone && SPAN[tone])}>
+            <Spotlight className="h-full rounded-2xl">
+              <Card className={cn(cardClass, 'h-full')}>
+                <CardContent className={cn('grid h-full gap-8', wide && 'sm:grid-cols-[1.35fr_1fr]')}>
                   <div className="flex flex-col justify-between gap-8">
                     <IconRing icon={icon} />
-                    <Copy number={number} title={title} body={body} />
+                    <Copy title={title} body={body} />
                   </div>
-                  <Visual />
+                  {Visual && (
+                    <div className={cn(wide ? 'self-center' : 'min-h-40')}>
+                      <Visual />
+                    </div>
+                  )}
                 </CardContent>
-              ) : (
-                <CardContent className="flex h-full flex-col justify-between gap-8">
-                  <IconRing icon={icon} />
-                  <Copy number={number} title={title} body={body} />
-                </CardContent>
-              )}
-            </Card>
+              </Card>
+            </Spotlight>
           </li>
         );
       })}

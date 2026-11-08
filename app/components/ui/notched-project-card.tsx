@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
 import { cn } from '../../lib/utils.js';
+import { StatusBadge } from './status-badge.jsx';
 
-export type ProjectStatus = 'Live' | 'Prototype' | 'In development';
+export type ProjectStatus = 'Live' | 'Prototype' | 'In development' | 'Planning';
 
 export type Project = {
   name: string;
@@ -43,13 +44,6 @@ export function ProjectCoverPlaceholder({ name, brand, className }: { name: stri
   );
 }
 
-// The dot is a reinforcement only — the status is always written out too.
-const STATUS_DOT: Record<ProjectStatus, string> = {
-  Live: 'bg-accent',
-  Prototype: 'border-2 border-accent',
-  'In development': 'border-2 border-faint',
-};
-
 // Notched Project Card: the cover has a rounded notch cut out of its
 // bottom-right corner, and the open arrow sits nested inside it. The notch
 // is filled with the section's own surface (`--notch-bg`), so the card
@@ -72,7 +66,7 @@ export function NotchedProjectCard({
   return (
     <article
       className={cn(
-        'group reveal [--notch-bg:var(--color-surface-2)]',
+        'group reveal h-full [--notch-bg:var(--color-surface-2)]',
         className,
       )}
     >
@@ -121,7 +115,7 @@ export function NotchedProjectCard({
         {stack.length > 0 && (
           <ul aria-label="Built with" className="mt-5 flex flex-wrap gap-1.5">
             {stack.map((tech) => (
-              <li key={tech} className="rounded-full bg-noir/80 px-2 py-1 text-[11px] font-semibold tracking-wide text-white uppercase">
+              <li key={tech} className="rounded-full border border-line bg-surface px-2.5 py-1 text-xs font-medium text-muted">
                 {tech}
               </li>
             ))}
@@ -130,12 +124,7 @@ export function NotchedProjectCard({
 
         {(status || href) && (
           <p className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
-            {status && (
-              <span className="inline-flex items-center gap-1.5 text-muted">
-                <span aria-hidden="true" className={cn('size-2 rounded-full', STATUS_DOT[status])} />
-                {status}
-              </span>
-            )}
+            {status && <StatusBadge status={status} />}
             {href && (
               <a
                 href={href}

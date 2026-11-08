@@ -4,10 +4,10 @@ import { ArrowUpRight } from 'lucide-react';
 import PageShell from '../components/PageShell';
 import PageHero from '../components/PageHero';
 import { StatusBadge } from '../components/ui/status-badge';
-import { FOUNDER_NODE, ORGANIZATION_NODE, WEBSITE_NODE, SITE_URL, WORK, breadcrumbNode, pageMetadata } from '../lib/site.js';
+import { FOUNDER_NODE, ORGANIZATION_NODE, WEBSITE_NODE, SITE_URL, STATUS_NOTE, WORK, breadcrumbNode, pageMetadata, projectNode } from '../lib/site.js';
 
 const description =
-  'Products and projects from Cogniheim, with an honest status for each: CinemaFocus (live client site), GROS (interactive prototype) and ClearBiz (in development).';
+  "Cogniheim's products and projects with honest status: CinemaFocus, Record Lab and ClearBiz are live, CloudBase is in development and GROS is in planning.";
 
 export const metadata = pageMetadata({ title: 'Products & Projects', description, path: '/products' });
 
@@ -26,33 +26,17 @@ const structuredData = {
       breadcrumb: { '@id': `${SITE_URL}/products#breadcrumb` },
       mainEntity: {
         '@type': 'ItemList',
-        itemListElement: WORK.map((p, i) => ({
-          '@type': 'ListItem',
-          position: i + 1,
-          item: {
-            '@type': 'CreativeWork',
-            name: p.name,
-            description: p.summary,
-            image: `${SITE_URL}${p.image}`,
-            creator: { '@id': `${SITE_URL}/#organization` },
-            ...(p.href ? { url: p.href } : {}),
-          },
-        })),
+        itemListElement: WORK.map((p, i) => ({ '@type': 'ListItem', position: i + 1, item: projectNode(p) })),
       },
     },
     breadcrumbNode('Products & Projects', '/products'),
   ],
 };
 
-const STATUS_NOTE = {
-  Live: 'Publicly accessible.',
-  Prototype: 'An interactive demo using sample data. Not publicly released.',
-  'In development': 'Being built. Not yet released.',
-};
 
 function altFor(project) {
   return project.slug === 'clearbiz'
-    ? 'ClearBiz product overview artwork (concept visual)'
+    ? 'ClearBiz dashboard screenshot, payment amounts hidden'
     : `${project.name} — ${project.category} project screenshot`;
 }
 
@@ -64,7 +48,7 @@ export default function ProductsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }}
       />
 
-      <PageHero eyebrow="PRODUCTS & PROJECTS" title="What Cogniheim has built, and what it is building.">
+      <PageHero eyebrow="Products and projects" title="What Cogniheim has built, and what it is building.">
         <p>
           Every project below is shown with its real status. Anything that is not publicly available yet is marked as
           such.

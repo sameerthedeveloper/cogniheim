@@ -3,7 +3,7 @@ import { CONTACT, pageMetadata } from '../lib/site.js';
 
 export const metadata = pageMetadata({
   title: 'Terms of Use',
-  description: 'Terms for using the Cogniheim website: permitted use, intellectual property, and limitations.',
+  description: 'Terms for using the Cogniheim website: permitted use, intellectual property, how project statuses are described, and the limits of liability.',
   path: '/terms',
 });
 
@@ -49,7 +49,7 @@ const SECTIONS = [
     heading: 'Project information',
     body: (
       <p>
-        Descriptions of products and projects reflect their status when written. Products marked prototype or in
+        Descriptions of products and projects reflect their status when written. Products marked prototype, planning or in
         development are not released, may change, and may never be released. Nothing on this site is an offer,
         quotation or contract; any engagement would be agreed separately and in writing.
       </p>
@@ -80,7 +80,7 @@ const SECTIONS = [
 export default function TermsPage() {
   return (
     <LegalPage
-      eyebrow="LEGAL"
+      eyebrow="Legal"
       title="Terms of Use"
       intro="The ground rules for using the Cogniheim website."
       sections={SECTIONS}

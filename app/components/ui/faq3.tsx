@@ -29,7 +29,7 @@ export const Faq3 = ({ eyebrow, heading, items, support, className }: Faq3Props)
     <div className={cn("grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20", className)}>
       <div className="lg:sticky lg:top-28 lg:self-start">
         {eyebrow && (
-          <p className="text-sm tracking-[0.2em] text-accent-hover">{eyebrow}</p>
+          <p className="text-sm font-medium text-accent-hover">{eyebrow}</p>
         )}
 
         <h2
