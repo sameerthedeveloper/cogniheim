@@ -29,6 +29,8 @@ export default function Nav() {
   const indicatorRef = useRef(null);
   const mobilePanelRef = useRef(null);
   const mobileListRef = useRef(null);
+  const tlRef = useRef(null);
+  const hasToggled = useRef(false);
 
   // Scroll-spy: highlight whichever section currently owns the middle
   // band of the viewport.
@@ -96,37 +98,77 @@ export default function Nav() {
     }
   }, []);
 
-  // The mobile panel expands/collapses with GSAP rather than snapping in
-  // and out with the conditional render, and its links cascade in after.
+  // The mobile panel expands and collapses with GSAP. One timeline at a
+  // time: a new toggle kills the one in flight, so a quick open-close-open
+  // tap sequence continues from wherever the panel currently is instead of
+  // stacking tweens that fight over its height.
   useEffect(() => {
     const panel = mobilePanelRef.current;
     if (!panel) return;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const items = gsap.utils.toArray('[data-mobile-item]', mobileListRef.current);
 
+    tlRef.current?.kill();
+
+    // First render, menu closed: nothing to animate, just make sure it's hidden.
+    if (!hasToggled.current && !open) {
+      gsap.set(panel, { display: 'none', height: 0, opacity: 0 });
+      return;
+    }
+    hasToggled.current = true;
+
+    // Reduced motion: state change only. Display must be set too, or the
+    // Tailwind `hidden` class keeps the open panel invisible.
     if (reducedMotion) {
-      gsap.set(panel, { height: open ? 'auto' : 0, opacity: open ? 1 : 0 });
+      gsap.set(panel, { display: open ? 'block' : 'none', height: open ? 'auto' : 0, opacity: open ? 1 : 0 });
+      gsap.set(items, { opacity: 1, y: 0 });
       return;
     }
 
     if (open) {
       gsap.set(panel, { display: 'block' });
-      gsap.set(items, { opacity: 0, x: -10 });
       const tl = gsap.timeline();
-      tl.to(panel, { height: 'auto', opacity: 1, duration: 0.35, ease: 'power3.out' }).to(
+      tl.to(panel, { height: 'auto', opacity: 1, duration: 0.4, ease: 'power3.out' }).fromTo(
         items,
-        { opacity: 1, x: 0, duration: 0.35, stagger: 0.05, ease: 'power3.out' },
-        '-=0.15'
+        { opacity: 0, y: -8 },
+        { opacity: 1, y: 0, duration: 0.35, stagger: 0.05, ease: 'power3.out', overwrite: 'auto' },
+        '-=0.25'
       );
+      tlRef.current = tl;
     } else {
-      gsap.to(panel, {
-        height: 0,
-        opacity: 0,
-        duration: 0.3,
-        ease: 'power3.in',
-        onComplete: () => gsap.set(panel, { display: 'none' }),
-      });
+      const tl = gsap.timeline({ onComplete: () => gsap.set(panel, { display: 'none' }) });
+      tl.to(items, { opacity: 0, y: -6, duration: 0.15, stagger: { each: 0.02, from: 'end' }, ease: 'power2.in', overwrite: 'auto' }).to(
+        panel,
+        { height: 0, opacity: 0, duration: 0.3, ease: 'power3.inOut' },
+        '-=0.08'
+      );
+      tlRef.current = tl;
     }
+  }, [open]);
+
+  useEffect(() => () => tlRef.current?.kill(), []);
+
+  // Close the menu the way people expect: Escape, a tap outside the header,
+  // or the viewport growing to desktop width (where the panel is hidden but
+  // `open` would otherwise stay true).
+  useEffect(() => {
+    if (!open) return;
+    const close = () => setOpen(false);
+    const onKey = (e) => e.key === 'Escape' && close();
+    const onPointer = (e) => {
+      if (headerRef.current && !headerRef.current.contains(e.target)) close();
+    };
+    const mq = window.matchMedia('(min-width: 768px)');
+    const onMq = (e) => e.matches && close();
+
+    document.addEventListener('keydown', onKey);
+    document.addEventListener('pointerdown', onPointer);
+    mq.addEventListener('change', onMq);
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.removeEventListener('pointerdown', onPointer);
+      mq.removeEventListener('change', onMq);
+    };
   }, [open]);
 
   return (
@@ -134,7 +176,9 @@ export default function Nav() {
       ref={headerRef}
       className={cn(
         'fixed inset-x-4 top-4 z-50 mx-auto w-auto max-w-5xl border border-white/10 bg-noir/90  shadow-[0_8px_30px_-14px_rgba(0,0,0,0.4)] backdrop-blur-xl sm:inset-x-10 sm:top-6 sm:px-0',
-        open ? 'flex flex-col rounded-[28px]' : 'flex rounded-full',
+        // Constant radius: at the 56px closed height 28px is a full pill, and
+        // it stays smooth while the panel grows (a class swap here snapped).
+        'flex flex-col rounded-[28px]',
       )}
     >
 <nav
@@ -201,26 +245,48 @@ export default function Nav() {
           aria-expanded={open}
           aria-controls="mobile-nav"
           onClick={() => setOpen((v) => !v)}
-          className="-m-2.5 p-2.5 text-white md:hidden"
+          className="-m-2.5 rounded-full p-2.5 text-white md:hidden"
         >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          <span className="relative block h-5 w-5" aria-hidden="true">
+            <Menu
+              className={cn(
+                'absolute inset-0 h-5 w-5 transition-[opacity,transform] duration-300 motion-reduce:transition-none',
+                open ? 'rotate-90 scale-50 opacity-0' : 'rotate-0 scale-100 opacity-100',
+              )}
+            />
+            <X
+              className={cn(
+                'absolute inset-0 h-5 w-5 transition-[opacity,transform] duration-300 motion-reduce:transition-none',
+                open ? 'rotate-0 scale-100 opacity-100' : '-rotate-90 scale-50 opacity-0',
+              )}
+            />
+          </span>
           <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
         </button>
       </nav>
 
       <div id="mobile-nav" ref={mobilePanelRef} className="hidden w-full overflow-hidden md:hidden" style={{ height: 0, opacity: 0 }}>
         <ul ref={mobileListRef} className="flex flex-col gap-1 border-t border-white/10 px-5 pb-5 pt-4">
-          {[...LINKS, CTA].map((link) => (
+          {LINKS.map((link) => (
             <li key={link.href} data-mobile-item>
               <Link
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className={`block py-2 text-[15px] ${active === link.spy ? 'text-accent' : 'text-white/80'}`}
+                className={`block py-3 text-base ${active === link.spy ? 'text-accent' : 'text-white/80'}`}
               >
                 {link.label}
               </Link>
             </li>
           ))}
+          <li data-mobile-item className="pt-2">
+            <Link
+              href={CTA.href}
+              onClick={() => setOpen(false)}
+              className="flex h-12 items-center justify-center rounded-full bg-accent-strong text-base font-medium text-white"
+            >
+              {CTA.label}
+            </Link>
+          </li>
         </ul>
       </div>
     </header>
