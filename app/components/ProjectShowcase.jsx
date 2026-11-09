@@ -7,9 +7,14 @@ import { cn } from '../lib/utils.js';
 
 const STATUSES = ['Live', 'In development', 'Planning', 'Prototype'];
 
-// Work as a filterable grid. Filtering by status is the useful question for
-// a visitor ("what can I use today?"), and it matches the honest-status
-// language used across the site. Each card opens a write-up modal that can
+// Category filter alongside the status ones: work built for a client rather
+// than Cogniheim's own products. A project is client work when kind is 'site'.
+const CLIENT = 'Client projects';
+const isClient = (p) => p.kind === 'site';
+
+// Work as a filterable grid. Visitors usually ask one of two things: "what
+// has been built for clients?" or "what can I use today?", so the filters
+// are a client-work category plus the honest-status language used site-wide. Each card opens a write-up modal that can
 // step through the projects currently shown.
 export default function ProjectShowcase({ work }) {
   const [filter, setFilter] = useState('All');
@@ -19,8 +24,10 @@ export default function ProjectShowcase({ work }) {
     () => Object.fromEntries(STATUSES.map((s) => [s, work.filter((p) => p.status === s).length])),
     [work],
   );
-  const filters = ['All', ...STATUSES.filter((s) => counts[s] > 0)];
-  const shown = filter === 'All' ? work : work.filter((p) => p.status === filter);
+  const clientCount = work.filter(isClient).length;
+  const filters = ['All', ...(clientCount ? [CLIENT] : []), ...STATUSES.filter((s) => counts[s] > 0)];
+  const shown =
+    filter === 'All' ? work : filter === CLIENT ? work.filter(isClient) : work.filter((p) => p.status === filter);
 
   const activeIndex = shown.findIndex((p) => p.slug === activeSlug);
   const close = useCallback(() => setActiveSlug(null), []);
@@ -50,7 +57,7 @@ export default function ProjectShowcase({ work }) {
             >
               {f}
               <span className={cn('text-xs tabular-nums', on ? 'text-white/60' : 'text-faint')}>
-                {f === 'All' ? work.length : counts[f]}
+                {f === 'All' ? work.length : f === CLIENT ? clientCount : counts[f]}
               </span>
             </button>
           );
