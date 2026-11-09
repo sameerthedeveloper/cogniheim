@@ -56,6 +56,28 @@
 }
 
 @layer utilities {
+  /* Gentle bob for floating brand marks. Uses the standalone `translate`
+     property so it never fights a rotate or GSAP transform on the parent. */
+  .float-y {
+    animation: float-y var(--float-duration, 6s) ease-in-out var(--float-delay, 0s) infinite;
+  }
+
+  @keyframes float-y {
+    0%,
+    100% {
+      translate: 0 0;
+    }
+    50% {
+      translate: 0 -10px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .float-y {
+      animation: none;
+    }
+  }
+
   /* .reveal starts at its natural, visible state in CSS — the entrance
      state (opacity, blur, offset) is applied and animated by GSAP in
      SiteEffects, so a visitor with JS disabled or a failed script still

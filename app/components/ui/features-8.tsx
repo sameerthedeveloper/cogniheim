@@ -1,6 +1,7 @@
 import type { LucideIcon } from 'lucide-react';
 import { Card, CardContent } from './card';
 import { Spotlight } from './spotlight';
+import { StackCloud } from './stack-cloud';
 import { cn } from '../../lib/utils.js';
 
 export type Feature = {
@@ -92,37 +93,12 @@ function DesignVisual() {
   );
 }
 
-// Engineering: the stack the shipped work actually runs on (CinemaFocus),
-// staged along a vertical line.
+// Engineering: the real marks of the stack the shipped work runs on,
+// floating at different rhythms. Marks are the official brand glyphs
+// (Simple Icons for Next.js and Tailwind CSS, Font Awesome for AWS) in
+// each brand's own colour. Motion is CSS-only and off under reduced motion.
 function StackStage() {
-  return (
-    <div
-      aria-hidden="true"
-      className="relative before:absolute before:inset-y-0 before:left-1/2 before:w-px before:bg-line"
-    >
-      <ul className="relative flex h-full flex-col justify-center gap-5 py-2">
-        {[
-          { label: 'Next.js', side: 'left' },
-          { label: 'Tailwind CSS', side: 'right' },
-          { label: 'AWS', side: 'left' },
-        ].map(({ label, side }) => (
-          <li
-            key={label}
-            className={cn(
-              'relative flex w-[calc(50%+0.875rem)] items-center gap-2',
-              side === 'left' ? 'justify-end' : 'ml-[calc(50%-0.875rem)]',
-            )}
-          >
-            {side === 'right' && <span className="size-2.5 rounded-full border-2 border-accent bg-surface" />}
-            <span className="rounded-md border border-line bg-surface px-2.5 py-1 text-xs font-medium text-muted shadow-sm">
-              {label}
-            </span>
-            {side === 'left' && <span className="size-2.5 rounded-full border-2 border-accent bg-surface" />}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+  return <StackCloud />;
 }
 
 // SaaS: a quiet app-window sketch listing the infrastructure the copy names.
@@ -183,7 +159,7 @@ export function Features({ items, className }: { items: readonly Feature[]; clas
           <li key={title} className={cn('col-span-full', tone && SPAN[tone])}>
             <Spotlight className="h-full rounded-2xl">
               <Card className={cn(cardClass, 'h-full')}>
-                <CardContent className={cn('grid h-full gap-8', wide && 'sm:grid-cols-[1.35fr_1fr]')}>
+                <CardContent className={cn('grid h-full gap-8', wide && (tone === 'engineering' ? 'sm:grid-cols-[1fr_1.1fr]' : 'sm:grid-cols-[1.35fr_1fr]'))}>
                   <div className="flex flex-col justify-between gap-8">
                     <IconRing icon={icon} />
                     <Copy title={title} body={body} />

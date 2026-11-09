@@ -31,6 +31,7 @@ import {
   SITE_URL,
   SOCIAL_LINKS,
   WEBSITE_NODE,
+  TRACTION,
   WORK,
   projectNode,
 } from "./lib/site.js";
@@ -123,7 +124,7 @@ export const SERVICES = [
     title: "Software engineering",
 
     body:
-      "Code that holds up in production: sound architecture, tests where they matter, and notes so another engineer can pick it up in six months.",
+      "Building reliable, scalable software with clean architecture, thoughtful engineering decisions, and maintainable code. Focused on performance, security, and creating products that are built to last.",
 
     icon: Code2,
     tone: "engineering",
@@ -424,6 +425,20 @@ export default function Home() {
 
               <ProjectShowcase work={WORK} />
 
+            </div>
+
+            <div className="mt-20">
+              <dl className="reveal grid divide-y divide-line rounded-2xl border border-line bg-surface sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+                {TRACTION.items.map(({ value, label }) => (
+                  <div key={label} className="flex flex-col-reverse gap-1 px-6 py-6 sm:px-8">
+                    <dt className="text-muted">{label}</dt>
+                    <dd className="font-display text-4xl font-semibold tracking-[-0.03em] text-ink tabular-nums sm:text-5xl">
+                      {value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="mt-3 text-sm text-faint">As of {TRACTION.asOf}.</p>
             </div>
 
           </div>

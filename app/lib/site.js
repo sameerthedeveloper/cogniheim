@@ -18,7 +18,7 @@ export const LAST_UPDATED = '2026-11-08';
 export const SERVICES_SEO = [
   ['Product strategy', 'Testing an idea before building: who it is for, the smallest version that proves it, and what is likely to fail.'],
   ['Product design', 'Interface and product design that makes complicated software feel obvious to use.'],
-  ['Software engineering', 'Production web applications with sound architecture, tests where they matter and clear documentation.'],
+  ['Software engineering', 'Reliable, scalable software with clean architecture, thoughtful engineering decisions and maintainable code, focused on performance and security.'],
   ['SaaS development', 'Sign-in, billing, multi-tenancy and the infrastructure that SaaS products need to survive real users.'],
 ];
 
@@ -26,8 +26,18 @@ export const KNOWS_ABOUT = [
   'Web application development',
   'SaaS product development',
   'Product design',
+  'JavaScript',
+  'TypeScript',
+  'Python',
+  'Java',
+  'C++',
+  'Rust',
   'Next.js',
   'React',
+  'Node.js',
+  'PostgreSQL',
+  'MongoDB',
+  'Supabase',
   'Firebase',
   'Amazon Web Services',
   'Tailwind CSS',
@@ -212,6 +222,17 @@ export const STATUS_NOTE = {
   Planning: 'Being planned. Not yet built or released.',
 };
 
+/** Early traction, as stated by the founder. "Revenue" means money actually received. */
+export const TRACTION = {
+  asOf: 'November 2026',
+  items: [
+    { value: '₹2.1L+', label: 'Revenue generated' },
+    { value: '3', label: 'Client projects delivered' },
+    { value: '1', label: 'High-value project' },
+  ],
+};
+
+/** Projects shown on the site. */
 export const WORK = [
   {
     name: 'CinemaFocus',
@@ -363,7 +384,7 @@ export const FAQ_ITEMS = [
   {
     question: 'Which technologies does Cogniheim use?',
     answer:
-      'Mostly Next.js, React, Vite, TypeScript and Tailwind CSS on the front end, with Firebase and AWS behind them. We choose the stack that fits the product.',
+      'Languages: JavaScript, TypeScript, Python, Java, C, C++ and Rust. Front end: React, Next.js, Vite and Tailwind CSS. Back end and data: Node.js, Express, PostgreSQL, MongoDB, Supabase and Firebase, on AWS. We choose the stack that fits the product.',
   },
   {
     question: "What's the typical project timeline?",
